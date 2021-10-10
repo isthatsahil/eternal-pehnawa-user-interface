@@ -1,4 +1,3 @@
-import React from "react";
 import "./home.css";
 export const HomeComponent = () => {
   return (

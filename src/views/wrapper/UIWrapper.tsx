@@ -1,6 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-const UIWrapper = (props: any) => {
+interface UIWrapperProps {
+  children: ReactNode;
+}
+const UIWrapper = (props: UIWrapperProps) => {
   return <div>{props.children}</div>;
 };
 

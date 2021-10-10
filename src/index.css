@@ -4,3 +4,8 @@
   padding: 0;
   margin: 0;
 }
+
+html,
+body {
+  background-color: rgb(246, 241, 236) !important;
+}

@@ -3,12 +3,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter } from "react-router-dom";
+
+const theme = createTheme();
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <CssBaseline />
-      <App />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

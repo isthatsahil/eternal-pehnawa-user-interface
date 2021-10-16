@@ -132,7 +132,7 @@ const NavbarMenu = ({
     });
   };
 
-  const handleHover = (e) => {
+  const handleHover = (e: { e: ReactNode }) => {
     gsap.to(e.target, {
       duration: 0.3,
       y: 3,
@@ -141,7 +141,7 @@ const NavbarMenu = ({
     });
   };
 
-  const handleHoverExit = (e) => {
+  const handleHoverExit = (e: { e: ReactNode }) => {
     gsap.to(e.target, {
       duration: 0.3,
       y: -3,
@@ -156,8 +156,8 @@ const NavbarMenu = ({
           <ul>
             <li>
               <Link
-                onMouseEnter={(e) => handleHover(e)}
-                onMouseOut={(e) => handleHoverExit(e)}
+                onMouseEnter={(e: { e: ReactNode }) => handleHover(e)}
+                onMouseOut={(e: { e: ReactNode }) => handleHoverExit(e)}
                 ref={level1}
                 to="/about"
               >
@@ -166,8 +166,8 @@ const NavbarMenu = ({
             </li>
             <li>
               <Link
-                onMouseEnter={(e) => handleHover(e)}
-                onMouseOut={(e) => handleHoverExit(e)}
+                onMouseEnter={(e: { e: ReactNode }) => handleHover(e)}
+                onMouseOut={(e: { e: ReactNode }) => handleHoverExit(e)}
                 ref={level2}
                 to="/suit"
               >
@@ -176,8 +176,8 @@ const NavbarMenu = ({
             </li>
             <li>
               <Link
-                onMouseEnter={(e) => handleHover(e)}
-                onMouseOut={(e) => handleHoverExit(e)}
+                onMouseEnter={(e: { e: ReactNode }) => handleHover(e)}
+                onMouseOut={(e: { e: ReactNode }) => handleHoverExit(e)}
                 ref={level3}
                 to="/home-decor"
               >

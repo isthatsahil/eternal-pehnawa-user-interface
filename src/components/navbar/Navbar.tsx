@@ -5,7 +5,6 @@ import NavbarLogo from "./NavbarLogo";
 import { useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -59,7 +58,7 @@ const Navbar = () => {
 
   const [disabled, setDisabled] = useState(false);
   const [view, setView] = useState({ mobileView: false, drawerOpen: false });
-  const { mobileView, drawerOpen } = view;
+  const { mobileView } = view;
   const handleMenu = () => {
     disableMenu();
     if (menuState.initial === false) {

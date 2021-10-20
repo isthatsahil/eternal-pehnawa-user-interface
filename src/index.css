@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap");
+
 *::after,
 ::before {
   box-sizing: border-box;
@@ -8,4 +10,5 @@
 html,
 body {
   background-color: rgb(246, 241, 236) !important;
+  font-family: "Playfair Display", serif !important;
 }

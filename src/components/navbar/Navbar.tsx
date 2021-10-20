@@ -5,18 +5,16 @@ import NavbarLogo from "./NavbarLogo";
 import { useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Avatar from "@mui/material/Avatar";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
+import NavbarLogin from "./NavbarLogin";
 
+<<<<<<< HEAD
 import Tooltip from "@mui/material/Tooltip";
 
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Cart from "../Cart/Cart";
+=======
+>>>>>>> e60cd138b86d0892d7388e2001c0166cc534d569
 const useStyles = makeStyles(() => ({
   container: {
     height: "auto",
@@ -111,14 +109,7 @@ const Navbar = () => {
       setDisabled(false);
     }, 1200);
   };
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
   return (
     <header>
       <div className={classes.container}>
@@ -137,6 +128,7 @@ const Navbar = () => {
             </div>
             <div>
               <div style={{ display: "flex" }}>
+<<<<<<< HEAD
                 <Tooltip title="User Profile">
                   <IconButton onClick={handleClick} size="small" sx={{ mr: 2 }}>
                     <Avatar sx={{ width: 32, height: 32 }}>P</Avatar>
@@ -198,6 +190,10 @@ const Navbar = () => {
                 </Menu>
 
                 {/* {mobileView ? (
+=======
+                <NavbarLogin />
+                {mobileView ? (
+>>>>>>> e60cd138b86d0892d7388e2001c0166cc534d569
                   <Button
                     sx={{ color: "#191919" }}
                     size="small"

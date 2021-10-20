@@ -16,6 +16,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import Cart from "../Cart/Cart";
 const useStyles = makeStyles(() => ({
   container: {
     height: "auto",
@@ -196,7 +197,7 @@ const Navbar = () => {
                   </MenuItem>
                 </Menu>
 
-                {mobileView ? (
+                {/* {mobileView ? (
                   <Button
                     sx={{ color: "#191919" }}
                     size="small"
@@ -210,7 +211,8 @@ const Navbar = () => {
                   >
                     Cart
                   </Button>
-                )}
+                )} */}
+                <Cart />
               </div>
             </div>
           </div>

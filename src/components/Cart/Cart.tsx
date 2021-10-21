@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
-import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Typography from "@mui/material/Typography";
@@ -16,11 +9,9 @@ import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import { makeStyles } from "@mui/styles";
-import CloseIcon from "@mui/icons-material/Close";
-import IconButton from "@mui/material/IconButton";
-import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
-import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import { Tooltip } from "@mui/material";
+import LockIcon from "@mui/icons-material/Lock";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const productList = [
   {
@@ -51,26 +42,120 @@ const productList = [
 
 const useStyles = makeStyles((theme: any) => ({
   container: {
-    width: "26rem",
-    padding: "1rem",
-    [theme.breakpoints.down('sm')]: {
+    width: "30rem",
+    [theme.breakpoints.down("sm")]: {
       width: "100vw",
-    }
+    },
+    "& tr": {
+      height: "4rem",
+    },
+
+    "& tr td": {
+      height: "auto !important",
+    },
+    "& input[type=number]::-webkit-inner-spin-button": {
+      "-webkit-appearance": "none",
+      margin: "0",
+    },
+    "& input[type=number]::-webkit-outer-spin-button": {
+      "-webkit-appearance": "none",
+      margin: "0",
+    },
+    "& input:focus": {
+      outline: "none",
+    },
   },
   header: {
+    margin: "1rem",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  btnContainer: {
+  closeCartBtn: {
+    fontSize: "12px !important",
+    borderRadius: "1rem !important",
+    textTransform: "capitalize !important",
+    color: "#6C7C90 !important",
+    border: "1px solid #6C7C90 !important",
+  },
+  checkoutBtntnContainer: {
     margin: "2rem",
     display: "flex",
     justifyContent: "center",
+    "& button": {
+      backgroundColor: "#8BC79A",
+      width: "15rem",
+      height: "4rem",
+      "&:hover": {
+        backgroundColor: "#5ba76f",
+      },
+    },
+    "& svg": {
+      marginRight: "3px",
+    },
   },
-  quantityBtnGroup: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+  cartItemContainer: {
+    "& .MuiTableCell-root": {
+      marginTop: "4rem",
+      marginBottom: "4rem",
+    },
+    "& span": {
+      fontSize: "14px",
+      color: "#6C7C90",
+      width: "68%",
+      display: "inline-block",
+      textAlign: "left",
+      verticalAlign: "top",
+      fontWeight: "400",
+    },
+    "& td:nth-child(1)": {
+      paddingLeft: "30px",
+    },
+    "& td:nth-child(2)": {
+      paddingRight: "0",
+      "& > *": {
+        float: "right",
+      },
+    },
+    "& td:nth-child(3)": {
+      paddingRight: "0",
+      paddingLeft: "0",
+    },
+    "& td:nth-child(3) span": {
+      float: "right",
+      textAlign: "right",
+      color: "#8BC79A",
+    },
+  },
+  quantityInput: {
+    width: "2rem",
+    height: "1.1rem",
+    textAlign: "center",
+  },
+  removeItemBtn: {
+    color: "#ff5977",
+    cursor: "pointer",
+    "& svg": {
+      width: "1.1rem"
+    },
+  },
+  orderTotal: {
+    border: "1px solid #c7c7c7",
+    borderRadius: "5px",
+    width: "75%",
+    margin: " 2rem auto",
+    padding: "1.5rem",
+    "&>p": {
+      display: "flex",
+      justifyContent: "space-between",
+      margin: "0.5rem 0rem",
+    },
+    "&> hr": {
+      margin: "1rem 0",
+    },
+    "&>p:last-child": {
+      fontWeight: "600",
+    },
   },
 }));
 
@@ -95,25 +180,24 @@ const Cart = () => {
   const CartItem = ({ item }: { item: any }) => {
     return (
       <React.Fragment>
-        <TableRow key={item.id}>
+        <TableRow key={item.id} className={classes.cartItemContainer}>
           <TableCell>
-            <Typography>{item.name}</Typography>
-          </TableCell>
-          {/* <TableCell>{item.quantity}</TableCell> */}
-          <TableCell>
-            <div className={classes.quantityBtnGroup}>
-              <IconButton size="small">
-                <RemoveCircleRoundedIcon />
-              </IconButton>
-              <Typography>{item.quantity}</Typography>
-              <IconButton size="small">
-                <AddCircleRoundedIcon />
-              </IconButton>
-            </div>
+            <span>{item.name}</span>
           </TableCell>
           <TableCell>
-            {" "}
-            <Typography>₹ {item.price}</Typography>{" "}
+            <input
+              type="number"
+              defaultValue={item.quantity}
+              className={classes.quantityInput}
+            />
+          </TableCell>
+          <TableCell>
+            <span>₹ {item.price}</span>
+          </TableCell>
+          <TableCell className={classes.removeItemBtn}>
+            <Tooltip title="remove" placement="bottom">
+              <DeleteIcon fontSize="small" />
+            </Tooltip>
           </TableCell>
         </TableRow>
       </React.Fragment>
@@ -149,24 +233,45 @@ const Cart = () => {
             >
               Cart
             </Button>
-            <Tooltip title="close" placement="left" >
-            <IconButton onClick={toggleDrawer(false)}>
-              <CloseIcon />
-            </IconButton>
-            </Tooltip>
+            <Button
+              variant="outlined"
+              size="small"
+              className={classes.closeCartBtn}
+              onClick={toggleDrawer(false)}
+            >
+              Close Cart
+            </Button>
           </div>
+          <Divider />
           <Table>
             {productList.map((item: Object) => (
               <CartItem item={item} />
             ))}
-            <TableRow>
-              <TableCell>Subtotal</TableCell>
-              <TableCell></TableCell>
-              <TableCell> ₹ 3241</TableCell>
-            </TableRow>
           </Table>
-          <div className={classes.btnContainer}>
-            <Button variant="contained">Checkout</Button>
+          <div className={classes.orderTotal}>
+            <Typography>
+              <span>Subtotal :</span>
+              <span>₹ 1234</span>
+            </Typography>
+            <Typography>
+              <span>Tax :</span>
+              <span>₹ 0</span>
+            </Typography>
+            <Typography>
+              <span>Shiping fee :</span>
+              <span>₹ 10</span>
+            </Typography>
+            <Divider />
+            <Typography>
+              <span>Order Total :</span>
+              <span>₹ 1244</span>
+            </Typography>
+          </div>
+          <div className={classes.checkoutBtntnContainer}>
+            <Button variant="contained">
+              <LockIcon />
+              Secure Checkout
+            </Button>
           </div>
         </div>
       </Drawer>

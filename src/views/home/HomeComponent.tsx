@@ -1,4 +1,5 @@
 import Category from "../../components/categories/Category";
+import Testimonial from "../../components/testimonial/Testimonial";
 import "./home.css";
 export const HomeComponent = () => {
   return (
@@ -18,6 +19,7 @@ export const HomeComponent = () => {
         <div className="right"></div>
       </section>
       <Category />
+      <Testimonial />
     </>
   );
 };

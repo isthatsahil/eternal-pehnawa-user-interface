@@ -93,7 +93,6 @@ const Navbar = () => {
   */
 
   useEffect(() => {
-    console.log(location);
     setMenuState({
       initial: null,
       clicked: false,

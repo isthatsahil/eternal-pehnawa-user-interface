@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import CustomCursor from "../../components/customCursor/CustomCursor";
+//import CustomCursor from "../../components/customCursor/CustomCursor";
 import DotRing from "../../components/customCursor/DotRing";
 import Navbar from "../../components/navbar/Navbar";
 

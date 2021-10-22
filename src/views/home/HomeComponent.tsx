@@ -1,6 +1,6 @@
-import Category from "../../components/categories/Category";
-import FeaturedProducts from "../../components/featuredProducts/FeaturedProducts";
-import Testimonial from "../../components/testimonial/Testimonial";
+import Category from "@components/categories/Category";
+import FeaturedProducts from "@components/featuredProducts/FeaturedProducts";
+import Testimonial from "@components/testimonial/Testimonial";
 import "./home.css";
 import React, { useEffect, useRef, useState } from "react";
 import { bannerData } from "../../dummyData/bannerData.js";

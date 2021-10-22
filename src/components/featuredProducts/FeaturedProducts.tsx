@@ -1,11 +1,11 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import Product from "./Product";
 
 const useStyles = makeStyles(() => ({
   container: {
-    background: "#F6F1EC !important",
+    background: "rgb(246, 241, 236) !important",
   },
   wrapper: {
     width: "90vw",
@@ -58,9 +58,9 @@ const FeaturedProducts = () => {
     <section className={classes.container}>
       <div className={classes.wrapper}>
         <p className={classes.title}>Featured Products</p>
-        <Grid container spacing={4} justifyContent="center" >
-          {products.map((product) => (
-            <Grid item>
+        <Grid container spacing={4} justifyContent="center">
+          {products.map((product, index) => (
+            <Grid item key={index}>
               <Product product={product} />
             </Grid>
           ))}

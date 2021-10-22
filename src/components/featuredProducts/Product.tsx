@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
-import { Button } from "@mui/material";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 
 const useStyles = makeStyles((theme: any) => ({
@@ -20,11 +19,11 @@ const useStyles = makeStyles((theme: any) => ({
     },
     position: "relative",
     "&:hover #overlay": {
-    opacity: "1"
+      opacity: "1",
     },
     [theme.breakpoints.down("sm")]: {
       width: "20rem",
-      height: "12rem"
+      height: "12rem",
     },
   },
   overlay: {

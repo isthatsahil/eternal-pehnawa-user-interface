@@ -1,4 +1,5 @@
 import Category from "../../components/categories/Category";
+import FeaturedProducts from "../../components/featuredProducts/FeaturedProducts";
 import Testimonial from "../../components/testimonial/Testimonial";
 import "./home.css";
 export const HomeComponent = () => {
@@ -19,6 +20,7 @@ export const HomeComponent = () => {
         <div className="right"></div>
       </section>
       <Category />
+      <FeaturedProducts />
       <Testimonial />
     </>
   );

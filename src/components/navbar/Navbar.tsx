@@ -4,14 +4,9 @@ import NavbarHamburger from "./NavbarHamburger";
 import NavbarLogo from "./NavbarLogo";
 import { useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import NavbarLogin from "./NavbarLogin";
-
-import Tooltip from "@mui/material/Tooltip";
-
-import Settings from "@mui/icons-material/Settings";
-import Logout from "@mui/icons-material/Logout";
 import Cart from "../Cart/Cart";
+
 const useStyles = makeStyles(() => ({
   container: {
     height: "auto",
@@ -53,8 +48,12 @@ const Navbar = () => {
   });
 
   const [disabled, setDisabled] = useState(false);
-  const [view, setView] = useState({ mobileView: false, drawerOpen: false });
-  const { mobileView } = view;
+
+  /** 
+   * TODO for responsiveness
+   const [view, setView] = useState({ mobileView: false, drawerOpen: false });
+   const { mobileView } = view; 
+  */
   const handleMenu = () => {
     disableMenu();
     if (menuState.initial === false) {
@@ -77,7 +76,9 @@ const Navbar = () => {
       });
     }
   };
-  useEffect(() => {
+  /**
+  * TODO for responsiveness
+     useEffect(() => {
     const setReponsiveness = () => {
       return window.innerWidth < 900
         ? setView((prevState) => ({ ...prevState, mobileView: true }))
@@ -89,9 +90,9 @@ const Navbar = () => {
       window.removeEventListener("resize", () => setReponsiveness());
     };
   }, []);
+  */
 
   useEffect(() => {
-    console.log(location);
     setMenuState({
       initial: null,
       clicked: false,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
@@ -136,7 +136,7 @@ const useStyles = makeStyles((theme: any) => ({
     color: "#ff5977",
     cursor: "pointer",
     "& svg": {
-      width: "1.1rem"
+      width: "1.1rem",
     },
   },
   orderTotal: {
@@ -244,8 +244,8 @@ const Cart = () => {
           </div>
           <Divider />
           <Table>
-            {productList.map((item: Object) => (
-              <CartItem item={item} />
+            {productList.map((item, index) => (
+              <CartItem key={index} item={item} />
             ))}
           </Table>
           <div className={classes.orderTotal}>

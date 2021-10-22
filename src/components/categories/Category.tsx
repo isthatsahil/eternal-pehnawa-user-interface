@@ -3,7 +3,7 @@ import CategoryList from "./CategoryList";
 
 const useStyes = makeStyles({
   categoryContainer: {
-    backgroundColor: "#f4fafb !important",
+    backgroundColor: "#f1f5f8 !important",
     height: "auto",
   },
   wrapper: {

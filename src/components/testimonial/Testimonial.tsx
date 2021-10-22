@@ -1,35 +1,44 @@
 import { makeStyles } from "@mui/styles";
 import Slider from "./Slider";
 import weaver from "../../assets/weaver.jpg";
-const useStyles = makeStyles({
-  testimonialContainer: {
-    background: "#e0c387 !important",
-    height: "auto",
-  },
-  wrapper: {
-    display: "grid",
-    gridTemplateColumns: "repeat(5,1fr)",
-    width: "90vw",
-    margin: "0 auto",
-    padding: "4rem 0",
-  },
-  left: {
-    background: `url(${weaver}) center center`,
-    backgroundSize: "cover",
-    height: "600px",
-    gridRow: "1/2",
-    gridColumn: "1/3",
-  },
-  right: {
-    alignSelf: "center",
-    gridRow: "1/2",
-    gridColumn: "2/6",
-    zIndex: 2,
-    background: "#f1f1f1",
 
-    height: "400px",
-  },
-});
+const useStyles = makeStyles(
+  (theme: { breakpoints: { down: (arg0: string) => any } }) => ({
+    testimonialContainer: {
+      background: "#e0c387 !important",
+      height: "auto",
+      marginBottom: "4rem",
+    },
+    wrapper: {
+      display: "grid",
+      gridTemplateColumns: "repeat(5,1fr)",
+      width: "90vw",
+      margin: "0 auto",
+      padding: "4rem 0",
+    },
+    left: {
+      background: `url(${weaver}) center center`,
+      backgroundSize: "cover",
+      height: "600px",
+      gridRow: "1/2",
+      gridColumn: "1/3",
+      [theme.breakpoints.down("md")]: {
+        display: "none",
+      },
+    },
+    right: {
+      alignSelf: "center",
+      gridRow: "1/2",
+      gridColumn: "2/6",
+      zIndex: 2,
+      background: "#f1f1f1",
+      height: "400px",
+      [theme.breakpoints.down("md")]: {
+        gridColumn: "1/6",
+      },
+    },
+  })
+);
 
 const reviews = [
   {

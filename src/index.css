@@ -10,6 +10,7 @@
 html,
 body {
   cursor: none;
+  overflow-x: hidden;
   background-color: rgb(246, 241, 236) !important;
   font-family: "Playfair Display", serif !important;
 }

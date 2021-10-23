@@ -60,6 +60,7 @@ const useStyles = makeStyles({
       border: "2px solid #ffff",
       borderRadius: "0",
       color: "#ffff !important",
+      transition: "all ease .5s",
       "&:hover": {
         backgroundColor: "#ffff",
         color: "#191919 !important",

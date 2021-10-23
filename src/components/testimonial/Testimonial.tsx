@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 import Slider from "./Slider";
-import weaver from "../../assets/weaver.jpg";
+import weaver from "../../assets/homepage/images/weaver.jpg";
 
 const useStyles = makeStyles(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

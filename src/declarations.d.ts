@@ -6,6 +6,5 @@ declare module "*.svg";
 declare module "react-router-dom";
 declare module "@mui/styles";
 declare module "@chec/commerce.js";
-declare module "react-reveal/Fade";
 declare module "@components/*";
 declare module "*js";

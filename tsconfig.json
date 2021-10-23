@@ -21,10 +21,9 @@
 
     //Create aliases to import certain modules more easily
     "baseUrl": "./src",
-    "paths": { 
+    "paths": {
       "@components/*": ["./components/*"]
     }
-
   },
   "include": ["src/**/*"]
 }

@@ -1,8 +1,7 @@
 import { makeStyles } from "@mui/styles";
 import CategoryList from "./CategoryList";
-import Fade from "react-reveal/Fade";
 
-const useStyes = makeStyles({
+const useStyles = makeStyles({
   categoryContainer: {
     backgroundColor: "#f1f5f8 !important",
     height: "auto",
@@ -22,16 +21,14 @@ const useStyes = makeStyles({
   },
 });
 const Category = () => {
-  const classes = useStyes();
+  const classes = useStyles();
   return (
     <section className={classes.categoryContainer}>
       <div className={classes.wrapper}>
         <div className={classes.categoryTitle}>
           <p>Categories</p>
         </div>
-        <Fade bottom>
-          <CategoryList />
-        </Fade>
+        <CategoryList />
       </div>
     </section>
   );

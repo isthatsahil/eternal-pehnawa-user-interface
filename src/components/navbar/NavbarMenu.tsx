@@ -2,7 +2,7 @@ import { ReactNode, useRef, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
-import india from "../../assets/india.jpg";
+import india from "../../assets/homepage/images/india.jpg";
 const useStyles = makeStyles({
   wrapper: {
     position: "relative",

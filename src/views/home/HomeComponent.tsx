@@ -8,7 +8,7 @@ import { bannerData } from "../../dummyData/bannerData.js";
 import Typography from "@mui/material/Typography";
 import OurMission from "@components/ourMission/OurMission";
 
-// TODO :: comonent modulization needs to be done 
+// TODO :: comonent modulization needs to be done
 export const HomeComponent = () => {
   console.log("dummy", bannerData);
   const length = bannerData.length;
@@ -30,13 +30,13 @@ export const HomeComponent = () => {
   }, [currentSlide, length]);
 
   // TODO :: To be used if we introduce next and prev buttons
-  const prevSlide = () => {
-     if (timeout.current) {
-        clearTimeout(timeout.current);
-      }
-    setCurrentSlide(currentSlide === 0 ? length - 1 : currentSlide - 1);
-  };
-  
+  // const prevSlide = () => {
+  //   if (timeout.current) {
+  //     clearTimeout(timeout.current);
+  //   }
+  //   setCurrentSlide(currentSlide === 0 ? length - 1 : currentSlide - 1);
+  // };
+
   // TODO : Make it as a seperate component named BANNER
 
   return (

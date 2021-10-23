@@ -1,8 +1,8 @@
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
-import saree from "../../assets/saree.jpg";
-import suit from "../../assets/suits.jpg";
-import homeDecor from "../../assets/homeDecor.jpg";
+import saree from "../../assets/homepage/images/saree.jpg";
+import suit from "../../assets/homepage/images/suits.jpg";
+import homeDecor from "../../assets/homepage/images/homeDecor.jpg";
 import ComplexButton from "./ComplexButton";
 const categories = [
   {

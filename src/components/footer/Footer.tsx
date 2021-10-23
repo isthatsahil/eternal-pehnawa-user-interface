@@ -47,6 +47,30 @@ const useStyles = makeStyles({
     "&>*": {
       margin: "3px 14px 3px 0px",
     },
+    "& #facebook": {
+      transition: ".5s ease",
+      "&:hover": {
+        color: "#4966AA"
+      }
+    },
+    "& #instagram": {
+      transition: ".5s ease",
+      "&:hover": {
+        color: "#C135A9"
+      }
+    },
+    "& #youtube": {
+      transition: ".5s ease",
+      "&:hover": {
+        color: "#FE0101"
+      }
+    },
+    "& #pinterest": {
+      transition: ".5s ease",
+      "&:hover": {
+        color: "#B6091B"
+      }
+    }
   },
   newsLetter: {
     margin: "1rem 0rem",
@@ -125,10 +149,18 @@ const Footer = () => {
           <div>
             <Typography className={classes.title}>social media</Typography>
             <div className={classes.socialMediaIcons}>
-              <FacebookIcon />
-              <InstagramIcon />
-              <YouTubeIcon />
-              <PinterestIcon />
+              <span id="facebook">
+                <FacebookIcon />
+              </span>
+              <span id="instagram">
+                <InstagramIcon />
+              </span>
+              <span id="youtube">
+                <YouTubeIcon />
+              </span>
+              <span id="pinterest">
+                <PinterestIcon />
+              </span>
             </div>
           </div>
           <div>

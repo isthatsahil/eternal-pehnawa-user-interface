@@ -3,6 +3,7 @@ import Slider from "./Slider";
 import weaver from "../../assets/weaver.jpg";
 
 const useStyles = makeStyles(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (theme: { breakpoints: { down: (arg0: string) => any } }) => ({
     testimonialContainer: {
       background: "#e0c387 !important",

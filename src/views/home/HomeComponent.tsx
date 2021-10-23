@@ -29,12 +29,12 @@ export const HomeComponent = () => {
   }, [currentSlide, length]);
 
   // TODO :: To be used if we introduce next and prev buttons
-  const prevSlide = () => {
-    if (timeout.current) {
-      clearTimeout(timeout.current);
-    }
-    setCurrentSlide(currentSlide === 0 ? length - 1 : currentSlide - 1);
-  };
+  // const prevSlide = () => {
+  //   if (timeout.current) {
+  //     clearTimeout(timeout.current);
+  //   }
+  //   setCurrentSlide(currentSlide === 0 ? length - 1 : currentSlide - 1);
+  // };
 
   // TODO : Make it as a seperate component named BANNER
 

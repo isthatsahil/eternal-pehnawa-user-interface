@@ -1,4 +1,3 @@
-import React from "react";
 import { makeStyles } from "@mui/styles";
 import mastercardLogo from "../../assets/payment-options-logo/mastercard.png";
 import { Grid, Typography, Button } from "@mui/material";
@@ -10,7 +9,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
   top: {
     height: "8rem",
     backgroundColor: "#2D2C2D",
@@ -61,16 +60,20 @@ const useStyles = makeStyles(() => ({
       border: "2px solid #ffff",
       borderRadius: "0",
       color: "#ffff !important",
+      "&:hover": {
+        backgroundColor: "#ffff",
+        color: "#191919 !important",
+        border: "2px solid #191919",
+      },
     },
     "& input:focus": {
       outline: "none",
     },
   },
-}));
+});
 
-const footer = () => {
+const Footer = () => {
   const classes = useStyles();
-
   return (
     <footer>
       <div className={classes.top}>
@@ -143,4 +146,4 @@ const footer = () => {
   );
 };
 
-export default footer;
+export default Footer;

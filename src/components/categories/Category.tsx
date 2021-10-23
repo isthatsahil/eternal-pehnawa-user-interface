@@ -1,7 +1,7 @@
 import { makeStyles } from "@mui/styles";
 import CategoryList from "./CategoryList";
 
-const useStyes = makeStyles({
+const useStyles = makeStyles({
   categoryContainer: {
     backgroundColor: "#f1f5f8 !important",
     height: "auto",
@@ -21,7 +21,7 @@ const useStyes = makeStyles({
   },
 });
 const Category = () => {
-  const classes = useStyes();
+  const classes = useStyles();
   return (
     <section className={classes.categoryContainer}>
       <div className={classes.wrapper}>

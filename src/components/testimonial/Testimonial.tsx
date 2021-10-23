@@ -7,7 +7,6 @@ const useStyles = makeStyles(
     testimonialContainer: {
       background: "#e0c387 !important",
       height: "auto",
-      marginBottom: "4rem",
     },
     wrapper: {
       display: "grid",

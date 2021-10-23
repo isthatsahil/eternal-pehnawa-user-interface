@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
+
 interface Props {
   url: any;
   title: string;

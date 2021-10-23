@@ -6,6 +6,12 @@ module.exports = {
   entry: path.resolve(__dirname, "src/index.tsx"), // entry point of the application (where webpack starts)
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"], // this allows us to import files without specifying the extension
+
+    //Create aliases to import certain modules more easily
+    alias: {
+      "@components": path.resolve(__dirname, "src/components"),
+      "@assets": path.resolve(__dirname, "src/assets"),
+    },
   },
   module: {
     rules: [

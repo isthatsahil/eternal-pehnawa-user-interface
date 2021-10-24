@@ -6,6 +6,7 @@ import "./home.css";
 import React, { useEffect, useRef, useState } from "react";
 import { bannerData } from "../../dummyData/bannerData.js";
 import Typography from "@mui/material/Typography";
+import OurMission from "@components/ourMission/OurMission";
 
 // TODO :: comonent modulization needs to be done
 export const HomeComponent = () => {
@@ -55,6 +56,7 @@ export const HomeComponent = () => {
           )}
         </>
       ))}
+      <OurMission />
       <Category />
       <FeaturedProducts />
       <Testimonial />

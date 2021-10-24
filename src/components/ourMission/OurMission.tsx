@@ -11,6 +11,7 @@ import Zoom from "react-reveal/Zoom";
 const useStyles: any = makeStyles((theme: any) => ({
   root: {
     padding: "2rem 5vw",
+    fontFamily: "'Playfair Display', serif !important",
     // height: "35rem",
     background: "linear-gradient(90deg, #E0C387 85%, #1A181F 15%)",
     position: "relative",
@@ -159,7 +160,7 @@ const OurStory = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <section className={classes.root}>
       <Grid container className={classes.content1}>
         <Grid item sm={12} md={6}>
           <Typography variant="h2" className={classes.title}>
@@ -184,9 +185,9 @@ const OurStory = () => {
               height="100%"
               src="https://www.youtube.com/embed/wi-IJjwh7YY?controls=0"
               title="YouTube video player"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
           </div>
         </Grid>
@@ -242,7 +243,7 @@ const OurStory = () => {
       <Zoom>
         <img src={ourStoryBg} alt="our-story-bg" />
       </Zoom>
-    </div>
+    </section>
   );
 };
 

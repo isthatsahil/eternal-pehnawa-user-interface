@@ -56,8 +56,8 @@ export const HomeComponent = () => {
           )}
         </>
       ))}
-      <OurMission />
       <Category />
+      <OurMission />
       <FeaturedProducts />
       <Testimonial />
       <Footer />

@@ -1,5 +1,6 @@
 import AboutContainer from "../views/about/AboutContainer";
 import HomeContainer from "../views/home/HomeContainer";
+import ProductsContainer from "../views/products/ProductsContainer";
 
 const routes = [
   {
@@ -10,6 +11,10 @@ const routes = [
   {
     path: "/about",
     component: AboutContainer,
+  },
+  {
+    path: "/products",
+    component: ProductsContainer,
   },
 ];
 

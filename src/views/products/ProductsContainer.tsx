@@ -32,9 +32,20 @@ const ProductsContainer = () => {
       .then((response: any) => setHomeDecors(response));
   }, []);
 
+<<<<<<< HEAD
+  return (
+    <ProductsComponent
+      allProducts={allProducts}
+      sarees={sarees}
+      suits={suits}
+      homeDecors={homeDecors}
+    />
+  );
+=======
   console.log({homeDecors})
 
   return <ProductsComponent allProducts={allProducts} sarees={sarees} suits={suits} homeDecors={homeDecors} />;
+>>>>>>> falcon-dev
 };
 
 export default ProductsContainer;

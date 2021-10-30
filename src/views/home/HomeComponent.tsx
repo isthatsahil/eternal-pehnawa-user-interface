@@ -10,7 +10,6 @@ import OurMission from "@components/ourMission/OurMission";
 
 // TODO :: comonent modulization needs to be done
 export const HomeComponent = () => {
-  console.log("dummy", bannerData);
   const length = bannerData.length;
   const [currentSlide, setCurrentSlide] = useState(0);
   const timeout = useRef(null);

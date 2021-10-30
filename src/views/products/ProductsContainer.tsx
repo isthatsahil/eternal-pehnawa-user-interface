@@ -27,11 +27,12 @@ const ProductsContainer = () => {
       .then((response: any) => setSuits(response));
     commerce.products
       .list({
-        category_slug: ["home-decor"],
+        category_slug: ["saree", "black"],
       })
       .then((response: any) => setHomeDecors(response));
   }, []);
 
+<<<<<<< HEAD
   return (
     <ProductsComponent
       allProducts={allProducts}
@@ -40,6 +41,11 @@ const ProductsContainer = () => {
       homeDecors={homeDecors}
     />
   );
+=======
+  console.log({homeDecors})
+
+  return <ProductsComponent allProducts={allProducts} sarees={sarees} suits={suits} homeDecors={homeDecors} />;
+>>>>>>> falcon-dev
 };
 
 export default ProductsContainer;

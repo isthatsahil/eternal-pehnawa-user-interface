@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme: any) => ({
     justifyContent: "center",
     alignItems: "center",
     "& img": {
-      maxWidth:"100%",
-      maxHeight:"100%",
+      maxWidth: "100%",
+      maxHeight: "100%",
       margin: "5px",
     },
     position: "relative",

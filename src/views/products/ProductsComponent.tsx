@@ -9,7 +9,7 @@ import { Route } from "react-router-dom";
 const useStyles = makeStyles(() => ({
   container: {
     padding: "1rem 5vw",
-    backgroundColor: "#ffff"
+    backgroundColor: "#ffff",
   },
 }));
 

@@ -38,15 +38,20 @@ const useStyles: any = makeStyles((theme: any) => ({
     borderRadius: "0.8rem",
     overflow: "hidden",
   },
+  missionBody: {
+    fontFamily: "'Playfair Display', serif !important",
+  },
   content1: {
     height: "30rem",
     position: "absolute",
     zIndex: "10",
+    fontFamily: "'Playfair Display', serif !important",
     "&>div": {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
+      fontFamily: "'Playfair Display', serif !important",
       [theme.breakpoints.down("md")]: {
         marginTop: "2.5rem",
         margin: "auto",
@@ -67,11 +72,13 @@ const useStyles: any = makeStyles((theme: any) => ({
     marginBottom: "3rem !important",
     textAlign: "left",
     width: "100%",
+    fontFamily: "'Playfair Display', serif !important",
   },
   content2: {
     margin: "auto",
     width: "55rem",
     marginTop: "35rem",
+    fontFamily: "'Playfair Display', serif !important",
     [theme.breakpoints.down(954)]: {
       width: "90vw",
     },
@@ -80,6 +87,7 @@ const useStyles: any = makeStyles((theme: any) => ({
       height: "26rem",
       display: "flex",
       alignItems: "flex-end",
+      fontFamily: "'Playfair Display', serif !important",
       "&>div": {
         width: "100%",
         height: "100%",
@@ -88,6 +96,7 @@ const useStyles: any = makeStyles((theme: any) => ({
         justifyContent: "center",
         alignItems: "center",
         marginRight: "4rem",
+        fontFamily: "'Playfair Display', serif !important",
         "&>img": {
           height: "29rem",
           width: "29rem",
@@ -166,7 +175,7 @@ const OurStory = () => {
           <Typography variant="h2" className={classes.title}>
             Our Mission
           </Typography>
-          <Typography>
+          <Typography className={classes.missionBody}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia ab
             voluptatum pariatur ut necessitatibus laboriosam labore eos, tempora
             natus nemo dicta odio asperiores nam accusamus modi ex. Quaerat
@@ -196,8 +205,15 @@ const OurStory = () => {
         <div>
           <div>
             <div>
-              <Typography variant="h3">Meet the Artisans</Typography>
-              <Typography>
+              <Typography
+                variant="h3"
+                sx={{ fontFamily: "'Playfair Display', serif !important" }}
+              >
+                Meet the Artisans
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "'Playfair Display', serif !important" }}
+              >
                 Take a look at our all new handcrafted and handpicked pieces of
                 art by our artisans/weavers from the rarest of corners of India
                 in vibrant hues for the conscious you.
@@ -212,8 +228,15 @@ const OurStory = () => {
         <div>
           <div>
             <div>
-              <Typography>
-                <Typography variant="h3">What's New</Typography>
+              <Typography
+                variant="h3"
+                sx={{ fontFamily: "'Playfair Display', serif !important" }}
+              >
+                What's New
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "'Playfair Display', serif !important" }}
+              >
                 Take a dive into our latest collection by the Tangaliya weavers
                 from Surendernagar and Bhuj, experimenting with kala cotton and
                 organic dyes in collaboration with Tangaliya weavers.
@@ -228,8 +251,15 @@ const OurStory = () => {
         <div>
           <div>
             <div>
-              <Typography variant="h3">Blog</Typography>
-              <Typography>
+              <Typography
+                variant="h3"
+                sx={{ fontFamily: "'Playfair Display', serif !important" }}
+              >
+                Blog
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "'Playfair Display', serif !important" }}
+              >
                 Discover the joy of organic world with our exquisite insights on
                 different crafts and a fun experience with our bloggers.
               </Typography>

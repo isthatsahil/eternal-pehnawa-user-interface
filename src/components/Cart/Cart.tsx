@@ -215,7 +215,7 @@ const Cart = () => {
         ></Button>
       ) : (
         <Button
-          sx={{ color: "#191919" }}
+          sx={{ color: "#191919", border: "1px solid #191919" }}
           size="small"
           startIcon={<ShoppingCartIcon />}
           onClick={toggleDrawer(true)}

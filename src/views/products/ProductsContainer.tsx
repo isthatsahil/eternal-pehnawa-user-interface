@@ -32,7 +32,14 @@ const ProductsContainer = () => {
       .then((response: any) => setHomeDecors(response));
   }, []);
 
-  return <ProductsComponent allProducts={allProducts} sarees={sarees} suits={suits} homeDecors={homeDecors} />;
+  return (
+    <ProductsComponent
+      allProducts={allProducts}
+      sarees={sarees}
+      suits={suits}
+      homeDecors={homeDecors}
+    />
+  );
 };
 
 export default ProductsContainer;

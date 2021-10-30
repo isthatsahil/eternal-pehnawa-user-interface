@@ -2,7 +2,7 @@ import { Button, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import Product from "./Product";
-
+import { Link } from "react-router-dom";
 const useStyles = makeStyles(() => ({
   container: {
     background: "rgb(246, 241, 236) !important",
@@ -65,9 +65,11 @@ const FeaturedProducts = () => {
             </Grid>
           ))}
         </Grid>
-        <Button variant="contained" className={classes.allProductsBtn}>
-          All products
-        </Button>
+        <Link to="/products" style={{ textDecoration: "none" }}>
+          <Button variant="contained" className={classes.allProductsBtn}>
+            All products
+          </Button>
+        </Link>
       </div>
     </section>
   );

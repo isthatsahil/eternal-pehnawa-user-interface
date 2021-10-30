@@ -1,51 +1,9 @@
-import React, { useEffect, useState } from "react";
 import ProductsComponent from "./ProductsComponent";
-import { commerce } from "../../lib/commerce";
+import { useGetProductsQuery } from "../../redux/services/products";
 
 const ProductsContainer = () => {
-  const [allProducts, setAllProducts] = useState({});
-  const [sarees, setSarees] = useState({});
-  const [suits, setSuits] = useState({});
-  const [homeDecors, setHomeDecors] = useState({});
-
-  useEffect(() => {
-    commerce.products
-      .list()
-      .then((products: any) => setAllProducts(products))
-      .catch((error: any) => {
-        console.log({ error });
-      });
-    commerce.products
-      .list({
-        category_slug: ["saree"],
-      })
-      .then((response: any) => setSarees(response));
-    commerce.products
-      .list({
-        category_slug: ["suit"],
-      })
-      .then((response: any) => setSuits(response));
-    commerce.products
-      .list({
-        category_slug: ["saree", "black"],
-      })
-      .then((response: any) => setHomeDecors(response));
-  }, []);
-
-<<<<<<< HEAD
-  return (
-    <ProductsComponent
-      allProducts={allProducts}
-      sarees={sarees}
-      suits={suits}
-      homeDecors={homeDecors}
-    />
-  );
-=======
-  console.log({homeDecors})
-
-  return <ProductsComponent allProducts={allProducts} sarees={sarees} suits={suits} homeDecors={homeDecors} />;
->>>>>>> falcon-dev
+  const { data, error, isLoading } = useGetProductsQuery(200);
+  return <ProductsComponent data={data} error={error} isLoading={isLoading} />;
 };
 
 export default ProductsContainer;

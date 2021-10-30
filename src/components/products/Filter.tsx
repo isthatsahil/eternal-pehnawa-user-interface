@@ -5,6 +5,8 @@ import {
   Checkbox,
   Slider,
   TextField,
+  FormControlLabel,
+  Button,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useLocation, NavLink } from "react-router-dom";
@@ -14,8 +16,9 @@ import CircleIcon from "@mui/icons-material/Circle";
 
 const useStyles = makeStyles(() => ({
   root: {
-    padding: "1rem",
+    padding: "0rem 1rem 1rem 0rem",
     marginRight: "1rem",
+    position: "sticky",
     "& .MuiTab-root": {
       textAlign: "left !important",
       textTransform: "capitalize",
@@ -27,18 +30,49 @@ const useStyles = makeStyles(() => ({
       backgroundColor: "none",
     },
     "&>div": {
-      margin: "1.5rem 0rem"
-    }
+      margin: "1.5rem 0rem",
+    },
+    "& .MuiFormControlLabel-root": {
+      margin: "0",
+    },
   },
   searchBox: {
     margin: "1rem",
+    backgroundColor: "#F0F5F9",
   },
   label: {
     marginBottom: "0.5rem !important",
-  }
+    fontWeight: "600 !important",
+  },
+  clearFilterBtnContainer: {
+    "& button": {
+      backgroundColor: "#BB2525",
+      textTransform: "capitalize",
+      letterSpacing: "2px",
+    },
+    "& button:hover": {
+      backgroundColor: "#dc7171",
+    },
+  },
+  colorOptions: {
+    display: "flex",
+    "&>*": {
+      fontSize: "1rem",
+      width: "1.5rem",
+      height: "1.5rem",
+    },
+  },
 }));
 
-const productColors = ["#FF8080", "#80FF80", "#8181FF", "#808181", "#FFDD81"];
+// const productColors = ["#FF8080", "#80FF80", "#8181FF", "#808181", "#FFDD81"];
+
+const productColors = [
+  { name: "red", value: "#FF0101" },
+  { name: "green", value: "#01FF01" },
+  { name: "blue", value: "#0100FE" },
+  { name: "black", value: "#010001" },
+  { name: "yellow", value: "#FFB900" },
+];
 
 const Filter = () => {
   const classes = useStyles();
@@ -69,7 +103,7 @@ const Filter = () => {
       </div>
 
       <div>
-        <Typography className={classes.label} >Category</Typography>
+        <Typography className={classes.label}>Category</Typography>
         <Tabs
           orientation="vertical"
           value={categoryTabValue}
@@ -104,12 +138,13 @@ const Filter = () => {
 
       <div>
         <Typography className={classes.label}>Color</Typography>
-        <div>
+        <div className={classes.colorOptions}>
           <div>All</div>
           {productColors.map((color: any) => (
             <Checkbox
-              icon={<CircleIcon style={{ color: color }} />}
-              checkedIcon={<CheckCircleIcon style={{ color: color }} />}
+              key={color.name}
+              icon={<CircleIcon style={{ color: color.value }} />}
+              checkedIcon={<CheckCircleIcon style={{ color: color.value }} />}
             />
           ))}
         </div>
@@ -125,6 +160,18 @@ const Filter = () => {
           value={priceRange}
           onChange={handlePriceChange}
         />
+      </div>
+
+      <div>
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Free Shipping"
+          labelPlacement="start"
+        />
+      </div>
+
+      <div className={classes.clearFilterBtnContainer}>
+        <Button variant="contained">Clear Filters</Button>
       </div>
     </div>
   );

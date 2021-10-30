@@ -4,8 +4,10 @@ import { Grid } from "@mui/material";
 import Filter from "@components/products/Filter";
 import Products from "@components/products/Products";
 import { makeStyles } from "@mui/styles";
-import { Route } from "react-router-dom";
+//import { Route } from "react-router-dom";
 import FilterTop from "@components/products/FilterTop";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
+import { SerializedError } from "@reduxjs/toolkit";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -15,15 +17,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ProductsComponent = ({
-  allProducts,
-  sarees,
-  suits,
-  homeDecors,
+  data,
+  error,
+  isLoading,
 }: {
-  allProducts: any;
-  sarees: any;
-  suits: any;
-  homeDecors: any;
+  data: any;
+  isLoading: boolean;
+  error: FetchBaseQueryError | SerializedError;
 }) => {
   const classes = useStyles();
   return (
@@ -36,7 +36,13 @@ const ProductsComponent = ({
           </Grid>
           <Grid item md={9}>
             <FilterTop />
-            <Route path={"/products"} exact>
+            {error ? (
+              <p>Products coming soon</p>
+            ) : (
+              <Products products={data} isLoading={isLoading} />
+            )}
+
+            {/* <Route path={"/products"} exact>
               <Products products={allProducts} />
             </Route>
             <Route path={"/products/saree"}>
@@ -47,7 +53,7 @@ const ProductsComponent = ({
             </Route>
             <Route path={"/products/home-decor"}>
               <Products products={homeDecors} />
-            </Route>
+            </Route> */}
           </Grid>
         </Grid>
       </section>

@@ -1,4 +1,4 @@
-import { ReactNode, useRef, useEffect } from "react";
+import { ChangeEvent, ReactNode, useRef, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
@@ -132,7 +132,7 @@ const NavbarMenu = ({
     });
   };
 
-  const handleHover = (e: { e: ReactNode }) => {
+  const handleHover = (e: ChangeEvent<HTMLInputElement>) => {
     gsap.to(e.target, {
       duration: 0.3,
       y: 3,
@@ -141,7 +141,7 @@ const NavbarMenu = ({
     });
   };
 
-  const handleHoverExit = (e: { e: ReactNode }) => {
+  const handleHoverExit = (e: ChangeEvent<HTMLInputElement>) => {
     gsap.to(e.target, {
       duration: 0.3,
       y: -3,
@@ -156,18 +156,26 @@ const NavbarMenu = ({
           <ul>
             <li>
               <Link
-                onMouseEnter={(e: { e: ReactNode }) => handleHover(e)}
-                onMouseOut={(e: { e: ReactNode }) => handleHoverExit(e)}
+                onMouseEnter={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleHover(e)
+                }
+                onMouseOut={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleHoverExit(e)
+                }
                 ref={level1}
-                to="/about"
+                to="/saree"
               >
                 Saree
               </Link>
             </li>
             <li>
               <Link
-                onMouseEnter={(e: { e: ReactNode }) => handleHover(e)}
-                onMouseOut={(e: { e: ReactNode }) => handleHoverExit(e)}
+                onMouseEnter={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleHover(e)
+                }
+                onMouseOut={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleHoverExit(e)
+                }
                 ref={level2}
                 to="/suit"
               >
@@ -176,8 +184,12 @@ const NavbarMenu = ({
             </li>
             <li>
               <Link
-                onMouseEnter={(e: { e: ReactNode }) => handleHover(e)}
-                onMouseOut={(e: { e: ReactNode }) => handleHoverExit(e)}
+                onMouseEnter={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleHover(e)
+                }
+                onMouseOut={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleHoverExit(e)
+                }
                 ref={level3}
                 to="/home-decor"
               >

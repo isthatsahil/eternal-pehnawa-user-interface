@@ -1,15 +1,7 @@
-import React from 'react'
+import React from "react";
 
-interface Props {
-    
-}
+const Banner = () => {
+  return <div></div>;
+};
 
-const Banner = (props: Props) => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
-
-export default Banner
+export default Banner;

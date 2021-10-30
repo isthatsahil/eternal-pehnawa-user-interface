@@ -27,10 +27,12 @@ const ProductsContainer = () => {
       .then((response: any) => setSuits(response));
     commerce.products
       .list({
-        category_slug: ["home-decor"],
+        category_slug: ["saree", "black"],
       })
       .then((response: any) => setHomeDecors(response));
   }, []);
+
+  console.log({homeDecors})
 
   return <ProductsComponent allProducts={allProducts} sarees={sarees} suits={suits} homeDecors={homeDecors} />;
 };

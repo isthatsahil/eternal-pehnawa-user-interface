@@ -1,13 +1,12 @@
 import { Typography, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
+import { useEffect } from "react";
 import ourStoryBg from "../../assets/ourMission/background1.jpg";
 import image1 from "../../assets/ourMission/image01.jpg";
 import image2 from "../../assets/ourMission/image02.jpg";
 import image3 from "../../assets/ourMission/image03.jpg";
-import Fade from "react-reveal/Fade";
-import Zoom from "react-reveal/Zoom";
-
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 const useStyles: any = makeStyles((theme: any) => ({
   root: {
     padding: "2rem 5vw",
@@ -165,9 +164,83 @@ const useStyles: any = makeStyles((theme: any) => ({
   },
 }));
 
+/**
+ * Framer motion variants implementation for fade right,left and zoom
+ */
+
+//leftVariant alias for fade left
+const leftVariant = {
+  hidden: {
+    opacity: 0,
+    x: "-50vw",
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 1.2,
+      ease: "easeOut",
+    },
+  },
+};
+//rightVariant alias for fade right
+const rightVariant = {
+  hidden: {
+    opacity: 0,
+    x: "50vw",
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 1.2,
+      ease: "easeOut",
+    },
+  },
+};
+
+const zoomVariant = {
+  hidden: {
+    opacity: 0,
+    scale: 0.5,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+    },
+  },
+};
+
 const OurStory = () => {
   const classes = useStyles();
-
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+  const [ref2, inView2] = useInView();
+  const [ref3, inView3] = useInView();
+  const [ref4, inView4] = useInView();
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+  useEffect(() => {
+    if (inView2) {
+      controls.start("visible");
+    }
+  }, [controls, inView2]);
+  useEffect(() => {
+    if (inView3) {
+      controls.start("visible");
+    }
+  }, [controls, inView3]);
+  useEffect(() => {
+    if (inView4) {
+      controls.start("visible");
+    }
+  }, [controls, inView4]);
   return (
     <section className={classes.root}>
       <Grid container className={classes.content1}>
@@ -220,11 +293,16 @@ const OurStory = () => {
               </Typography>
             </div>
           </div>
-          <Fade left>
-            <img src={image1} alt="our-mission" />
-          </Fade>
-        </div>
 
+          <motion.img
+            animate={controls}
+            initial="hidden"
+            variants={leftVariant}
+            ref={ref3}
+            src={image1}
+            alt="our-mission"
+          ></motion.img>
+        </div>
         <div>
           <div>
             <div>
@@ -243,11 +321,16 @@ const OurStory = () => {
               </Typography>
             </div>
           </div>
-          <Fade right>
-            <img src={image2} alt="our-mission" />
-          </Fade>
-        </div>
 
+          <motion.img
+            animate={controls}
+            initial="hidden"
+            variants={rightVariant}
+            ref={ref2}
+            src={image2}
+            alt="our-mission"
+          ></motion.img>
+        </div>
         <div>
           <div>
             <div>
@@ -265,14 +348,24 @@ const OurStory = () => {
               </Typography>
             </div>
           </div>
-          <Fade left>
-            <img src={image3} alt="our-mission" />
-          </Fade>
+          <motion.img
+            animate={controls}
+            initial="hidden"
+            variants={leftVariant}
+            src={image3}
+            alt="our-mission"
+            ref={ref}
+          ></motion.img>
         </div>
       </div>
-      <Zoom>
-        <img src={ourStoryBg} alt="our-story-bg" />
-      </Zoom>
+      <motion.img
+        variants={zoomVariant}
+        initial="hidden"
+        animate={controls}
+        ref={ref4}
+        src={ourStoryBg}
+        alt="our-story-bg"
+      ></motion.img>
     </section>
   );
 };

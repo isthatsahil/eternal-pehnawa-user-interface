@@ -8,6 +8,7 @@ import image3 from "../../assets/ourMission/image03.jpg";
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useStyles: any = makeStyles((theme: any) => ({
   root: {
     padding: "2rem 5vw",

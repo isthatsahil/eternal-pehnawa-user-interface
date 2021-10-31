@@ -1,13 +1,12 @@
 import { Typography, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
 import ourStoryBg from "../../assets/ourMission/background1.jpg";
 import image1 from "../../assets/ourMission/image01.jpg";
 import image2 from "../../assets/ourMission/image02.jpg";
 import image3 from "../../assets/ourMission/image03.jpg";
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom";
-
+import { motion } from "framer-motion";
 const useStyles: any = makeStyles((theme: any) => ({
   root: {
     padding: "2rem 5vw",
@@ -265,9 +264,22 @@ const OurStory = () => {
               </Typography>
             </div>
           </div>
-          <Fade left>
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: "-100vw",
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            transition={{
+              duration: 1,
+              ease: "easeInOut",
+            }}
+          >
             <img src={image3} alt="our-mission" />
-          </Fade>
+          </motion.div>
         </div>
       </div>
       <Zoom>

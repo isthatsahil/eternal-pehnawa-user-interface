@@ -173,7 +173,7 @@ const useStyles: any = makeStyles((theme: any) => ({
 const leftVariant = {
   hidden: {
     opacity: 0,
-    x: "-50vw",
+    x: "-80vw",
   },
   visible: {
     opacity: 1,
@@ -188,7 +188,7 @@ const leftVariant = {
 const rightVariant = {
   hidden: {
     opacity: 0,
-    x: "50vw",
+    x: "80vw",
   },
   visible: {
     opacity: 1,

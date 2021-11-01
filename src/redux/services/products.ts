@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { COMMERCE_JS_BASE_URL, COMMERCE_JS_HEADER } from "lib/constants";
+import { COMMERCE_JS_BASE_URL, COMMERCE_JS_HEADER } from "../../lib/constants";
 
 const createRequest = (url: string) => ({ url, headers: COMMERCE_JS_HEADER });
 

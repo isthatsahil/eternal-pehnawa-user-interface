@@ -222,26 +222,14 @@ const OurStory = () => {
   const [ref2, inView2] = useInView();
   const [ref3, inView3] = useInView();
   const [ref4, inView4] = useInView();
+
   useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
-  useEffect(() => {
-    if (inView2) {
-      controls.start("visible");
-    }
-  }, [controls, inView2]);
-  useEffect(() => {
-    if (inView3) {
-      controls.start("visible");
-    }
-  }, [controls, inView3]);
-  useEffect(() => {
-    if (inView4) {
-      controls.start("visible");
-    }
-  }, [controls, inView4]);
+    inView && controls.start("visible");
+    inView2 && controls.start("visible");
+    inView3 && controls.start("visible");
+    inView4 && controls.start("visible");
+  }, [controls, inView, inView2, inView3, inView4]);
+
   return (
     <section className={classes.root}>
       <Grid container className={classes.content1}>

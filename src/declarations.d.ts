@@ -8,4 +8,3 @@ declare module "@mui/styles";
 declare module "@chec/commerce.js";
 declare module "@components/*";
 declare module "*js";
-declare module "react-reveal/*";

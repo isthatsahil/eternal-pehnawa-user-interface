@@ -1,14 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { COMMERCE_JS_BASE_URL, COMMERCE_JS_HEADER } from "../../lib/constants";
 
-const commerceHeaders = {
-  "X-Authorization": process.env.REACT_APP_CHEC_PUBLIC_KEY,
-};
-const createRequest = (url: string) => ({ url, headers: commerceHeaders });
+const createRequest = (url: string) => ({ url, headers: COMMERCE_JS_HEADER });
 
 const productApi = createApi({
   reducerPath: "products",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://api.chec.io/v1",
+    baseUrl: COMMERCE_JS_BASE_URL,
   }),
   endpoints: (builder) => ({
     getProducts: builder.query({

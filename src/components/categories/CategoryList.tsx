@@ -10,18 +10,21 @@ const categories = [
     title: "Saree",
     width: "100%",
     margin: "-3rem",
+    link: "saree",
   },
   {
     url: suit,
     title: "Suits",
     width: "100%",
     margin: "0rem",
+    link: "suit",
   },
   {
     url: homeDecor,
     title: "Home Decor",
     width: "100%",
     margin: "-3rem",
+    link: "home-decor",
   },
 ];
 
@@ -31,7 +34,7 @@ const CategoryList = () => {
       <Grid container spacing={3}>
         {categories.map((category) => (
           <Grid item xs={12} md={6} lg={4} xl={4} key={category.title}>
-            <Link to={`product/categories/${category.title}`}>
+            <Link to={`/${category.link}`}>
               <ComplexButton data={category} />
             </Link>
           </Grid>

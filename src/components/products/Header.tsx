@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme: any) => {
   console.log({ theme });
   return {
     header: {
-      padding: "2rem 5vw",
+      padding: "1rem 5vw",
       backgroundColor: "#EBDED6",
       textTransform: "capitalize",
       "& *": {

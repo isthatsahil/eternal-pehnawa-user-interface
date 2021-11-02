@@ -13,6 +13,12 @@
   position: absolute;
 }
 
+.left {
+  background-color: rgba(181, 181, 181, 0.537);
+  padding: 1rem 2rem;
+  border-radius: 5px;
+}
+
 .image {
   position: absolute;
   width: 70vw;

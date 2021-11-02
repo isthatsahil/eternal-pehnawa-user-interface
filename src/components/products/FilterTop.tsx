@@ -4,12 +4,15 @@ import { makeStyles } from "@mui/styles";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: any) => ({
   filterTop: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     margin: "1rem 0rem 2rem",
+    "& .MuiTypography-root": {
+      fontSize: "clamp(14px, 4vw, 1rem)",
+    },
     "&>div": {
       display: "flex",
       justifyContent: "center",
@@ -20,12 +23,18 @@ const useStyles = makeStyles(() => ({
       backgroundColor: "grey",
       height: "1px",
       margin: "0 1rem",
+      [theme.breakpoints.down("sm")]: {
+        display: "none",
+      },
+    },
+    "& .MuiOutlinedInput-notchedOutline": {
+      border: "none", //remove input border
     },
   },
   view: {
     "&>*": {
-        margin: "5px",
-    }
+      margin: "5px",
+    },
   },
   sort: {
     "& .MuiAutocomplete-root": {
@@ -33,9 +42,20 @@ const useStyles = makeStyles(() => ({
       marginLeft: "1rem",
     },
   },
+  tab:{
+    border: "1px solid #000000",
+    borderRadius: "5px",
+  },
+  selectedTab: {
+    border: "1px solid #000000",
+    borderRadius: "5px",
+    backgroundColor: "black",
+    color: "white",
+  }
 }));
 
-const FilterTop = () => {
+
+const FilterTop = ({ view, setView }: { view: String; setView: Function }) => {
   const classes = useStyles();
 
   const sortOptions = [
@@ -55,17 +75,22 @@ const FilterTop = () => {
   return (
     <section className={classes.filterTop}>
       <div className={classes.view}>
-        <GridViewRoundedIcon />
-        <MenuRoundedIcon />
+        <GridViewRoundedIcon
+          className={`${view === "grid" ? classes.selectedTab : classes.tab}`}
+          onClick={() => setView("grid")}
+        />
+        <MenuRoundedIcon
+          className={`${view === "list" ? classes.selectedTab : classes.tab}`}
+          onClick={() => setView("list")}
+        />
       </div>
       <div></div>
       <div className={classes.sort}>
         <Typography>Sort by</Typography>
         <Autocomplete
           options={sortOptions}
-          renderInput={(params) => (
-            <TextField {...params} size="small" label="select" />
-          )}
+          defaultValue={sortOptions[0]}
+          renderInput={(params) => <TextField {...params} size="small" />}
         />
       </div>
     </section>

@@ -44,9 +44,11 @@ export const HomeComponent = () => {
         <>
           {index === currentSlide && (
             <div className="container" key={index}>
-              <Typography color="initial" variant="h2" className="left">
-                {baner.desc}
-              </Typography>
+              <div className="left" >
+                <Typography color="initial" variant="h2">
+                  {baner.desc}
+                </Typography>
+              </div>
 
               <div className="right">
                 <img src={baner.img} className="image" alt="" />

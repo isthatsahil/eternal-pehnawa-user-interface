@@ -74,26 +74,135 @@ const useStyles = makeStyles((theme: any) => ({
       color: "#AA7B5F",
     },
   },
+  //forList view
+  listProduct: {
+    display: "flex",
+    width: "100%",
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+    },
+  },
+  listProductImageContaner: {
+    width: "20rem",
+    height: "12rem",
+    flexShrink: "0",
+    borderRadius: "5px",
+    overflow: "hidden",
+    backgroundColor: "#ffff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    border: "1px solid grey",
+    "& img": {
+      maxWidth: "100%",
+      maxHeight: "100%",
+      margin: "5px",
+    },
+    position: "relative",
+    "&:hover #overlay": {
+      opacity: "1",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "20rem",
+      height: "12rem",
+    },
+  },
+  details: {
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: "1",
+    "&>div:nth-child(1)": {
+      display: "flex",
+      flexDirection: "column",
+      "& span:nth-child(2)": {
+        color: "#AA7B5F",
+        margin: "0.5rem 0rem",
+      },
+      // flexGrow: "1",
+    },
+    marginLeft: "1rem",
+    [theme.breakpoints.down("md")]: {
+      marginLeft: "0",
+      marginTop: "0.5rem"
+    },
+  },
+  btnsContainer: {
+    display: "flex",
+    "& button": {
+      backgroundColor: "#AA7B5F",
+      color: "white",
+      border: "none",
+      borderRadius: "2.5rem",
+      height: "2.5rem",
+      margin: "0.3rem",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      cursor: "pointer",
+    },
+    "& button:nth-child(1)": {
+      width: "4rem",
+      fontSize: "0.9rem",
+      letterSpacing: "1px",
+    },
+    "& button:nth-child(2)": {
+      width: "2.5rem",
+      fontSize: "1rem",
+    },
+  },
 }));
 
-const Product = ({ product }: { product: any }) => {
+const Product = ({
+  product,
+  view = "grid",
+}: {
+  product: any;
+  view: String;
+}) => {
   const classes = useStyles();
   return (
-    <div>
-      <div className={classes.imageContainer}>
-        <img src={product.image.url} alt={product.name} />
-        <div className={classes.overlay} id="overlay">
-          <button>View</button>
-          <button>
-            <AddShoppingCartRoundedIcon />
-          </button>
+    <>
+      {view === "grid" ? (
+        <div>
+          <div className={classes.imageContainer}>
+            <img src={product.image.url} alt={product.name} />
+            <div className={classes.overlay} id="overlay">
+              <button>View</button>
+              <button>
+                <AddShoppingCartRoundedIcon />
+              </button>
+            </div>
+          </div>
+          <div className={classes.nameAndPrice}>
+            <Typography component="span">{product.name}</Typography>
+            <Typography component="span">
+              ₹ {product.price.formatted}
+            </Typography>
+          </div>
         </div>
-      </div>
-      <div className={classes.nameAndPrice}>
-        <Typography component="span">{product.name}</Typography>
-        <Typography component="span">₹ {product.price.formatted}</Typography>
-      </div>
-    </div>
+      ) : (
+        <div className={classes.listProduct}>
+          <div className={classes.listProductImageContaner}>
+            <img src={product.image.url} alt={product.name} />
+          </div>
+          <div className={classes.details}>
+            <div>
+              <Typography component="span">{product.name}</Typography>
+              <Typography component="span">
+                ₹ {product.price.formatted}
+              </Typography>
+              <span dangerouslySetInnerHTML={{ __html: product.description }} />
+            </div>
+            <div className={classes.btnsContainer}>
+              <button>View</button>
+              <button>
+                <AddShoppingCartRoundedIcon />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

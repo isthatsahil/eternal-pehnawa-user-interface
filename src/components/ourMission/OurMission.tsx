@@ -37,6 +37,10 @@ const useStyles: any = makeStyles((theme: any) => ({
     margin: "auto",
     borderRadius: "0.8rem",
     overflow: "hidden",
+    [theme.breakpoints.down("sm")]: {
+      width: "90vw",
+      height: "14rem",
+    },
   },
   missionBody: {
     fontFamily: "'Playfair Display', serif !important",
@@ -161,6 +165,15 @@ const useStyles: any = makeStyles((theme: any) => ({
     },
     [theme.breakpoints.down("md")]: {
       marginTop: "15rem",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "18rem",
+    },
+    [theme.breakpoints.down(400)]: {
+      marginTop: "25rem",
+    },
+    [theme.breakpoints.down(350)]: {
+      marginTop: "30rem",
     },
   },
 }));

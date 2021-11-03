@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Product from "@components/products/Product";
 import { Grid } from "@mui/material";
 import ProductSkeleton from "./ProductSkeleton";
@@ -6,12 +7,11 @@ import ProductSkeleton from "./ProductSkeleton";
 const Products = ({
   products,
   isLoading,
-  view = "grid",
 }: {
   products: any;
   isLoading: boolean;
-  view: String;
 }) => {
+  const { view } = useSelector((state: any) => state.filter);
   const ProductsDisplay = () => {
     return (
       <Grid container spacing={4} justifyContent="center">

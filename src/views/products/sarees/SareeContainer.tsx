@@ -1,8 +1,12 @@
 import ProductsComponent from "../ProductsComponent";
 import { useGetProductCategoryQuery } from "../../../redux/services/products";
+import { useSelector } from "react-redux";
+import { applyFilter } from "../../../utils/utils";
 
 const SareeContainer = () => {
-  const { data, error, isLoading } = useGetProductCategoryQuery("saree");
+  let { data, error, isLoading } = useGetProductCategoryQuery("saree");
+  const filter = useSelector((state: any) => state.filter);
+  data = applyFilter(data, filter);
   return <ProductsComponent data={data} error={error} isLoading={isLoading} />;
 };
 

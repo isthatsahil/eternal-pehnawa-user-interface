@@ -9,11 +9,12 @@ import {
   Button,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, NavLink } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircleIcon from "@mui/icons-material/Circle";
-
+import { clearFilter, updateFilter } from "../../redux/services/filter";
 const useStyles = makeStyles(() => ({
   root: {
     padding: "0rem 1rem 1rem 0rem",
@@ -78,7 +79,9 @@ const Filter = () => {
   const classes = useStyles();
   const location = useLocation();
   const [categoryTabValue, setCategoryTabValue] = useState(location.pathname);
-  const [priceRange, setPriceRange] = useState(500);
+  const dispatch = useDispatch();
+  const {price} = useSelector((state: any) => state.filter)
+  const priceRange = price;
 
   const handleCategoryTabChange = (
     event: React.SyntheticEvent,
@@ -88,8 +91,13 @@ const Filter = () => {
   };
 
   const handlePriceChange = (event: Event, newValue: number | number[]) => {
-    setPriceRange(newValue as number);
+    // setPriceRange(newValue as number);
+    dispatch(updateFilter({price: newValue as number}))
   };
+
+  const handleClearFilter = () => {
+    dispatch(clearFilter())
+  }
 
   return (
     <div className={classes.root}>
@@ -161,7 +169,7 @@ const Filter = () => {
       </div>
 
       <div className={classes.clearFilterBtnContainer}>
-        <Button variant="contained">Clear Filters</Button>
+        <Button variant="contained" onClick={handleClearFilter} >Clear Filters</Button>
       </div>
     </div>
   );

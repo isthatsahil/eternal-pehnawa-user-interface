@@ -6,7 +6,7 @@ import filterReducer from "./services/filter";
 export const store = configureStore({
   reducer: {
     [productApi.reducerPath]: productApi.reducer,
-    filter: filterReducer
+    filter: filterReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productApi.middleware),

@@ -79,18 +79,18 @@ const FilterTop = () => {
       name: "name-ztoa",
     },
   ];
-  const handleChangeView = (value: String) => {
+  const handleChangeView = (value: string) => {
     dispatch(updateFilter({ view: value }));
   };
   const handleSortChange = (
     event: any,
     value: any,
-    reason: String,
+    reason: string,
     details: any
   ) => {
     if (reason === "selectOption") {
       console.log({ event, value, reason, details });
-      dispatch(updateFilter({sort: value.name}))
+      dispatch(updateFilter({ sort: value.name }));
     }
   };
   return (

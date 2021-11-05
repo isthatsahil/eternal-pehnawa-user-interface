@@ -3,7 +3,7 @@ import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import useMediaQuery from "@mui/material/useMediaQuery";
+// import useMediaQuery from "@mui/material/useMediaQuery";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
@@ -13,6 +13,8 @@ import { Tooltip } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { motion } from "framer-motion";
+import Badge from "@mui/material/Badge";
+import { IconButton } from "@mui/material";
 const productList = [
   {
     id: 1,
@@ -54,131 +56,130 @@ const cartOpenVariant = {
     },
   },
 };
-const useStyles = makeStyles((theme: any) => ({
-  container: {
-    width: "30rem",
-    [theme.breakpoints.down("sm")]: {
-      width: "100vw",
-    },
-    "& tr": {
-      height: "4rem",
-    },
+const useStyles = makeStyles(
+  (theme: { breakpoints: { down: (arg0: string) => any } }) => ({
+    container: {
+      width: "30rem",
+      [theme.breakpoints.down("sm")]: {
+        width: "100vw",
+      },
+      "& tr": {
+        height: "4rem",
+      },
 
-    "& tr td": {
-      height: "auto !important",
-    },
-    "& input[type=number]::-webkit-inner-spin-button": {
-      "-webkit-appearance": "none",
-      margin: "0",
-    },
-    "& input[type=number]::-webkit-outer-spin-button": {
-      "-webkit-appearance": "none",
-      margin: "0",
-    },
-    "& input:focus": {
-      outline: "none",
-    },
-  },
-  header: {
-    margin: "1rem",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  closeCartBtn: {
-    fontSize: "12px !important",
-    borderRadius: "1rem !important",
-    textTransform: "capitalize !important",
-    color: "#6C7C90 !important",
-    border: "1px solid #6C7C90 !important",
-  },
-  checkoutBtntnContainer: {
-    margin: "2rem",
-    display: "flex",
-    justifyContent: "center",
-    "& button": {
-      backgroundColor: "#8BC79A",
-      width: "15rem",
-      height: "4rem",
-      "&:hover": {
-        backgroundColor: "#5ba76f",
+      "& tr td": {
+        height: "auto !important",
+      },
+      "& input[type=number]::-webkit-inner-spin-button": {
+        "-webkit-appearance": "none",
+        margin: "0",
+      },
+      "& input[type=number]::-webkit-outer-spin-button": {
+        "-webkit-appearance": "none",
+        margin: "0",
+      },
+      "& input:focus": {
+        outline: "none",
       },
     },
-    "& svg": {
-      marginRight: "3px",
-    },
-  },
-  cartItemContainer: {
-    "& .MuiTableCell-root": {
-      marginTop: "4rem",
-      marginBottom: "4rem",
-    },
-    "& span": {
-      fontSize: "14px",
-      color: "#6C7C90",
-      width: "68%",
-      display: "inline-block",
-      textAlign: "left",
-      verticalAlign: "top",
-      fontWeight: "400",
-    },
-    "& td:nth-child(1)": {
-      paddingLeft: "30px",
-    },
-    "& td:nth-child(2)": {
-      paddingRight: "0",
-      "& > *": {
-        float: "right",
-      },
-    },
-    "& td:nth-child(3)": {
-      paddingRight: "0",
-      paddingLeft: "0",
-    },
-    "& td:nth-child(3) span": {
-      float: "right",
-      textAlign: "right",
-      color: "#8BC79A",
-    },
-  },
-  quantityInput: {
-    width: "2rem",
-    height: "1.1rem",
-    textAlign: "center",
-  },
-  removeItemBtn: {
-    color: "#ff5977",
-    cursor: "pointer",
-    "& svg": {
-      width: "1.1rem",
-    },
-  },
-  orderTotal: {
-    border: "1px solid #c7c7c7",
-    borderRadius: "5px",
-    width: "75%",
-    margin: " 2rem auto",
-    padding: "1.5rem",
-    "&>p": {
+    header: {
+      margin: "1rem",
       display: "flex",
       justifyContent: "space-between",
-      margin: "0.5rem 0rem",
+      alignItems: "center",
     },
-    "&> hr": {
-      margin: "1rem 0",
+    closeCartBtn: {
+      fontSize: "12px !important",
+      borderRadius: "1rem !important",
+      textTransform: "capitalize !important",
+      color: "#6C7C90 !important",
+      border: "1px solid #6C7C90 !important",
     },
-    "&>p:last-child": {
-      fontWeight: "600",
+    checkoutBtntnContainer: {
+      margin: "2rem",
+      display: "flex",
+      justifyContent: "center",
+      "& button": {
+        backgroundColor: "#8BC79A",
+        width: "15rem",
+        height: "4rem",
+        "&:hover": {
+          backgroundColor: "#5ba76f",
+        },
+      },
+      "& svg": {
+        marginRight: "3px",
+      },
     },
-  },
-}));
+    cartItemContainer: {
+      "& .MuiTableCell-root": {
+        marginTop: "4rem",
+        marginBottom: "4rem",
+      },
+      "& span": {
+        fontSize: "14px",
+        color: "#6C7C90",
+        width: "68%",
+        display: "inline-block",
+        textAlign: "left",
+        verticalAlign: "top",
+        fontWeight: "400",
+      },
+      "& td:nth-child(1)": {
+        paddingLeft: "30px",
+      },
+      "& td:nth-child(2)": {
+        paddingRight: "0",
+        "& > *": {
+          float: "right",
+        },
+      },
+      "& td:nth-child(3)": {
+        paddingRight: "0",
+        paddingLeft: "0",
+      },
+      "& td:nth-child(3) span": {
+        float: "right",
+        textAlign: "right",
+        color: "#8BC79A",
+      },
+    },
+    quantityInput: {
+      width: "2rem",
+      height: "1.1rem",
+      textAlign: "center",
+    },
+    removeItemBtn: {
+      color: "#ff5977",
+      cursor: "pointer",
+      "& svg": {
+        width: "1.1rem",
+      },
+    },
+    orderTotal: {
+      border: "1px solid #c7c7c7",
+      borderRadius: "5px",
+      width: "75%",
+      margin: " 2rem auto",
+      padding: "1.5rem",
+      "&>p": {
+        display: "flex",
+        justifyContent: "space-between",
+        margin: "0.5rem 0rem",
+      },
+      "&> hr": {
+        margin: "1rem 0",
+      },
+      "&>p:last-child": {
+        fontWeight: "600",
+      },
+    },
+  })
+);
 
 const Cart = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-
-  const mobileView = useMediaQuery("(max-width:900px)");
-
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -219,22 +220,16 @@ const Cart = () => {
   };
 
   return (
-    <React.Fragment>
-      {mobileView ? (
-        <Button
-          sx={{ color: "#191919" }}
+    <>
+      <Badge badgeContent={4} color="warning">
+        <IconButton
           size="small"
-          startIcon={<ShoppingCartIcon />}
           onClick={toggleDrawer(true)}
-        ></Button>
-      ) : (
-        <Button
           sx={{ color: "#191919" }}
-          size="medium"
-          startIcon={<ShoppingCartIcon />}
-          onClick={toggleDrawer(true)}
-        />
-      )}
+        >
+          <ShoppingCartIcon />
+        </IconButton>
+      </Badge>
       <Drawer anchor={"right"} open={open} onClose={toggleDrawer(false)}>
         <div className={classes.container}>
           <motion.div
@@ -259,7 +254,11 @@ const Cart = () => {
               Close Cart
             </Button>
           </motion.div>
-          <Divider />
+          <motion.hr
+            variants={cartOpenVariant}
+            initial="initial"
+            animate="animate"
+          />
           <Table>
             {productList.map((item, index) => (
               <CartItem key={index} item={item} />
@@ -292,7 +291,7 @@ const Cart = () => {
           </div>
         </div>
       </Drawer>
-    </React.Fragment>
+    </>
   );
 };
 

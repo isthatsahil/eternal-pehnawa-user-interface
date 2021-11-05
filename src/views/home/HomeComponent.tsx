@@ -1,4 +1,3 @@
-import Footer from "@components/footer/Footer";
 import Category from "@components/categories/Category";
 import FeaturedProducts from "@components/featuredProducts/FeaturedProducts";
 import Testimonial from "@components/testimonial/Testimonial";
@@ -113,7 +112,6 @@ export const HomeComponent = () => {
       <OurMission />
       <FeaturedProducts />
       <Testimonial />
-      <Footer />
     </>
   );
 };

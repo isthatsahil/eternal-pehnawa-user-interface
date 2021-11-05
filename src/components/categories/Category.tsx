@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 const Category = () => {
   const classes = useStyles();
   return (
-    <section className={classes.categoryContainer}>
+    <section id="category" className={classes.categoryContainer}>
       <div className={classes.wrapper}>
         <div className={classes.categoryTitle}>
           <p>Categories</p>

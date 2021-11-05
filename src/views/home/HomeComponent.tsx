@@ -20,7 +20,7 @@ export const HomeComponent = () => {
         currentSlide === length - 1 ? 0 : currentSlide + 1
       );
     };
-    timeout.current = setTimeout(nextSlide, 5000);
+    timeout.current = setTimeout(nextSlide, 1005000);
     return () => {
       if (timeout.current) {
         clearTimeout(timeout.current);
@@ -44,7 +44,7 @@ export const HomeComponent = () => {
         <>
           {index === currentSlide && (
             <div className="container" key={index}>
-              <div className="left" >
+              <div className="left">
                 <Typography color="initial" variant="h2">
                   {baner.desc}
                 </Typography>

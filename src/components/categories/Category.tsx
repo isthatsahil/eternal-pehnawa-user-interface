@@ -8,7 +8,7 @@ const useStyles = makeStyles({
   },
   wrapper: {
     width: "90vw",
-    margin: "4rem auto 0 auto",
+    margin: "0 auto",
     padding: "2rem 0",
   },
   categoryTitle: {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "@components/products/Header";
 import { Grid } from "@mui/material";
 import Filter from "@components/products/Filter";
@@ -26,7 +26,6 @@ const ProductsComponent = ({
   error: FetchBaseQueryError | SerializedError;
 }) => {
   const classes = useStyles();
-  const [view, setView] = useState("grid");
   return (
     <>
       <Header />
@@ -36,11 +35,11 @@ const ProductsComponent = ({
             <Filter />
           </Grid>
           <Grid item xs={12} sm={9} md={9}>
-            <FilterTop view={view} setView={setView}  />
+            <FilterTop />
             {error ? (
               <p>Products coming soon</p>
             ) : (
-              <Products view={view} products={data} isLoading={isLoading} />
+              <Products products={data} isLoading={isLoading} />
             )}
 
             {/* <Route path={"/products"} exact>

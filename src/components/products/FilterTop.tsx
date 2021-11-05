@@ -3,6 +3,8 @@ import { Typography, Autocomplete, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import { useDispatch, useSelector } from "react-redux";
+import { updateFilter } from "../../redux/services/filter";
 
 const useStyles = makeStyles((theme: any) => ({
   filterTop: {
@@ -42,7 +44,7 @@ const useStyles = makeStyles((theme: any) => ({
       marginLeft: "1rem",
     },
   },
-  tab:{
+  tab: {
     border: "1px solid #000000",
     borderRadius: "5px",
   },
@@ -51,37 +53,56 @@ const useStyles = makeStyles((theme: any) => ({
     borderRadius: "5px",
     backgroundColor: "black",
     color: "white",
-  }
+  },
 }));
 
-
-const FilterTop = ({ view, setView }: { view: String; setView: Function }) => {
+const FilterTop = () => {
   const classes = useStyles();
+  const { view } = useSelector((state: any) => state.filter);
+  const dispatch = useDispatch();
 
   const sortOptions = [
     {
       label: "Price (Lowest)",
+      name: "price-lowest",
     },
     {
       label: "Price (Highest)",
+      name: "price-highest",
     },
     {
       label: "Name (A - Z)",
+      name: "name-atoz",
     },
     {
       label: "Name (Z - A)",
+      name: "name-ztoa",
     },
   ];
+  const handleChangeView = (value: String) => {
+    dispatch(updateFilter({ view: value }));
+  };
+  const handleSortChange = (
+    event: any,
+    value: any,
+    reason: String,
+    details: any
+  ) => {
+    if (reason === "selectOption") {
+      console.log({ event, value, reason, details });
+      dispatch(updateFilter({sort: value.name}))
+    }
+  };
   return (
     <section className={classes.filterTop}>
       <div className={classes.view}>
         <GridViewRoundedIcon
           className={`${view === "grid" ? classes.selectedTab : classes.tab}`}
-          onClick={() => setView("grid")}
+          onClick={() => handleChangeView("grid")}
         />
         <MenuRoundedIcon
           className={`${view === "list" ? classes.selectedTab : classes.tab}`}
-          onClick={() => setView("list")}
+          onClick={() => handleChangeView("list")}
         />
       </div>
       <div></div>
@@ -89,7 +110,14 @@ const FilterTop = ({ view, setView }: { view: String; setView: Function }) => {
         <Typography>Sort by</Typography>
         <Autocomplete
           options={sortOptions}
-          defaultValue={sortOptions[0]}
+          defaultValue={{
+            label: "Price (Lowest)",
+            name: "price-lowest",
+          }}
+          isOptionEqualToValue={(option: any, value: any) =>
+            option.label === value.label
+          }
+          onChange={handleSortChange}
           renderInput={(params) => <TextField {...params} size="small" />}
         />
       </div>

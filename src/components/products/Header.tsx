@@ -33,13 +33,19 @@ const Header = () => {
   return (
     <div className={classes.header}>
       <Breadcrumbs aria-label="breadcrumb">
-        {paths.map((path: String, index: number) => {
+        {paths.map((path: string, index: number) => {
           return index === 0 ? (
-            <NavLink key={index} to="/">home</NavLink>
+            <NavLink key={index} to="/">
+              home
+            </NavLink>
           ) : index == paths.length - 1 ? (
-            <Typography key={index} color="text.primary">{path}</Typography>
+            <Typography key={index} color="text.primary">
+              {path}
+            </Typography>
           ) : (
-            <NavLink key={index} to={`/${path}`}>{path}</NavLink>
+            <NavLink key={index} to={`/${path}`}>
+              {path}
+            </NavLink>
           );
         })}
       </Breadcrumbs>

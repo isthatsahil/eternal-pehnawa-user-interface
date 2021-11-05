@@ -125,7 +125,7 @@ const Navbar = () => {
               </Button>
             </div>
             <div>
-              <div style={{ display: "flex" }}>
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <NavbarLogin />
                 <Cart />
               </div>

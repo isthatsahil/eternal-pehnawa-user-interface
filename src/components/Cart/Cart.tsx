@@ -12,7 +12,7 @@ import { makeStyles } from "@mui/styles";
 import { Tooltip } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import { motion } from "framer-motion";
 const productList = [
   {
     id: 1,
@@ -40,6 +40,20 @@ const productList = [
   },
 ];
 
+const cartOpenVariant = {
+  initial: {
+    y: 30,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 0.8,
+    transition: {
+      duration: 1,
+      ease: "easeOut",
+    },
+  },
+};
 const useStyles = makeStyles((theme: any) => ({
   container: {
     width: "30rem",
@@ -215,17 +229,20 @@ const Cart = () => {
         ></Button>
       ) : (
         <Button
-          sx={{ color: "#191919", border: "1px solid #191919" }}
-          size="small"
+          sx={{ color: "#191919" }}
+          size="medium"
           startIcon={<ShoppingCartIcon />}
           onClick={toggleDrawer(true)}
-        >
-          Cart
-        </Button>
+        />
       )}
       <Drawer anchor={"right"} open={open} onClose={toggleDrawer(false)}>
         <div className={classes.container}>
-          <div className={classes.header}>
+          <motion.div
+            className={classes.header}
+            variants={cartOpenVariant}
+            initial="initial"
+            animate="animate"
+          >
             <Button
               sx={{ color: "#191919" }}
               size="small"
@@ -241,7 +258,7 @@ const Cart = () => {
             >
               Close Cart
             </Button>
-          </div>
+          </motion.div>
           <Divider />
           <Table>
             {productList.map((item, index) => (

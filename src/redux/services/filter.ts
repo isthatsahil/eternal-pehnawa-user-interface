@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  searchTerm: "",
   price: 20000,
   view: "grid",
   sort: "price-lowest",
   freeShipping: false,
+  artisan: "all",
 };
 
 export const filterSlice = createSlice({

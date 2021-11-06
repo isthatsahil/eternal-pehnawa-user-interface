@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import Slider from "./Slider";
 import weaver from "../../assets/homepage/images/weaver.jpg";
-
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 const useStyles = makeStyles(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (theme: { breakpoints: { down: (arg0: string) => any } }) => ({
@@ -54,12 +56,39 @@ const reviews = [
     author: "Ayush Jain",
   },
 ];
+
+const zoomVariant = {
+  hidden: {
+    opacity: 0,
+    scale: 0.5,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+    },
+  },
+};
 const Testimonial = () => {
   const classes = useStyles();
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+  useEffect(() => {
+    inView && controls.start("visible");
+  }, [controls, inView]);
+
   return (
     <section className={classes.testimonialContainer}>
       <div className={classes.wrapper}>
-        <div className={classes.left}></div>
+        <motion.div
+          className={classes.left}
+          variants={zoomVariant}
+          initial="hidden"
+          animate={controls}
+          ref={ref}
+        ></motion.div>
         <div className={classes.right}>
           <Slider reviews={reviews} />
         </div>

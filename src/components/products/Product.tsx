@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
-
+import { motion } from "framer-motion";
 const useStyles = makeStyles((theme: any) => ({
   product: {
     // width: "20rem !important",
@@ -10,14 +10,13 @@ const useStyles = makeStyles((theme: any) => ({
   },
   imageContainer: {
     width: "100%",
-    height: "12rem",
+    height: "20rem",
     borderRadius: "5px",
     overflow: "hidden",
     backgroundColor: "#ffff",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    border: "1px solid grey",
     "& img": {
       maxWidth: "100%",
       maxHeight: "100%",
@@ -68,8 +67,10 @@ const useStyles = makeStyles((theme: any) => ({
   },
   nameAndPrice: {
     display: "flex",
-    justifyContent: "space-between",
-    margin: "1rem 0rem",
+    flexDirection: "column",
+    //justifyContent: "space-between",
+    alignItems: "center",
+    margin: "2rem 0rem",
     "& span:nth-child(2)": {
       color: "#AA7B5F",
     },
@@ -84,7 +85,7 @@ const useStyles = makeStyles((theme: any) => ({
   },
   listProductImageContaner: {
     width: "20rem",
-    height: "12rem",
+    height: "20rem",
     flexShrink: "0",
     borderRadius: "5px",
     overflow: "hidden",
@@ -92,7 +93,6 @@ const useStyles = makeStyles((theme: any) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    border: "1px solid grey",
     "& img": {
       maxWidth: "100%",
       maxHeight: "100%",
@@ -111,6 +111,7 @@ const useStyles = makeStyles((theme: any) => ({
     display: "flex",
     flexDirection: "column",
     flexGrow: "1",
+    justifyContent: "center",
     "&>div:nth-child(1)": {
       display: "flex",
       flexDirection: "column",
@@ -123,7 +124,7 @@ const useStyles = makeStyles((theme: any) => ({
     marginLeft: "1rem",
     [theme.breakpoints.down("md")]: {
       marginLeft: "0",
-      marginTop: "0.5rem"
+      marginTop: "0.5rem",
     },
   },
   btnsContainer: {
@@ -157,14 +158,19 @@ const Product = ({
   view = "grid",
 }: {
   product: any;
-  view: String;
+  view: string;
 }) => {
   const classes = useStyles();
   return (
     <>
       {view === "grid" ? (
         <div>
-          <div className={classes.imageContainer}>
+          <motion.div
+            className={classes.imageContainer}
+            whileHover={{
+              scale: 1.1,
+            }}
+          >
             <img src={product.image.url} alt={product.name} />
             <div className={classes.overlay} id="overlay">
               <button>View</button>
@@ -172,7 +178,7 @@ const Product = ({
                 <AddShoppingCartRoundedIcon />
               </button>
             </div>
-          </div>
+          </motion.div>
           <div className={classes.nameAndPrice}>
             <Typography component="span">{product.name}</Typography>
             <Typography component="span">
@@ -182,9 +188,14 @@ const Product = ({
         </div>
       ) : (
         <div className={classes.listProduct}>
-          <div className={classes.listProductImageContaner}>
+          <motion.div
+            className={classes.listProductImageContaner}
+            whileHover={{
+              scale: 1.1,
+            }}
+          >
             <img src={product.image.url} alt={product.name} />
-          </div>
+          </motion.div>
           <div className={classes.details}>
             <div>
               <Typography component="span">{product.name}</Typography>

@@ -5,7 +5,7 @@ import { Grid } from "@mui/material";
 import ProductSkeleton from "./ProductSkeleton";
 import { motion } from "framer-motion";
 
-const listVariants = {
+const parentVariant = {
   hidden: {
     transition: {
       staggerChildren: 0.1,
@@ -19,7 +19,7 @@ const listVariants = {
   },
 };
 
-const itemVariants = {
+const listVariants = {
   hidden: {
     opacity: 0,
     x: 50,
@@ -27,6 +27,21 @@ const itemVariants = {
   visible: {
     opacity: 1,
     x: 0,
+    transition: {
+      ease: "easeOut",
+      durantion: 1,
+    },
+  },
+};
+
+const gridVariants = {
+  hidden: {
+    opacity: 0,
+    y: -16,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
     transition: {
       ease: "easeOut",
       durantion: 1,
@@ -48,13 +63,22 @@ const Products = ({
         container
         spacing={4}
         justifyContent="center"
-        variants={listVariants}
+        variants={parentVariant}
         initial="hidden"
         animate="visible"
       >
         {view === "grid"
           ? products?.data?.map((product: any, index: number) => (
-              <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={6}
+                lg={4}
+                key={index}
+                component={motion.div}
+                variants={gridVariants}
+              >
                 <Product view={view} product={product} />
               </Grid>
             ))
@@ -64,7 +88,7 @@ const Products = ({
                 xs={12}
                 key={index}
                 component={motion.div}
-                variants={itemVariants}
+                variants={listVariants}
               >
                 <Product view={view} product={product} />
               </Grid>

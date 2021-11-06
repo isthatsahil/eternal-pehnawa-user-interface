@@ -2,24 +2,23 @@ import {
   Tabs,
   Typography,
   Tab,
-  Checkbox,
   Slider,
   TextField,
-  FormControlLabel,
   Button,
+  Autocomplete,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, NavLink } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CircleIcon from "@mui/icons-material/Circle";
 import { clearFilter, updateFilter } from "../../redux/services/filter";
 const useStyles = makeStyles(() => ({
   root: {
     padding: "0rem 1rem 1rem 0rem",
     marginRight: "1rem",
     position: "sticky",
+    top: 20,
+    zIndex: 5,
     "& .MuiTab-root": {
       textAlign: "left !important",
       textTransform: "capitalize",
@@ -55,32 +54,16 @@ const useStyles = makeStyles(() => ({
       backgroundColor: "#dc7171",
     },
   },
-  colorOptions: {
-    display: "flex",
-    "&>*": {
-      fontSize: "1rem",
-      width: "1.5rem",
-      height: "1.5rem",
-    },
-  },
 }));
-
-// const productColors = ["#FF8080", "#80FF80", "#8181FF", "#808181", "#FFDD81"];
-
-const productColors = [
-  { name: "red", value: "#FF0101" },
-  { name: "green", value: "#01FF01" },
-  { name: "blue", value: "#0100FE" },
-  { name: "black", value: "#010001" },
-  { name: "yellow", value: "#FFB900" },
-];
 
 const Filter = () => {
   const classes = useStyles();
   const location = useLocation();
   const [categoryTabValue, setCategoryTabValue] = useState(location.pathname);
   const dispatch = useDispatch();
-  const {price} = useSelector((state: any) => state.filter)
+  const { price, searchTerm, artisan } = useSelector(
+    (state: any) => state.filter
+  );
   const priceRange = price;
 
   const handleCategoryTabChange = (
@@ -92,12 +75,40 @@ const Filter = () => {
 
   const handlePriceChange = (event: Event, newValue: number | number[]) => {
     // setPriceRange(newValue as number);
-    dispatch(updateFilter({price: newValue as number}))
+    dispatch(updateFilter({ price: newValue as number }));
   };
 
   const handleClearFilter = () => {
-    dispatch(clearFilter())
-  }
+    dispatch(clearFilter());
+  };
+
+  const artisans = [
+    {
+      label: "all",
+    },
+    {
+      label: "first",
+    },
+    {
+      label: "second",
+    },
+    {
+      label: "third",
+    },
+    {
+      label: "fourth",
+    },
+  ];
+
+  const handleSearch = (event: any) => {
+    dispatch(updateFilter({ searchTerm: event.target.value }));
+  };
+
+  const handleArtisansChange = (event: any, value: any, reason: string) => {
+    if (reason === "selectOption") {
+      dispatch(updateFilter({ artisan: value.label }));
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -107,6 +118,8 @@ const Filter = () => {
           variant="outlined"
           className={classes.searchBox}
           size="small"
+          onChange={handleSearch}
+          value={searchTerm}
         />
       </div>
 
@@ -135,17 +148,17 @@ const Filter = () => {
       </div>
 
       <div>
-        <Typography className={classes.label}>Color</Typography>
-        <div className={classes.colorOptions}>
-          <div>All</div>
-          {productColors.map((color: any) => (
-            <Checkbox
-              key={color.name}
-              icon={<CircleIcon style={{ color: color.value }} />}
-              checkedIcon={<CheckCircleIcon style={{ color: color.value }} />}
-            />
-          ))}
-        </div>
+        <Typography className={classes.label}>Artisan</Typography>
+        <Autocomplete
+          options={artisans}
+          isOptionEqualToValue={(option: any, value: any) =>
+            option.label === value.label
+          }
+          onChange={handleArtisansChange}
+          renderInput={(params) => <TextField {...params} size="small" />}
+          sx={{ maxWidth: "12rem" }}
+          value={{ label: artisan }}
+        />
       </div>
 
       <div>
@@ -160,16 +173,10 @@ const Filter = () => {
         />
       </div>
 
-      <div>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Free Shipping"
-          labelPlacement="start"
-        />
-      </div>
-
       <div className={classes.clearFilterBtnContainer}>
-        <Button variant="contained" onClick={handleClearFilter} >Clear Filters</Button>
+        <Button variant="contained" onClick={handleClearFilter}>
+          Clear Filters
+        </Button>
       </div>
     </div>
   );

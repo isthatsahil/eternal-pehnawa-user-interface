@@ -132,17 +132,27 @@ const Filter = () => {
         >
           <Tab
             component={NavLink}
-            to="/products"
+            to="/all-products"
             label="All"
-            value="/products"
+            value="/all-products"
           />
-          <Tab component={NavLink} to="/saree" label="Saree" value="/saree" />
-          <Tab component={NavLink} to="/suit" label="Suit" value="/suit" />
           <Tab
             component={NavLink}
-            to="/home-decor"
+            to="/all-products/category/saree"
+            label="Saree"
+            value="/all-products/category/saree"
+          />
+          <Tab
+            component={NavLink}
+            to="/all-products/category/suit"
+            label="Suit"
+            value="/all-products/category/suit"
+          />
+          <Tab
+            component={NavLink}
+            to="/all-products/category/home-decor"
             label="Home Decor"
-            value="/home-decor"
+            value="/all-products/category/home-decor"
           />
         </Tabs>
       </div>

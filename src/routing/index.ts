@@ -4,6 +4,7 @@ import HomeContainer from "../views/home/HomeContainer";
 import ProductsContainer from "../views/products/ProductsContainer";
 import SuitContainer from "../views/products/suits/SuitContainer";
 import HomeDecorContainer from "../views/products/homeDecor/HomeDecorContainer";
+import Category from "@components/categories/Category";
 
 const routes = [
   {
@@ -16,19 +17,23 @@ const routes = [
     component: AboutContainer,
   },
   {
-    path: "/saree",
+    path: "/category",
+    component: Category,
+  },
+  {
+    path: "/all-products/category/saree",
     component: SareeContainer,
   },
   {
-    path: "/suit",
+    path: "/all-products/category/suit",
     component: SuitContainer,
   },
   {
-    path: "/home-decor",
+    path: "/all-products/category/home-decor",
     component: HomeDecorContainer,
   },
   {
-    path: "/products",
+    path: "/all-products",
     component: ProductsContainer,
   },
 ];

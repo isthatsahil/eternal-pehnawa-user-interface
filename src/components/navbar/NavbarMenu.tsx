@@ -163,7 +163,7 @@ const NavbarMenu = ({
                   handleHoverExit(e)
                 }
                 ref={level1}
-                to="/saree"
+                to="/all-products/category/saree"
               >
                 Saree
               </Link>
@@ -177,7 +177,7 @@ const NavbarMenu = ({
                   handleHoverExit(e)
                 }
                 ref={level2}
-                to="/suit"
+                to="/all-products/category/suit"
               >
                 Suits
               </Link>
@@ -191,7 +191,7 @@ const NavbarMenu = ({
                   handleHoverExit(e)
                 }
                 ref={level3}
-                to="/home-decor"
+                to="/all-products/category/home-decor"
               >
                 Home Decor
               </Link>

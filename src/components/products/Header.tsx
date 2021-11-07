@@ -1,27 +1,23 @@
-import React from "react";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { NavLink } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { useLocation } from "react-router-dom";
 
-const useStyles = makeStyles((theme: any) => {
-  console.log({ theme });
-  return {
-    header: {
-      padding: "1rem 5vw",
-      backgroundColor: "#EBDED6",
-      textTransform: "capitalize",
-      "& *": {
-        fontSize: "1.5rem !important",
-        fontWeight: "600 !important",
-      },
-      "& a": {
-        color: "#795744",
-        textDecoration: "none",
-      },
+const useStyles = makeStyles({
+  header: {
+    padding: "1rem 5vw",
+    backgroundColor: "#EBDED6",
+    textTransform: "capitalize",
+    "& *": {
+      fontSize: "1.5rem !important",
+      fontWeight: "600 !important",
     },
-  };
+    "& a": {
+      color: "#795744",
+      textDecoration: "none",
+    },
+  },
 });
 
 const Header = () => {

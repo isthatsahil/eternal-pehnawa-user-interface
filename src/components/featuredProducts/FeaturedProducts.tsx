@@ -65,7 +65,7 @@ const FeaturedProducts = () => {
             </Grid>
           ))}
         </Grid>
-        <Link to="/products" style={{ textDecoration: "none" }}>
+        <Link to="/all-products" style={{ textDecoration: "none" }}>
           <Button variant="contained" className={classes.allProductsBtn}>
             All products
           </Button>

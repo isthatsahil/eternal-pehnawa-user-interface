@@ -1,8 +1,9 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
-import Typography from "@mui/material/Typography";
+import { Button, Typography, IconButton } from "@mui/material";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 import { motion } from "framer-motion";
+import LinkButton from "@components/LinkButton";
 const useStyles = makeStyles((theme: any) => ({
   product: {
     // width: "20rem !important",
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme: any) => ({
     [theme.breakpoints.down("sm")]: {
       width: "20rem",
       height: "12rem",
+      margin: "auto"
     },
   },
   overlay: {
@@ -43,27 +45,14 @@ const useStyles = makeStyles((theme: any) => ({
     backgroundColor: "#00000096",
     opacity: "0",
     transition: ".5s ease",
-    "& button": {
-      backgroundColor: "#AA7B5F",
-      color: "white",
-      border: "none",
-      borderRadius: "2.5rem",
-      height: "2.5rem",
-      margin: "0.3rem",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      cursor: "pointer",
+    "& > *": {
+      margin: "3px !important",
     },
-    "& button:nth-child(1)": {
-      width: "4rem",
-      fontSize: "0.9rem",
-      letterSpacing: "1px",
-    },
-    "& button:nth-child(2)": {
-      width: "2.5rem",
-      fontSize: "1rem",
-    },
+  },
+  addToCartBtn: {
+    backgroundColor: "#AA7B5F !important", //button color
+    borderRadius: "1rem",
+    color: "white !important",
   },
   nameAndPrice: {
     display: "flex",
@@ -129,26 +118,8 @@ const useStyles = makeStyles((theme: any) => ({
   },
   btnsContainer: {
     display: "flex",
-    "& button": {
-      backgroundColor: "#AA7B5F",
-      color: "white",
-      border: "none",
-      borderRadius: "2.5rem",
-      height: "2.5rem",
-      margin: "0.3rem",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      cursor: "pointer",
-    },
-    "& button:nth-child(1)": {
-      width: "4rem",
-      fontSize: "0.9rem",
-      letterSpacing: "1px",
-    },
-    "& button:nth-child(2)": {
-      width: "2.5rem",
-      fontSize: "1rem",
+    "& > *": {
+      margin: "3px !important",
     },
   },
 }));
@@ -173,10 +144,12 @@ const Product = ({
           >
             <img src={product.image.url} alt={product.name} />
             <div className={classes.overlay} id="overlay">
-              <button>View</button>
-              <button>
+              <LinkButton to={`/all-products/product/${product.id}`}>
+                View
+              </LinkButton>
+              <IconButton className={classes.addToCartBtn}>
                 <AddShoppingCartRoundedIcon />
-              </button>
+              </IconButton>
             </div>
           </motion.div>
           <div className={classes.nameAndPrice}>
@@ -205,10 +178,12 @@ const Product = ({
               <span dangerouslySetInnerHTML={{ __html: product.description }} />
             </div>
             <div className={classes.btnsContainer}>
-              <button>View</button>
-              <button>
+              <LinkButton to={`/all-products/product/${product.id}`}>
+                View
+              </LinkButton>
+              <IconButton className={classes.addToCartBtn}>
                 <AddShoppingCartRoundedIcon />
-              </button>
+              </IconButton>
             </div>
           </div>
         </div>

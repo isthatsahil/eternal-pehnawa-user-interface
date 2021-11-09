@@ -89,7 +89,6 @@ const FilterTop = () => {
     details: any
   ) => {
     if (reason === "selectOption") {
-      console.log({ event, value, reason, details });
       dispatch(updateFilter({ sort: value.name }));
     }
   };

@@ -54,7 +54,6 @@ export const HomeComponent = () => {
       );
     };
     timeout.current = setTimeout(nextSlide, 1005000);
-    // timeout.current = setTimeout(nextSlide, 5000);              uncomment latter
     return () => {
       if (timeout.current) {
         clearTimeout(timeout.current);

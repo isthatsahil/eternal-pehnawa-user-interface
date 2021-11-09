@@ -5,6 +5,7 @@ import ProductsContainer from "../views/products/ProductsContainer";
 import SuitContainer from "../views/products/suits/SuitContainer";
 import HomeDecorContainer from "../views/products/homeDecor/HomeDecorContainer";
 import Category from "@components/categories/Category";
+import ProductContainer from "../views/product/ProductContainer";
 
 const routes = [
   {
@@ -31,6 +32,10 @@ const routes = [
   {
     path: "/all-products/category/home-decor",
     component: HomeDecorContainer,
+  },
+  {
+    path: "/all-products/product/:id",
+    component: ProductContainer
   },
   {
     path: "/all-products",

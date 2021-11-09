@@ -70,16 +70,12 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const Product = ({
-  product,
-}: {
-  product: { img: string; name: string; price: number };
-}) => {
+const Product = ({ product }: { product: any }) => {
   const classes = useStyles();
   return (
     <div>
       <div className={classes.imageContainer}>
-        <img src={product.img} alt={product.name} />
+        <img src={product.image.url} alt={product.name} />
         <div className={classes.overlay} id="overlay">
           <button>View</button>
           <button>
@@ -89,7 +85,7 @@ const Product = ({
       </div>
       <div className={classes.nameAndPrice}>
         <Typography component="span">{product.name}</Typography>
-        <Typography component="span">₹ {product.price}</Typography>
+        <Typography component="span">₹ {product.price.formatted}</Typography>
       </div>
     </div>
   );

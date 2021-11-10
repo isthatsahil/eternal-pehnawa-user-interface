@@ -62,17 +62,17 @@ const FeaturedProducts = () => {
         <Grid container spacing={4} justifyContent="center">
           {!(sareeLoading && suitLoading && homeDecorLoading) ? (
             <>
-              {saree?.data.slice(0, 2).map((saree: any) => (
+              {saree?.data.slice(0, 1).map((saree: any) => (
                 <Grid item xs={12} sm={6} md={6} lg={4} key={saree.name}>
                   <Product product={saree} view="grid" />
                 </Grid>
               ))}
-              {suit?.data.slice(0, 2).map((suit: any) => (
+              {suit?.data.slice(0, 1).map((suit: any) => (
                 <Grid item xs={12} sm={6} md={6} lg={4} key={suit.name}>
                   <Product product={suit} view="grid" />
                 </Grid>
               ))}
-              {homeDecor?.data.slice(0, 2).map((homeDecor: any) => (
+              {homeDecor?.data.slice(0, 1).map((homeDecor: any) => (
                 <Grid item xs={12} sm={6} md={6} lg={4} key={homeDecor.name}>
                   <Product product={homeDecor} view="grid" />
                 </Grid>

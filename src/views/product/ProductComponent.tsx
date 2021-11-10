@@ -1,0 +1,314 @@
+import React, { useState } from "react";
+import {
+  Grid,
+  Button,
+  Typography,
+  Divider,
+  ButtonGroup,
+  IconButton,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { useHistory } from "react-router-dom";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CircleIcon from "@mui/icons-material/Circle";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { motion } from "framer-motion";
+import Header from "@components/products/Header";
+
+const useStyles = makeStyles(() => ({
+  container: {
+    marginTop: "0rem !important",
+    padding: "1rem 5vw",
+    backgroundColor: "#ffff",
+  },
+  backBtn: {
+    backgroundColor: "#AA7B5F !important",
+  },
+  productImageWrapper: {
+    width: "90%",
+    height: "30rem",
+    // border: "1px solid #000000",
+    // backgroundColor: "#e2e2e2",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: "5px",
+    "&>img": {
+      maxWidth: "100%",
+      height: "100%",
+      overflow: "hidden",
+    },
+  },
+  content: {
+    display: "flex",
+    flexDirection: "column !important",
+    justifyContent: "space-between",
+  },
+  productDetails: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    flexGrow: "1",
+  },
+  addToCartBtn: {
+    backgroundColor: "#AA7B5F !important",
+  },
+  colorOptions: {
+    marginTop: "1rem",
+    display: "flex",
+    "&>button": {
+      padding: "0",
+      marginRight: "5px",
+    },
+    "&>p": {
+      marginRight: "1rem",
+      fontWeight: "600",
+    },
+  },
+  sizeOptions: {
+    display: "flex",
+    flexWrap: "wrap",
+    marginTop: "1rem",
+    "&>button": {
+      margin: "3px 5px 3px 0px",
+    },
+    "&>p": {
+      marginRight: "1rem",
+      fontWeight: "600",
+    },
+  },
+  quantity: {
+    marginTop: "1rem",
+  },
+  addToCartBtnContainer: {
+    marginTop: "1rem",
+  },
+  assets: {
+    display: "flex",
+    flexWrap: "wrap",
+    height: "5rem",
+    marginTop: "1rem",
+    justifyContent: "center",
+    "&>img": {
+      maxHeight: "100%",
+      marginRight: "10px",
+      borderRadius: "5px",
+    },
+  },
+  info: {
+    display: "grid",
+    gridTemplateColumns: "7rem 1fr",
+    "&>span:nth-child(1)": {
+      fontWeight: "600",
+    },
+  },
+  selectedImg: {
+    border: "2px solid #00b3ff",
+    boxShadow: "1px 1px 5px #8adcff",
+  },
+  imagesSection: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column !important",
+    alignItems: "center",
+  },
+  policiesContainer: {
+    marginTop: "1rem",
+  },
+}));
+
+const ProductComponent = ({ data }: { data: any }) => {
+  const classes = useStyles();
+  const history = useHistory();
+  const product = data?.data[0];
+
+  const [quantity, setQuantity] = useState(0);
+  const [size, setSize] = useState(null);
+  const [color, setColor] = useState(null);
+  const [mainImage, setMainImage] = useState(product?.assets[0].url);
+
+  const getVariants = (option: string) => {
+    return product?.variant_groups?.filter(
+      (variant: any) => variant.name === option
+    )[0]?.options;
+  };
+
+  const productColorOptions = getVariants("color");
+  const productSizeOptions = getVariants("size");
+  const stock = product?.inventory?.managed
+    ? product?.inventory?.available
+    : 100; // 100 -> unlimited
+  const artisan = getVariants("artisan")?.[0]?.name;
+
+  const increaseQuantity = () => {
+    setQuantity((prevState: number) => prevState + 1);
+  };
+  const decreaseQuantity = () => {
+    setQuantity((prevState: number) => prevState - 1);
+  };
+  const handleSizeChange = (size: string) => {
+    setSize(size);
+  };
+  const handleColorChange = (color: string) => {
+    setColor(color);
+  };
+  const handelImageChnage = (url: string) => {
+    setMainImage(url);
+  };
+
+  return (
+    <>
+      <Header />
+      <Grid container className={classes.container} spacing={4}>
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            onClick={() => history.goBack()}
+            className={classes.backBtn}
+          >
+            Back to Products
+          </Button>
+        </Grid>
+        <Grid item sm={12} md={5} className={classes.imagesSection}>
+          <div className={classes.productImageWrapper}>
+            <img src={mainImage} />
+          </div>
+          <div className={classes.assets}>
+            {product?.assets.map((image: any) => (
+              <motion.img
+                whileHover={{
+                  scale: 1.2,
+                }}
+                onClick={() => handelImageChnage(image.url)}
+                src={image.url}
+                key={image.id}
+                className={image.url === mainImage ? classes.selectedImg : null}
+              />
+            ))}
+          </div>
+        </Grid>
+        <Grid item sm={12} md={7} className={classes.content}>
+          <div className={classes.productDetails}>
+            <div>
+              <Typography variant="h5">{product.name}</Typography>
+              <Typography variant="h6"> ₹ {product.price.formatted}</Typography>
+              <span dangerouslySetInnerHTML={{ __html: product.description }} />
+            </div>
+            <div>
+              <p className={classes.info}>
+                <span>Available:</span>
+                <span style={quantity >= stock ? { color: "red" } : {}}>
+                  {quantity >= stock ? "out of" : "in"} stock
+                </span>
+              </p>
+              <p className={classes.info}>
+                <span>Artisan:</span>{" "}
+                <span>{artisan ? artisan : "Artisan name not available"}</span>
+              </p>
+            </div>
+          </div>
+          <div>
+            <Divider />
+            <div className={classes.colorOptions}>
+              <Typography>Color:</Typography>
+              {!productColorOptions ? (
+                <span>Color variants are not available</span>
+              ) : (
+                productColorOptions.map((_color: any) => (
+                  <IconButton
+                    key={_color.name}
+                    onClick={() => handleColorChange(_color.name)}
+                  >
+                    {_color.name === color ? (
+                      <CheckCircleIcon style={{ color: _color.name }} />
+                    ) : (
+                      <CircleIcon style={{ color: _color.name }} />
+                    )}
+                  </IconButton>
+                ))
+              )}
+            </div>
+            <div className={classes.sizeOptions}>
+              <Typography>Size:</Typography>
+              {!productSizeOptions ? (
+                <span>Size variants are not available</span>
+              ) : (
+                productSizeOptions.map((_size: any) => (
+                  <Button
+                    variant={_size.name === size ? "contained" : "outlined"}
+                    key={_size.name}
+                    size="small"
+                    onClick={() => handleSizeChange(_size.name)}
+                  >
+                    {_size.name}
+                  </Button>
+                ))
+              )}
+            </div>
+            <div className={classes.quantity}>
+              <ButtonGroup
+                variant="outlined"
+                aria-label="outlined button group"
+              >
+                <Button onClick={decreaseQuantity} disabled={quantity <= 0}>
+                  -
+                </Button>
+                <Button disabled sx={{ color: "#000000 !important" }}>
+                  {quantity}
+                </Button>
+                <Button onClick={increaseQuantity} disabled={quantity >= stock}>
+                  +
+                </Button>
+              </ButtonGroup>
+            </div>
+            <div className={classes.addToCartBtnContainer}>
+              <Button
+                variant="contained"
+                startIcon={<AddShoppingCartIcon />}
+                className={classes.addToCartBtn}
+              >
+                Add to cart
+              </Button>
+            </div>
+            <div className={classes.policiesContainer}>
+              <Accordion>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>Shipping Policy</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex
+                    asperiores amet facere magni deserunt cupiditate sapiente
+                    tempora autem, labore sint perferendis excepturi facilis
+                    perspiciatis impedit sit? Voluptatum corporis dolorem cumque
+                    laboriosam quae doloremque at.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>Shipping Policy</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex
+                    asperiores amet facere magni deserunt cupiditate sapiente
+                    tempora autem, labore sint perferendis excepturi facilis
+                    perspiciatis impedit sit? Voluptatum corporis dolorem cumque
+                    laboriosam quae doloremque at.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          </div>
+        </Grid>
+      </Grid>
+    </>
+  );
+};
+
+export default ProductComponent;

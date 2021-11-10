@@ -1,8 +1,11 @@
 import { Button, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
-import Product from "./Product";
+import React, { useEffect } from "react";
+// import Product from "./Product";
+import Product from "@components/products/Product";
 import { Link } from "react-router-dom";
+import { useGetProductCategoryQuery } from "../../redux/services/products";
+import ProductSkeleton from "@components/products/ProductSkeleton";
 const useStyles = makeStyles(() => ({
   container: {
     background: "rgb(246, 241, 236) !important",
@@ -33,37 +36,49 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const products = [
-  {
-    img: "https://dl.airtable.com/.attachmentThumbnails/65708b701baa3a84883ad48301624b44/2de058af",
-    name: "Entertainment Center",
-    price: 123,
-  },
-  {
-    img: "https://dl.airtable.com/.attachmentThumbnails/1e4a818f5184993e430420a152315b40/873c7094",
-    name: "Modern Bookshelf",
-    price: 123,
-  },
-  {
-    img: "https://dl.airtable.com/.attachmentThumbnails/1af97a4d3eb28563962d8e3520727ffc/1b9cc17f",
-    name: "High-Back Bench",
-    price: 123,
-  },
-];
-
 const FeaturedProducts = () => {
   const classes = useStyles();
+
+  const {
+    data: saree,
+    error: sareeErr,
+    isLoading: sareeLoading,
+  } = useGetProductCategoryQuery("saree");
+  const {
+    data: suit,
+    error: suitErr,
+    isLoading: suitLoading,
+  } = useGetProductCategoryQuery("suit");
+  const {
+    data: homeDecor,
+    error: homeDecorErr,
+    isLoading: homeDecorLoading,
+  } = useGetProductCategoryQuery("home-decor");
 
   return (
     <section className={classes.container}>
       <div className={classes.wrapper}>
         <p className={classes.title}>Featured Products</p>
         <Grid container spacing={4} justifyContent="center">
-          {products.map((product, index) => (
-            <Grid item key={index}>
-              <Product product={product} />
-            </Grid>
-          ))}
+          {!(sareeLoading && suitLoading && homeDecorLoading) ? (
+            <>
+              {saree?.data.slice(0, 2).map((saree: any) => (
+                <Grid item xs={12} sm={6} md={6} lg={4} key={saree.name}>
+                  <Product product={saree} view="grid" />
+                </Grid>
+              ))}
+              {suit?.data.slice(0, 2).map((suit: any) => (
+                <Grid item xs={12} sm={6} md={6} lg={4} key={suit.name}>
+                  <Product product={suit} view="grid" />
+                </Grid>
+              ))}
+              {homeDecor?.data.slice(0, 2).map((homeDecor: any) => (
+                <Grid item xs={12} sm={6} md={6} lg={4} key={homeDecor.name}>
+                  <Product product={homeDecor} view="grid" />
+                </Grid>
+              ))}
+            </>
+          ) : <ProductSkeleton /> }
         </Grid>
         <Link to="/all-products" style={{ textDecoration: "none" }}>
           <Button variant="contained" className={classes.allProductsBtn}>

@@ -16,8 +16,11 @@ const productApi = createApi({
       query: (slug) =>
         createRequest(`/products?limit=200&category_slug=${slug}`),
     }),
+    getProduct: builder.query({
+      query: (id) => createRequest(`/products?query=${id}`),
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductCategoryQuery } = productApi;
+export const { useGetProductsQuery, useGetProductCategoryQuery, useGetProductQuery } = productApi;
 export default productApi;

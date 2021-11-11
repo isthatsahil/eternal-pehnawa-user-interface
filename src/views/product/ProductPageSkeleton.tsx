@@ -18,10 +18,10 @@ const ProductPageSkeleton = () => {
 
   return (
     <Grid container spacing={4} className={classes.productPageSkeleton}>
-      <Grid item sm={12} md={6}>
+      <Grid item xs={10} sm={12} md={6}>
         <Skeleton height="30rem" width="100%" />
       </Grid>
-      <Grid item sm={12} md={6}>
+      <Grid item xs={10}  sm={12} md={6}>
         <Skeleton variant="text" width="100%" />
         <Skeleton variant="text" width="100%" />
         <Skeleton variant="text" width="100%" />

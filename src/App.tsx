@@ -2,8 +2,10 @@ import UIWrapper from "./views/wrapper/UIWrapper";
 import { Switch, Route, useLocation } from "react-router-dom";
 import routes from "./routing/index";
 import { AnimatePresence } from "framer-motion";
+import { useGetCartQuery } from "./redux/services/cart";
 const App = () => {
   const location = useLocation();
+  useGetCartQuery("");
   return (
     <>
       <UIWrapper>

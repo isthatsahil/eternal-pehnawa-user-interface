@@ -9,7 +9,7 @@ const ProductContainer = () => {
     window.scrollTo(0, 0);
   }, []);
   const { id } = useParams();
-  let { data, error, isLoading } = useGetProductQuery(id);
+  const { data, isLoading } = useGetProductQuery(id);
   return (
     <>
       {isLoading ? <ProductPageSkeleton /> : <ProductComponent data={data} />}

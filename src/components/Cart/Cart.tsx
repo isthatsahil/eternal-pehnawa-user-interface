@@ -15,6 +15,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { motion } from "framer-motion";
 import Badge from "@mui/material/Badge";
 import { IconButton } from "@mui/material";
+import {
+  useGetCartQuery,
+  useRetrieveCartQuery,
+} from "../../redux/services/cart";
 const productList = [
   {
     id: 1,
@@ -219,6 +223,9 @@ const Cart = () => {
     );
   };
 
+  const { data } = useGetCartQuery("");
+  const cartItems = useRetrieveCartQuery({ cartId: data?.id });
+  console.log("cartItems", cartItems?.data);
   return (
     <>
       <Badge badgeContent={4} color="warning">

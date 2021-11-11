@@ -41,6 +41,10 @@ const routes = [
     path: "/all-products",
     component: ProductsContainer,
   },
+  {
+    path: "/product",
+    component: ProductsContainer,
+  },
 ];
 
 export default routes;

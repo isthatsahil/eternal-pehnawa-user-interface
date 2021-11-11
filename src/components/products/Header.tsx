@@ -20,11 +20,11 @@ const useStyles = makeStyles({
   },
 });
 
-const Header = () => {
+const Header = ({ path = null }) => {
   const classes = useStyles();
   const location = useLocation();
 
-  const paths = location.pathname.split("/");
+  const paths = path ? path.split("/") : location.pathname.split("/");
 
   return (
     <div className={classes.header}>

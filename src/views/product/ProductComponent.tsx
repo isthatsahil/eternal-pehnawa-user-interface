@@ -19,11 +19,14 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { motion } from "framer-motion";
 import Header from "@components/products/Header";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: any) => ({
   container: {
     marginTop: "0rem !important",
-    padding: "1rem 5vw",
+    padding: "4rem 5vw",
     backgroundColor: "#ffff",
+    [theme.breakpoints.down("sm")]: {
+      padding: "2rem 5vw",
+    },
   },
   backBtn: {
     backgroundColor: "#AA7B5F !important",
@@ -126,6 +129,13 @@ const ProductComponent = ({ data }: { data: any }) => {
   const history = useHistory();
   const product = data?.data[0];
 
+  //modified path for breadcrumbs. Product Id replaced with name.
+  const path = history.location.pathname
+    .split("/")
+    .slice(0, -1)
+    .concat([product?.name])
+    .join("/");
+
   const [quantity, setQuantity] = useState(0);
   const [size, setSize] = useState(null);
   const [color, setColor] = useState(null);
@@ -162,7 +172,7 @@ const ProductComponent = ({ data }: { data: any }) => {
 
   return (
     <>
-      <Header />
+      <Header path={path} />
       <Grid container className={classes.container} spacing={4}>
         <Grid item xs={12}>
           <Button

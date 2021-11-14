@@ -18,11 +18,12 @@ import CircleIcon from "@mui/icons-material/Circle";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { motion } from "framer-motion";
 import Header from "@components/products/Header";
+import ImageZoom from "@components/product/ImageZoom";
 
 const useStyles = makeStyles((theme: any) => ({
   container: {
     marginTop: "0rem !important",
-    padding: "4rem 5vw",
+    padding: "4rem 5vw 6rem",
     backgroundColor: "#ffff",
     [theme.breakpoints.down("sm")]: {
       padding: "2rem 5vw",
@@ -30,21 +31,6 @@ const useStyles = makeStyles((theme: any) => ({
   },
   backBtn: {
     backgroundColor: "#AA7B5F !important",
-  },
-  productImageWrapper: {
-    width: "90%",
-    height: "30rem",
-    // border: "1px solid #000000",
-    // backgroundColor: "#e2e2e2",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "5px",
-    "&>img": {
-      maxWidth: "100%",
-      height: "100%",
-      overflow: "hidden",
-    },
   },
   content: {
     display: "flex",
@@ -93,13 +79,14 @@ const useStyles = makeStyles((theme: any) => ({
   assets: {
     display: "flex",
     flexWrap: "wrap",
-    height: "5rem",
+    // height: "5rem",
     marginTop: "1rem",
     justifyContent: "center",
     "&>img": {
-      maxHeight: "100%",
+      maxHeight: "5rem",
       marginRight: "10px",
       borderRadius: "5px",
+      margin: "2px",
     },
   },
   info: {
@@ -128,6 +115,8 @@ const ProductComponent = ({ data }: { data: any }) => {
   const classes = useStyles();
   const history = useHistory();
   const product = data?.data[0];
+
+  console.log(product)
 
   //modified path for breadcrumbs. Product Id replaced with name.
   const path = history.location.pathname
@@ -184,9 +173,7 @@ const ProductComponent = ({ data }: { data: any }) => {
           </Button>
         </Grid>
         <Grid item sm={12} md={5} className={classes.imagesSection}>
-          <div className={classes.productImageWrapper}>
-            <img src={mainImage} />
-          </div>
+          <ImageZoom src={mainImage} />
           <div className={classes.assets}>
             {product?.assets.map((image: any) => (
               <motion.img

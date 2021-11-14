@@ -76,9 +76,9 @@ export const HomeComponent = () => {
       <section className={classes.banner}>
         {bannerData.map(
           (baner: { desc: string; img: string }, index: number) => (
-            <>
+            <div key={index}>
               {index === currentSlide && (
-                <div className="container" key={index}>
+                <div className="container">
                   <div className="left">
                     <Typography color="initial" variant="h2">
                       {baner.desc}
@@ -98,7 +98,7 @@ export const HomeComponent = () => {
                   </div>
                 </div>
               )}
-            </>
+            </div>
           )
         )}
         <div className={classes.scrollBtnContainer}>

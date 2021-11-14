@@ -15,36 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { motion } from "framer-motion";
 import Badge from "@mui/material/Badge";
 import { IconButton } from "@mui/material";
-import {
-  useGetCartQuery,
-  useRetrieveCartQuery,
-} from "../../redux/services/cart";
-const productList = [
-  {
-    id: 1,
-    name: "asd adsad",
-    price: 1234,
-    quantity: 1,
-  },
-  {
-    id: 2,
-    name: "sd",
-    price: 173,
-    quantity: 5,
-  },
-  {
-    id: 3,
-    name: "asddsad",
-    price: 23,
-    quantity: 1,
-  },
-  {
-    id: 4,
-    name: "asd a ds",
-    price: 12,
-    quantity: 2,
-  },
-];
+import { useAddToCartMutation } from "../../redux/services/cart";
 
 const cartOpenVariant = {
   initial: {
@@ -199,19 +170,19 @@ const Cart = () => {
   const CartItem = ({ item }: { item: any }) => {
     return (
       <React.Fragment>
-        <TableRow key={item.id} className={classes.cartItemContainer}>
+        <TableRow key={item?.id} className={classes.cartItemContainer}>
           <TableCell>
-            <span>{item.name}</span>
+            <span>{item?.name}</span>
           </TableCell>
           <TableCell>
             <input
               type="number"
-              defaultValue={item.quantity}
+              defaultValue={item?.quantity}
               className={classes.quantityInput}
             />
           </TableCell>
           <TableCell>
-            <span>₹ {item.price}</span>
+            <span>₹ {item?.price?.formatted_with_symbol}</span>
           </TableCell>
           <TableCell className={classes.removeItemBtn}>
             <Tooltip title="remove" placement="bottom">
@@ -223,9 +194,11 @@ const Cart = () => {
     );
   };
 
-  const { data } = useGetCartQuery("");
-  const cartItems = useRetrieveCartQuery({ cartId: data?.id });
-  console.log("cartItems", cartItems?.data);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [trigger, { data }] = useAddToCartMutation({
+    fixedCacheKey: "myCacheKey",
+  });
+
   return (
     <>
       <Badge badgeContent={4} color="warning">
@@ -267,14 +240,14 @@ const Cart = () => {
             animate="animate"
           />
           <Table>
-            {productList.map((item, index) => (
+            {data?.cart?.line_items.map((item: any, index: React.Key) => (
               <CartItem key={index} item={item} />
             ))}
           </Table>
           <div className={classes.orderTotal}>
             <Typography>
               <span>Subtotal :</span>
-              <span>₹ 1234</span>
+              <span>{data?.cart?.subtotal?.formatted_with_symbol}</span>
             </Typography>
             <Typography>
               <span>Tax :</span>
@@ -282,12 +255,12 @@ const Cart = () => {
             </Typography>
             <Typography>
               <span>Shiping fee :</span>
-              <span>₹ 10</span>
+              <span></span>
             </Typography>
             <Divider />
             <Typography>
               <span>Order Total :</span>
-              <span>₹ 1244</span>
+              <span>{data?.cart?.subtotal?.formatted_with_symbol}</span>
             </Typography>
           </div>
           <div className={classes.checkoutBtntnContainer}>

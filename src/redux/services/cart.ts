@@ -22,7 +22,7 @@ const cartApi = createApi({
         };
       },
     }),
-    addToCart: builder.query({
+    addToCart: builder.mutation({
       query: (data) => {
         return {
           method: "POST",
@@ -92,7 +92,7 @@ const cartApi = createApi({
 export const {
   useGetCartQuery,
   useRetrieveCartQuery,
-  useAddToCartQuery,
+  useAddToCartMutation,
   useUpdateCartOnDiscountQuery,
   useUpdateCartOnItemQuery,
   useEmptyCartQuery,

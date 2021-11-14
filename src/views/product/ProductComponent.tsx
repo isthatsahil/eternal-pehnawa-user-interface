@@ -18,6 +18,10 @@ import CircleIcon from "@mui/icons-material/Circle";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { motion } from "framer-motion";
 import Header from "@components/products/Header";
+import {
+  useAddToCartMutation,
+  useGetCartQuery,
+} from "../../redux/services/cart";
 
 const useStyles = makeStyles((theme: any) => ({
   container: {
@@ -129,7 +133,11 @@ const ProductComponent = ({ data }: { data: any }) => {
   const history = useHistory();
   const product = data?.data[0];
 
-  //modified path for breadcrumbs. Product Id replaced with name.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [addToCart, result] = useAddToCartMutation({
+    fixedCacheKey: "myCacheKey",
+  });
+  const Cart = useGetCartQuery("");
   const path = history.location.pathname
     .split("/")
     .slice(0, -1)
@@ -170,6 +178,22 @@ const ProductComponent = ({ data }: { data: any }) => {
     setMainImage(url);
   };
 
+  const handleAddToCart = (
+    productId: string,
+    quantity: number,
+    size: string,
+    color: string
+  ) => {
+    addToCart({
+      cartId: Cart?.data?.id,
+      productId: productId,
+      quantity: quantity,
+      options: {
+        size: size,
+        color: color,
+      },
+    });
+  };
   return (
     <>
       <Header path={path} />
@@ -280,6 +304,10 @@ const ProductComponent = ({ data }: { data: any }) => {
                 variant="contained"
                 startIcon={<AddShoppingCartIcon />}
                 className={classes.addToCartBtn}
+                disabled={quantity === 0}
+                onClick={() =>
+                  handleAddToCart(product.id, quantity, size, color)
+                }
               >
                 Add to cart
               </Button>

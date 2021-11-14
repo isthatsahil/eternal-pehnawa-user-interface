@@ -6,12 +6,12 @@ import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles({
   header: {
-    padding: "1rem 5vw",
+    padding: "0.7rem 5vw",
     backgroundColor: "#EBDED6",
     textTransform: "capitalize",
     "& *": {
-      fontSize: "1.5rem !important",
-      fontWeight: "600 !important",
+      fontSize: "1rem !important",
+      fontWeight: "500 !important",
     },
     "& a": {
       color: "#795744",

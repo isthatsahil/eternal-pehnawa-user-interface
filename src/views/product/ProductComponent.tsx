@@ -18,14 +18,11 @@ import CircleIcon from "@mui/icons-material/Circle";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { motion } from "framer-motion";
 import Header from "@components/products/Header";
-<<<<<<< HEAD
 import {
   useAddToCartMutation,
   useGetCartQuery,
 } from "../../redux/services/cart";
-=======
 import ImageZoom from "@components/product/ImageZoom";
->>>>>>> falcon-dev
 
 const useStyles = makeStyles((theme: any) => ({
   container: {
@@ -123,17 +120,20 @@ const ProductComponent = ({ data }: { data: any }) => {
   const history = useHistory();
   const product = data?.data[0];
 
-<<<<<<< HEAD
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [addToCart, result] = useAddToCartMutation({
     fixedCacheKey: "myCacheKey",
   });
   const Cart = useGetCartQuery("");
-=======
-  console.log(product)
-
+  const sizeVariantId = product.variant_groups.find(
+    (variant: any) => variant.name === "size"
+  );
+  const colorVariantId = product.variant_groups.find(
+    (variant: any) => variant.name === "color"
+  );
+  console.log(product);
+  console.log("size,", sizeVariantId, "color", colorVariantId);
   //modified path for breadcrumbs. Product Id replaced with name.
->>>>>>> falcon-dev
   const path = history.location.pathname
     .split("/")
     .slice(0, -1)
@@ -144,7 +144,7 @@ const ProductComponent = ({ data }: { data: any }) => {
   const [size, setSize] = useState(null);
   const [color, setColor] = useState(null);
   const [mainImage, setMainImage] = useState(product?.assets[0].url);
-
+  console.log("size", size, color);
   const getVariants = (option: string) => {
     return product?.variant_groups?.filter(
       (variant: any) => variant.name === option
@@ -174,20 +174,15 @@ const ProductComponent = ({ data }: { data: any }) => {
     setMainImage(url);
   };
 
-  const handleAddToCart = (
-    productId: string,
-    quantity: number,
-    size: string,
-    color: string
-  ) => {
+  const handleAddToCart = (productId: string, quantity: number) => {
     addToCart({
       cartId: Cart?.data?.id,
       productId: productId,
       quantity: quantity,
-      options: {
-        size: size,
-        color: color,
-      },
+      // options: {
+      //   [sizeVariantId.id]: [size],
+      //   [colorVariantId.id]: [color],
+      // },
     });
   };
   return (
@@ -249,7 +244,7 @@ const ProductComponent = ({ data }: { data: any }) => {
                 productColorOptions.map((_color: any) => (
                   <IconButton
                     key={_color.name}
-                    onClick={() => handleColorChange(_color.name)}
+                    onClick={() => handleColorChange(_color.id)}
                   >
                     {_color.name === color ? (
                       <CheckCircleIcon style={{ color: _color.name }} />
@@ -263,14 +258,14 @@ const ProductComponent = ({ data }: { data: any }) => {
             <div className={classes.sizeOptions}>
               <Typography>Size:</Typography>
               {!productSizeOptions ? (
-                <span>Size variants are not available</span>
+                <span></span>
               ) : (
                 productSizeOptions.map((_size: any) => (
                   <Button
                     variant={_size.name === size ? "contained" : "outlined"}
                     key={_size.name}
                     size="small"
-                    onClick={() => handleSizeChange(_size.name)}
+                    onClick={() => handleSizeChange(_size.id)}
                   >
                     {_size.name}
                   </Button>
@@ -299,9 +294,7 @@ const ProductComponent = ({ data }: { data: any }) => {
                 startIcon={<AddShoppingCartIcon />}
                 className={classes.addToCartBtn}
                 disabled={quantity === 0}
-                onClick={() =>
-                  handleAddToCart(product.id, quantity, size, color)
-                }
+                onClick={() => handleAddToCart(product.id, quantity)}
               >
                 Add to cart
               </Button>

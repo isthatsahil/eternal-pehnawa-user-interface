@@ -24,6 +24,7 @@ const cartApi = createApi({
     }),
     addToCart: builder.mutation({
       query: (data) => {
+        alert(JSON.stringify(data.options));
         return {
           method: "POST",
           url: `/carts/${data.cartId}`,
@@ -31,6 +32,7 @@ const cartApi = createApi({
           params: {
             id: data.productId,
             quantity: data.quantity,
+            options: data.options,
           },
         };
       },

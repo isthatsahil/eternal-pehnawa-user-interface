@@ -18,6 +18,10 @@ import CircleIcon from "@mui/icons-material/Circle";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { motion } from "framer-motion";
 import Header from "@components/products/Header";
+import {
+  useAddToCartMutation,
+  useGetCartQuery,
+} from "../../redux/services/cart";
 import ImageZoom from "@components/product/ImageZoom";
 
 const useStyles = makeStyles((theme: any) => ({
@@ -116,8 +120,19 @@ const ProductComponent = ({ data }: { data: any }) => {
   const history = useHistory();
   const product = data?.data[0];
 
-  console.log(product)
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [addToCart, result] = useAddToCartMutation({
+    fixedCacheKey: "myCacheKey",
+  });
+  const Cart = useGetCartQuery("");
+  const sizeVariantId = product.variant_groups.find(
+    (variant: any) => variant.name === "size"
+  );
+  const colorVariantId = product.variant_groups.find(
+    (variant: any) => variant.name === "color"
+  );
+  console.log(product);
+  console.log("size,", sizeVariantId, "color", colorVariantId);
   //modified path for breadcrumbs. Product Id replaced with name.
   const path = history.location.pathname
     .split("/")
@@ -129,7 +144,7 @@ const ProductComponent = ({ data }: { data: any }) => {
   const [size, setSize] = useState(null);
   const [color, setColor] = useState(null);
   const [mainImage, setMainImage] = useState(product?.assets[0].url);
-
+  console.log("size", size, color);
   const getVariants = (option: string) => {
     return product?.variant_groups?.filter(
       (variant: any) => variant.name === option
@@ -159,6 +174,17 @@ const ProductComponent = ({ data }: { data: any }) => {
     setMainImage(url);
   };
 
+  const handleAddToCart = (productId: string, quantity: number) => {
+    addToCart({
+      cartId: Cart?.data?.id,
+      productId: productId,
+      quantity: quantity,
+      // options: {
+      //   [sizeVariantId.id]: [size],
+      //   [colorVariantId.id]: [color],
+      // },
+    });
+  };
   return (
     <>
       <Header path={path} />
@@ -218,7 +244,7 @@ const ProductComponent = ({ data }: { data: any }) => {
                 productColorOptions.map((_color: any) => (
                   <IconButton
                     key={_color.name}
-                    onClick={() => handleColorChange(_color.name)}
+                    onClick={() => handleColorChange(_color.id)}
                   >
                     {_color.name === color ? (
                       <CheckCircleIcon style={{ color: _color.name }} />
@@ -232,14 +258,14 @@ const ProductComponent = ({ data }: { data: any }) => {
             <div className={classes.sizeOptions}>
               <Typography>Size:</Typography>
               {!productSizeOptions ? (
-                <span>Size variants are not available</span>
+                <span></span>
               ) : (
                 productSizeOptions.map((_size: any) => (
                   <Button
                     variant={_size.name === size ? "contained" : "outlined"}
                     key={_size.name}
                     size="small"
-                    onClick={() => handleSizeChange(_size.name)}
+                    onClick={() => handleSizeChange(_size.id)}
                   >
                     {_size.name}
                   </Button>
@@ -267,6 +293,8 @@ const ProductComponent = ({ data }: { data: any }) => {
                 variant="contained"
                 startIcon={<AddShoppingCartIcon />}
                 className={classes.addToCartBtn}
+                disabled={quantity === 0}
+                onClick={() => handleAddToCart(product.id, quantity)}
               >
                 Add to cart
               </Button>

@@ -1,7 +1,7 @@
 import React from "react";
 import { HomeComponent } from "./HomeComponent";
 import { motion } from "framer-motion";
-import "./home.css"
+import "./home.css";
 
 const exitVariant = {
   exit: {

@@ -9,7 +9,7 @@ import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import { makeStyles } from "@mui/styles";
-import { Tooltip } from "@mui/material";
+import { TableBody, Tooltip } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { motion } from "framer-motion";
@@ -170,26 +170,28 @@ const Cart = () => {
   const CartItem = ({ item }: { item: any }) => {
     return (
       <React.Fragment>
-        <TableRow key={item?.id} className={classes.cartItemContainer}>
-          <TableCell>
-            <span>{item?.name}</span>
-          </TableCell>
-          <TableCell>
-            <input
-              type="number"
-              defaultValue={item?.quantity}
-              className={classes.quantityInput}
-            />
-          </TableCell>
-          <TableCell>
-            <span>₹ {item?.price?.formatted_with_symbol}</span>
-          </TableCell>
-          <TableCell className={classes.removeItemBtn}>
-            <Tooltip title="remove" placement="bottom">
-              <DeleteIcon fontSize="small" />
-            </Tooltip>
-          </TableCell>
-        </TableRow>
+        <TableBody>
+          <TableRow key={item?.id} className={classes.cartItemContainer}>
+            <TableCell>
+              <span>{item?.name}</span>
+            </TableCell>
+            <TableCell>
+              <input
+                type="number"
+                defaultValue={item?.quantity}
+                className={classes.quantityInput}
+              />
+            </TableCell>
+            <TableCell>
+              <span>₹ {item?.price?.formatted_with_symbol}</span>
+            </TableCell>
+            <TableCell className={classes.removeItemBtn}>
+              <Tooltip title="remove" placement="bottom">
+                <DeleteIcon fontSize="small" />
+              </Tooltip>
+            </TableCell>
+          </TableRow>
+        </TableBody>
       </React.Fragment>
     );
   };
@@ -201,7 +203,11 @@ const Cart = () => {
 
   return (
     <>
-      <Badge badgeContent={4} color="warning">
+      <Badge
+        badgeContent={data?.cart?.line_items?.length || 0}
+        color="warning"
+        showZero
+      >
         <IconButton
           size="small"
           onClick={toggleDrawer(true)}

@@ -125,14 +125,13 @@ const ProductComponent = ({ data }: { data: any }) => {
     fixedCacheKey: "myCacheKey",
   });
   const Cart = useGetCartQuery("");
-  const sizeVariantId = product.variant_groups.find(
+  const sizeVariantId = product.variant_groups?.find(
     (variant: any) => variant.name === "size"
   );
-  const colorVariantId = product.variant_groups.find(
+  const colorVariantId = product.variant_groups?.find(
     (variant: any) => variant.name === "color"
   );
-  console.log(product);
-  console.log("size,", sizeVariantId, "color", colorVariantId);
+
   //modified path for breadcrumbs. Product Id replaced with name.
   const path = history.location.pathname
     .split("/")
@@ -144,7 +143,7 @@ const ProductComponent = ({ data }: { data: any }) => {
   const [size, setSize] = useState(null);
   const [color, setColor] = useState(null);
   const [mainImage, setMainImage] = useState(product?.assets[0].url);
-  console.log("size", size, color);
+
   const getVariants = (option: string) => {
     return product?.variant_groups?.filter(
       (variant: any) => variant.name === option
@@ -175,14 +174,18 @@ const ProductComponent = ({ data }: { data: any }) => {
   };
 
   const handleAddToCart = (productId: string, quantity: number) => {
+    let options = {};
+    if (sizeVariantId && colorVariantId) {
+      options = {
+        [sizeVariantId?.id]: size,
+        [colorVariantId?.id]: color,
+      };
+    }
     addToCart({
       cartId: Cart?.data?.id,
       productId: productId,
       quantity: quantity,
-      // options: {
-      //   [sizeVariantId.id]: [size],
-      //   [colorVariantId.id]: [color],
-      // },
+      options: options,
     });
   };
   return (

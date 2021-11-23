@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-// import useMediaQuery from "@mui/material/useMediaQuery";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
 import { makeStyles } from "@mui/styles";
-import { TableBody, Tooltip } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { motion } from "framer-motion";
 import Badge from "@mui/material/Badge";
 import { IconButton } from "@mui/material";
+import CartItem from "@components/Cart/CartItem";
 import { useAddToCartMutation } from "../../redux/services/cart";
 
 const cartOpenVariant = {
@@ -86,51 +82,6 @@ const useStyles = makeStyles(
         marginRight: "3px",
       },
     },
-    cartItemContainer: {
-      "& .MuiTableCell-root": {
-        marginTop: "4rem",
-        marginBottom: "4rem",
-      },
-      "& span": {
-        fontSize: "14px",
-        color: "#6C7C90",
-        width: "68%",
-        display: "inline-block",
-        textAlign: "left",
-        verticalAlign: "top",
-        fontWeight: "400",
-      },
-      "& td:nth-child(1)": {
-        paddingLeft: "30px",
-      },
-      "& td:nth-child(2)": {
-        paddingRight: "0",
-        "& > *": {
-          float: "right",
-        },
-      },
-      "& td:nth-child(3)": {
-        paddingRight: "0",
-        paddingLeft: "0",
-      },
-      "& td:nth-child(3) span": {
-        float: "right",
-        textAlign: "right",
-        color: "#8BC79A",
-      },
-    },
-    quantityInput: {
-      width: "2rem",
-      height: "1.1rem",
-      textAlign: "center",
-    },
-    removeItemBtn: {
-      color: "#ff5977",
-      cursor: "pointer",
-      "& svg": {
-        width: "1.1rem",
-      },
-    },
     orderTotal: {
       border: "1px solid #c7c7c7",
       borderRadius: "5px",
@@ -155,6 +106,12 @@ const useStyles = makeStyles(
 const Cart = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [trigger, { data }] = useAddToCartMutation({
+    fixedCacheKey: "myCacheKey",
+  });
+
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -166,40 +123,6 @@ const Cart = () => {
       }
       setOpen(open);
     };
-
-  const CartItem = ({ item }: { item: any }) => {
-    return (
-      <React.Fragment>
-        <TableBody>
-          <TableRow key={item?.id} className={classes.cartItemContainer}>
-            <TableCell>
-              <span>{item?.name}</span>
-            </TableCell>
-            <TableCell>
-              <input
-                type="number"
-                defaultValue={item?.quantity}
-                className={classes.quantityInput}
-              />
-            </TableCell>
-            <TableCell>
-              <span>₹ {item?.price?.formatted_with_symbol}</span>
-            </TableCell>
-            <TableCell className={classes.removeItemBtn}>
-              <Tooltip title="remove" placement="bottom">
-                <DeleteIcon fontSize="small" />
-              </Tooltip>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </React.Fragment>
-    );
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [trigger, { data }] = useAddToCartMutation({
-    fixedCacheKey: "myCacheKey",
-  });
 
   return (
     <>

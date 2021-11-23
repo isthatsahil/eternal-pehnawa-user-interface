@@ -48,7 +48,7 @@ const cartApi = createApi({
         };
       },
     }),
-    updateCartOnItem: builder.query({
+    updateCartOnItem: builder.mutation({
       query: (data) => {
         return {
           method: "PUT",
@@ -69,7 +69,7 @@ const cartApi = createApi({
         };
       },
     }),
-    removeItemFromCart: builder.query({
+    removeItemFromCart: builder.mutation({
       query: (data) => {
         return {
           method: "DELETE",
@@ -95,9 +95,9 @@ export const {
   useRetrieveCartQuery,
   useAddToCartMutation,
   useUpdateCartOnDiscountQuery,
-  useUpdateCartOnItemQuery,
+  useUpdateCartOnItemMutation,
   useEmptyCartQuery,
-  useRemoveItemFromCartQuery,
+  useRemoveItemFromCartMutation,
   useDeleteCartQuery,
 } = cartApi;
 export default cartApi;

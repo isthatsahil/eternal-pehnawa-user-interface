@@ -5,7 +5,8 @@ import { AnimatePresence } from "framer-motion";
 import { useGetCartQuery } from "./redux/services/cart";
 const App = () => {
   const location = useLocation();
-  useGetCartQuery("");
+  const cartResponse = useGetCartQuery("");
+  console.log({ incart: cartResponse });
   return (
     <>
       <UIWrapper>

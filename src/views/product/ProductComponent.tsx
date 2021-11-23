@@ -23,6 +23,11 @@ import {
   useGetCartQuery,
 } from "../../redux/services/cart";
 import ImageZoom from "@components/product/ImageZoom";
+import {
+  showSnackbar,
+  closeSnackbar,
+} from "../../redux/services/snackbarSlice";
+import {useDispatch} from "react-redux";
 
 const useStyles = makeStyles((theme: any) => ({
   container: {
@@ -50,26 +55,35 @@ const useStyles = makeStyles((theme: any) => ({
   addToCartBtn: {
     backgroundColor: "#AA7B5F !important",
   },
+  addToCartBtnDisabled: {
+    color: "#AA7B5F !important",
+    border: "1px solid #AA7B5F !important",
+  },
   colorOptions: {
+    "&>div:nth-child(1)": {
+      display: "flex",
+      flexWrap: "wrap",
+    },
     marginTop: "1rem",
-    display: "flex",
-    "&>button": {
+    "& button": {
       padding: "0",
       marginRight: "5px",
     },
-    "&>p": {
+    "& p": {
       marginRight: "1rem",
       fontWeight: "600",
     },
   },
   sizeOptions: {
-    display: "flex",
-    flexWrap: "wrap",
+    "&>div:nth-child(1)": {
+      display: "flex",
+      flexWrap: "wrap",
+    },
     marginTop: "1rem",
-    "&>button": {
+    "& button": {
       margin: "3px 5px 3px 0px",
     },
-    "&>p": {
+    "& p": {
       marginRight: "1rem",
       fontWeight: "600",
     },
@@ -113,10 +127,20 @@ const useStyles = makeStyles((theme: any) => ({
   policiesContainer: {
     marginTop: "1rem",
   },
+  showError: {
+    backgroundColor: "#fff6f6",
+    borderRadius: "10px",
+    padding: "1rem 1rem 1rem 5px",
+  },
+  errMsg: {
+    color: "#F52932",
+    marginTop: "1rem",
+  },
 }));
 
 const ProductComponent = ({ data }: { data: any }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const history = useHistory();
   const product = data?.data[0];
 
@@ -143,6 +167,7 @@ const ProductComponent = ({ data }: { data: any }) => {
   const [size, setSize] = useState(null);
   const [color, setColor] = useState(null);
   const [mainImage, setMainImage] = useState(product?.assets[0].url);
+  const [showError, setShowError] = useState<boolean>(false);
 
   const getVariants = (option: string) => {
     return product?.variant_groups?.filter(
@@ -172,6 +197,9 @@ const ProductComponent = ({ data }: { data: any }) => {
   const handelImageChnage = (url: string) => {
     setMainImage(url);
   };
+  const handleShowError = () => {
+    setShowError(true);
+  };
 
   const handleAddToCart = (productId: string, quantity: number) => {
     let options = {};
@@ -186,7 +214,11 @@ const ProductComponent = ({ data }: { data: any }) => {
       productId: productId,
       quantity: quantity,
       options: options,
-    });
+    }).then((response) =>
+      dispatch(
+        showSnackbar({ message: "product added in cart", severity: "success" })
+      )
+    );
   };
   return (
     <>
@@ -232,50 +264,80 @@ const ProductComponent = ({ data }: { data: any }) => {
                 </span>
               </p>
               <p className={classes.info}>
-                <span>Artisan:</span>{" "}
+                <span>Artisan:</span>
                 <span>{artisan ? artisan : "Artisan name not available"}</span>
               </p>
             </div>
           </div>
           <div>
             <Divider />
-            <div className={classes.colorOptions}>
-              <Typography>Color:</Typography>
-              {!productColorOptions ? (
-                <span>Color variants are not available</span>
-              ) : (
-                productColorOptions.map((_color: any) => (
-                  <IconButton
-                    key={_color.name}
-                    onClick={() => handleColorChange(_color.id)}
-                  >
-                    {_color.name === color ? (
-                      <CheckCircleIcon style={{ color: _color.name }} />
-                    ) : (
-                      <CircleIcon style={{ color: _color.name }} />
-                    )}
-                  </IconButton>
-                ))
+            <div
+              className={`${classes.colorOptions} ${
+                showError && productColorOptions && !color
+                  ? classes.showError
+                  : null
+              }`}
+            >
+              <div>
+                <Typography>Color:</Typography>
+                {!productColorOptions ? (
+                  <span>Color variants are not available</span>
+                ) : (
+                  productColorOptions.map((_color: any) => (
+                    <IconButton
+                      key={_color.name}
+                      onClick={() => handleColorChange(_color.id)}
+                    >
+                      {_color.id === color ? (
+                        <CheckCircleIcon style={{ color: _color.name }} />
+                      ) : (
+                        <CircleIcon style={{ color: _color.name }} />
+                      )}
+                    </IconButton>
+                  ))
+                )}
+              </div>
+              {showError && productColorOptions && !color && (
+                <div className={classes.errMsg}>
+                  <span>Please select a color</span>
+                </div>
               )}
             </div>
-            <div className={classes.sizeOptions}>
-              <Typography>Size:</Typography>
-              {!productSizeOptions ? (
-                <span></span>
-              ) : (
-                productSizeOptions.map((_size: any) => (
-                  <Button
-                    variant={_size.name === size ? "contained" : "outlined"}
-                    key={_size.name}
-                    size="small"
-                    onClick={() => handleSizeChange(_size.id)}
-                  >
-                    {_size.name}
-                  </Button>
-                ))
+            <div
+              className={`${classes.sizeOptions} ${
+                showError && productSizeOptions && !size
+                  ? classes.showError
+                  : null
+              }`}
+            >
+              <div>
+                <Typography>Size:</Typography>
+                {!productSizeOptions ? (
+                  <span>Size variants are not available</span>
+                ) : (
+                  productSizeOptions.map((_size: any) => (
+                    <Button
+                      variant={_size.id === size ? "contained" : "outlined"}
+                      key={_size.name}
+                      size="small"
+                      onClick={() => handleSizeChange(_size.id)}
+                    >
+                      {_size.name}
+                    </Button>
+                  ))
+                )}
+              </div>
+              {showError && productSizeOptions && !size && (
+                <div className={classes.errMsg}>
+                  <span>Please select a size</span>
+                </div>
               )}
             </div>
-            <div className={classes.quantity}>
+            <div
+              className={`${classes.quantity} ${
+                showError && !quantity ? classes.showError : null
+              }`}
+            >
               <ButtonGroup
                 variant="outlined"
                 aria-label="outlined button group"
@@ -290,17 +352,34 @@ const ProductComponent = ({ data }: { data: any }) => {
                   +
                 </Button>
               </ButtonGroup>
+              {showError && !quantity && (
+                <div className={classes.errMsg}>
+                  <span>Please select a quantity</span>
+                </div>
+              )}
             </div>
             <div className={classes.addToCartBtnContainer}>
-              <Button
-                variant="contained"
-                startIcon={<AddShoppingCartIcon />}
-                className={classes.addToCartBtn}
-                disabled={quantity === 0}
-                onClick={() => handleAddToCart(product.id, quantity)}
-              >
-                Add to cart
-              </Button>
+              {quantity &&
+              Boolean(productColorOptions) === Boolean(color) &&
+              Boolean(productSizeOptions) === Boolean(size) ? (
+                <Button
+                  variant="contained"
+                  startIcon={<AddShoppingCartIcon />}
+                  className={classes.addToCartBtn}
+                  onClick={() => handleAddToCart(product.id, quantity)}
+                >
+                  Add to cart
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  startIcon={<AddShoppingCartIcon />}
+                  className={classes.addToCartBtnDisabled}
+                  onClick={handleShowError}
+                >
+                  Add to cart
+                </Button>
+              )}
             </div>
             <div className={classes.policiesContainer}>
               <Accordion>

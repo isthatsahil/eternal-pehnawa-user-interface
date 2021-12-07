@@ -4,6 +4,10 @@ import { Button, Typography, IconButton } from "@mui/material";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 import { motion } from "framer-motion";
 import LinkButton from "@components/LinkButton";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useDispatch } from "react-redux";
+import { addToWishlist } from "../../redux/services/wishlistSlice";
+
 const useStyles = makeStyles((theme: any) => ({
   product: {
     // width: "20rem !important",
@@ -30,7 +34,7 @@ const useStyles = makeStyles((theme: any) => ({
     [theme.breakpoints.down("sm")]: {
       width: "20rem",
       height: "12rem",
-      margin: "auto"
+      margin: "auto",
     },
   },
   overlay: {
@@ -132,6 +136,10 @@ const Product = ({
   view: string;
 }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    dispatch(addToWishlist({productId: product.id}));
+  };
   return (
     <>
       {view === "grid" ? (
@@ -149,6 +157,9 @@ const Product = ({
               </LinkButton>
               <IconButton className={classes.addToCartBtn}>
                 <AddShoppingCartRoundedIcon />
+              </IconButton>
+              <IconButton className={classes.addToCartBtn} onClick={handleAddToCart}>
+                <FavoriteBorderIcon />
               </IconButton>
             </div>
           </motion.div>
@@ -183,6 +194,9 @@ const Product = ({
               </LinkButton>
               <IconButton className={classes.addToCartBtn}>
                 <AddShoppingCartRoundedIcon />
+              </IconButton>
+              <IconButton className={classes.addToCartBtn} onClick={handleAddToCart}>
+                <FavoriteBorderIcon />
               </IconButton>
             </div>
           </div>

@@ -26,8 +26,8 @@ const CustomSnackbar = () => {
     dispatch(closeSnackbar());
   };
 
-  const vertical = "bottom";
-  const horizontal = "left";
+  const vertical = "top";
+  const horizontal = "center";
 
   return (
     <Stack spacing={2} sx={{ width: "100%"}}>

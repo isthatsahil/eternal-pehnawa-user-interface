@@ -38,3 +38,11 @@ export const applyFilter = (data: any, filter: any) => {
   }
   return result;
 };
+
+export const setLocaltStorage = (key: string, value: any) => {
+  return localStorage.setItem(key, JSON.stringify(value))
+}
+
+export const getLocalStorage = (key: string) => {
+  return JSON.parse(localStorage.getItem(key))
+}

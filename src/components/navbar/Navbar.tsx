@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
 import NavbarLogin from "./NavbarLogin";
 import Cart from "../Cart/Cart";
+import WishList from "@components/wishlist/WishList";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -128,6 +129,7 @@ const Navbar = () => {
               <div style={{ display: "flex", alignItems: "center" }}>
                 <NavbarLogin />
                 <Cart />
+                <WishList />
               </div>
             </div>
           </div>

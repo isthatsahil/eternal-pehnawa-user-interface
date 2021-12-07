@@ -1,12 +1,14 @@
 export const applyFilter = (data: any, filter: any) => {
-  return {
+  let result = {
     ...data,
     data: data?.data
       ?.filter(
         (product: any) =>
           product.price.raw < filter.price &&
           (filter.searchTerm === "" ||
-            product.name.toLowerCase().includes(filter.searchTerm.toLowerCase()))
+            product.name
+              .toLowerCase()
+              .includes(filter.searchTerm.toLowerCase()))
       )
       .sort((first: any, second: any) => {
         if (filter.sort === "price-lowest") {
@@ -24,4 +26,15 @@ export const applyFilter = (data: any, filter: any) => {
         } else return 0;
       }),
   };
+  if (filter.artisan !== "all") {
+    console.log(filter.artisan);
+    result.data = result.data.filter((product: any) => {
+      return (
+        product.attributes.filter(
+          (attribute: any) => attribute.name === "artisan"
+        )[0].value === filter.artisan
+      );
+    });
+  }
+  return result;
 };

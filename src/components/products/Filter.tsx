@@ -64,6 +64,27 @@ const Filter = () => {
   const { price, searchTerm, artisan } = useSelector(
     (state: any) => state.filter
   );
+  const products = useSelector(
+    (state: any) => state.products.queries["getProducts(200)"]?.data?.data
+  );
+
+  const getArtisanList = () => {
+    let artisanList = products?.map((product: any) => {
+      return product.attributes.filter(
+        (attribute: any) => attribute.name === "artisan"
+      )[0].value;
+    });
+    artisanList = [...Array.from(new Set(artisanList))];
+    artisanList.splice(artisanList.indexOf("Not available"), 1); //remove 'Not available' from artisan list
+    artisanList.sort();
+    artisanList.unshift("all"); // add 'all' as artisan option
+    console.log({ artisanList });
+    artisanList = artisanList?.map((artisan: string) => {
+      return { label: artisan };
+    });
+    return artisanList;
+  };
+
   const priceRange = price;
 
   const handleCategoryTabChange = (
@@ -82,23 +103,7 @@ const Filter = () => {
     dispatch(clearFilter());
   };
 
-  const artisans = [
-    {
-      label: "all",
-    },
-    {
-      label: "first",
-    },
-    {
-      label: "second",
-    },
-    {
-      label: "third",
-    },
-    {
-      label: "fourth",
-    },
-  ];
+  const artisans = getArtisanList();
 
   const handleSearch = (event: any) => {
     dispatch(updateFilter({ searchTerm: event.target.value }));

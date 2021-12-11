@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,8 +8,10 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import { useAuth0 } from "@auth0/auth0-react";
 
-const ProfileDropdown = ({ handleLogin }: { handleLogin: any }) => {
+const ProfileDropdown = () => {
+  const { logout } = useAuth0();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -17,6 +19,9 @@ const ProfileDropdown = ({ handleLogin }: { handleLogin: any }) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    logout({ returnTo: window.location.origin });
   };
   return (
     <div>
@@ -72,7 +77,7 @@ const ProfileDropdown = ({ handleLogin }: { handleLogin: any }) => {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={() => handleLogin()}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

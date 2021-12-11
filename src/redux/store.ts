@@ -4,7 +4,8 @@ import productApi from "./services/products";
 import filterReducer from "./services/filter";
 import cartApi from "./services/cart";
 import snackbarReducer from "./services/snackbarSlice";
-import wishlistReducer from "./services/wishlistSlice"
+import wishlistReducer from "./services/wishlistSlice";
+import customerApi from "./services/customers";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     [cartApi.reducerPath]: cartApi.reducer,
     snackbar: snackbarReducer,
     wishlist: wishlistReducer,
+    [customerApi.reducerPath]: customerApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productApi.middleware),

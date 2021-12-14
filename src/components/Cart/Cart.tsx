@@ -12,6 +12,7 @@ import Badge from "@mui/material/Badge";
 import { IconButton } from "@mui/material";
 import CartItem from "@components/Cart/CartItem";
 import { useAddToCartMutation } from "../../redux/services/cart";
+import { Link } from "react-router-dom";
 
 const cartOpenVariant = {
   initial: {
@@ -99,6 +100,10 @@ const useStyles = makeStyles(
       "&>p:last-child": {
         fontWeight: "600",
       },
+    },
+    link: {
+      color: "#ffff",
+      textDecoration: "none",
     },
   })
 );
@@ -195,7 +200,9 @@ const Cart = () => {
           <div className={classes.checkoutBtntnContainer}>
             <Button variant="contained">
               <LockIcon />
-              Secure Checkout
+              <Link to="/checkout" className={classes.link}>
+                Secure Checkout
+              </Link>
             </Button>
           </div>
         </div>

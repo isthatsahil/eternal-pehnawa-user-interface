@@ -12,7 +12,6 @@ const CheckoutContainer = () => {
   const [generateCheckoutToken] = useGenrateCheckoutTokenMutation();
 
   useEffect(() => {
-    const dummyCartId = "cart_P5gj4B3xebg29o";
     generateCheckoutToken(cartId).then((response: any) => {
       setCheckoutData(response.data);
     });

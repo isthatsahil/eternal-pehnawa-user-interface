@@ -36,7 +36,7 @@ const routes = [
   },
   {
     path: "/all-products/product/:id",
-    component: ProductContainer
+    component: ProductContainer,
   },
   {
     path: "/all-products",
@@ -48,8 +48,8 @@ const routes = [
   },
   {
     path: "/checkout",
-    component: CheckoutContainer
-  }
+    component: CheckoutContainer,
+  },
 ];
 
 export default routes;

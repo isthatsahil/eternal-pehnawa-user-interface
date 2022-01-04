@@ -16,6 +16,8 @@ const CheckoutContainer = () => {
       setCheckoutData(response.data);
     });
   }, [cartId]);
+
+  console.log("checkoutData", checkoutData);
   return (
     <>
       {checkoutData ? (

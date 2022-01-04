@@ -13,7 +13,7 @@ import { IconButton } from "@mui/material";
 import CartItem from "@components/Cart/CartItem";
 import { useAddToCartMutation } from "../../redux/services/cart";
 import { Link } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 const cartOpenVariant = {
   initial: {
     y: 30,
@@ -111,7 +111,7 @@ const useStyles = makeStyles(
 const Cart = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-
+  const history = useHistory();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [trigger, { data }] = useAddToCartMutation({
     fixedCacheKey: "myCacheKey",
@@ -200,9 +200,15 @@ const Cart = () => {
           <div className={classes.checkoutBtntnContainer}>
             <Button variant="contained">
               <LockIcon />
-              <Link to="/checkout" className={classes.link}>
+              <a
+                href={data?.cart?.hosted_checkout_url}
+                target="_blank"
+                onClick={() => console.log("clicked checkout")}
+                className={classes.link}
+                rel="noreferrer"
+              >
                 Secure Checkout
-              </Link>
+              </a>
             </Button>
           </div>
         </div>

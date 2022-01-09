@@ -7,6 +7,7 @@ const initialState = {
   sort: "price-lowest",
   freeShipping: false,
   artisan: "all",
+  subCategory: "",
 };
 
 export const filterSlice = createSlice({

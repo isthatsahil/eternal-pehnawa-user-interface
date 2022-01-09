@@ -12,6 +12,24 @@ const productApi = createApi({
     getProducts: builder.query({
       query: (limit) => createRequest(`/products?limit=${limit}`),
     }),
+    getAllCategories: builder.query({
+      query: () => {
+        return {
+          method: "GET",
+          url: `/categories`,
+          headers: COMMERCE_JS_HEADER,
+        };
+      },
+    }),
+    getEachCategory: builder.mutation({
+      query: (id) => {
+        return {
+          method: "GET",
+          url: `/categories/${id}`,
+          headers: COMMERCE_JS_HEADER,
+        };
+      },
+    }),
     getProductCategory: builder.query({
       query: (slug) =>
         createRequest(`/products?limit=200&category_slug=${slug}`),
@@ -24,6 +42,8 @@ const productApi = createApi({
 
 export const {
   useGetProductsQuery,
+  useGetAllCategoriesQuery,
+  useGetEachCategoryMutation,
   useGetProductCategoryQuery,
   useGetProductQuery,
 } = productApi;

@@ -3,13 +3,6 @@ import { styled } from "@mui/material/styles";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 
-interface Props {
-  url: ReactElement;
-  title: string;
-  width: string;
-  margin: string;
-}
-
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   position: "relative",
   height: 600,
@@ -74,18 +67,17 @@ const ImageMarked = styled("span")(({ theme }) => ({
   left: "calc(50% - 9px)",
   transition: theme.transitions.create("opacity"),
 }));
-const ComplexButton = ({ data }: { data: Props }) => {
+const ComplexButton = ({ data }: { data: any }) => {
   return (
     <ImageButton
       focusRipple
       style={{
-        width: data.width,
-        marginTop: data.margin,
+        width: "100%",
       }}
     >
       <ImageSrc
         style={{
-          background: `url(${data.url})`,
+          background: `url(${data?.assets[0]?.url})`,
           backgroundSize: "cover",
         }}
       />
@@ -102,7 +94,7 @@ const ComplexButton = ({ data }: { data: Props }) => {
             pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
           }}
         >
-          {data.title}
+          {data.name}
           <ImageMarked className="MuiImageMarked-root" />
         </Typography>
       </Image>

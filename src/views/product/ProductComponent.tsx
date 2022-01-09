@@ -27,7 +27,7 @@ import {
   showSnackbar,
   closeSnackbar,
 } from "../../redux/services/snackbarSlice";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme: any) => ({
   container: {

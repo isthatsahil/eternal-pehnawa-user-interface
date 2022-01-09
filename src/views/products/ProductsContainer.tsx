@@ -8,11 +8,17 @@ const ProductsContainer = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  let { data, error, isLoading } = useGetProductsQuery(200);
+  const { data, error, isLoading } = useGetProductsQuery(200);
   const filter = useSelector((state: any) => state.filter);
-  data = applyFilter(data, filter);
+  const filteredData = applyFilter(data, filter);
 
-  return <ProductsComponent data={data} error={error} isLoading={isLoading} />;
+  return (
+    <ProductsComponent
+      data={filteredData}
+      error={error}
+      isLoading={isLoading}
+    />
+  );
 };
 
 export default ProductsContainer;

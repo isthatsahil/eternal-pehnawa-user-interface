@@ -37,7 +37,9 @@ const ProductsComponent = ({
           <Grid item xs={12} sm={9} md={9}>
             <FilterTop />
             {error ? (
-              <p>Products coming soon</p>
+              <div>
+                <p>Something went wrong</p>
+              </div>
             ) : (
               <Products products={data} isLoading={isLoading} />
             )}

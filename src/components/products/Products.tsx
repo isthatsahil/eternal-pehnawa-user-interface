@@ -4,6 +4,7 @@ import Product from "@components/products/Product";
 import { Grid } from "@mui/material";
 import ProductSkeleton from "./ProductSkeleton";
 import { motion } from "framer-motion";
+import Product404 from "../../assets/svg/Product404";
 
 const parentVariant = {
   hidden: {
@@ -96,7 +97,23 @@ const Products = ({
       </Grid>
     );
   };
-  return <div>{isLoading ? <ProductSkeleton /> : <ProductsDisplay />}</div>;
+  return (
+    <div>
+      {isLoading ? (
+        <ProductSkeleton />
+      ) : !products?.data?.length ? (
+        <div>
+          <Product404 width="300" height="300" />
+          <div style={{ textAlign: "center" }}>
+            <h4>Product Not Found</h4>
+            <p>The product you are looking for doesnt exists</p>
+          </div>
+        </div>
+      ) : (
+        <ProductsDisplay />
+      )}
+    </div>
+  );
 };
 
 export default Products;

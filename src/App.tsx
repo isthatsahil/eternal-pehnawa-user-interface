@@ -4,11 +4,13 @@ import routes from "./routing/index";
 import { AnimatePresence } from "framer-motion";
 import { useGetCartQuery } from "./redux/services/cart";
 import { useGetAllCustomersQuery } from "./redux/services/customers";
+import { useGetAllCategoriesQuery } from "./redux/services/products";
 const App = () => {
   const location = useLocation();
   const cartResponse = useGetCartQuery("");
-  console.log({ incart: cartResponse });
   useGetAllCustomersQuery("");
+  useGetAllCategoriesQuery("");
+
   return (
     <>
       <UIWrapper>

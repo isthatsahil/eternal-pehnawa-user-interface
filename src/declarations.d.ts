@@ -9,3 +9,5 @@ declare module "@chec/commerce.js";
 declare module "@components/*";
 declare module "*js";
 declare module "*.jsx";
+declare module "@mui/lab/TreeView";
+declare module "@mui/lab/TreeItem";

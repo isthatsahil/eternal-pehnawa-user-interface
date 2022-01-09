@@ -12,6 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, NavLink } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { clearFilter, updateFilter } from "../../redux/services/filter";
+import {
+  useGetAllCategoriesQuery,
+  useGetEachCategoryMutation,
+} from "../../redux/services/products";
 const useStyles = makeStyles(() => ({
   root: {
     padding: "0rem 1rem 1rem 0rem",
@@ -59,9 +63,13 @@ const useStyles = makeStyles(() => ({
 const Filter = () => {
   const classes = useStyles();
   const location = useLocation();
+  const { data: categories } = useGetAllCategoriesQuery("");
   const [categoryTabValue, setCategoryTabValue] = useState(location.pathname);
   const dispatch = useDispatch();
-  const { price, searchTerm, artisan } = useSelector(
+  const [getEachCategory, childCategory] = useGetEachCategoryMutation({
+    fixedCacheKey: "myCacheKey",
+  });
+  const { price, searchTerm, artisan, subCategory } = useSelector(
     (state: any) => state.filter
   );
   const products = useSelector(
@@ -78,7 +86,7 @@ const Filter = () => {
     artisanList.splice(artisanList.indexOf("Not available"), 1); //remove 'Not available' from artisan list
     artisanList.sort();
     artisanList.unshift("all"); // add 'all' as artisan option
-    console.log({ artisanList });
+
     artisanList = artisanList?.map((artisan: string) => {
       return { label: artisan };
     });
@@ -92,6 +100,7 @@ const Filter = () => {
     newValue: string
   ) => {
     setCategoryTabValue(newValue);
+    getEachCategory(newValue);
   };
 
   const handlePriceChange = (event: Event, newValue: number | number[]) => {
@@ -115,6 +124,18 @@ const Filter = () => {
     }
   };
 
+  const handleSubCategoryChange = (event: any, value: string | null) => {
+    console.log("Result test", value);
+    dispatch(updateFilter({ subCategory: value }));
+  };
+  const getSubCategory = () => {
+    const sublist: any[] = [];
+    childCategory?.data?.children?.map((child: any) => {
+      sublist.push(child.slug);
+    });
+    return sublist;
+  };
+  const subCategories = getSubCategory();
   return (
     <div className={classes.root}>
       <div>
@@ -127,7 +148,6 @@ const Filter = () => {
           value={searchTerm}
         />
       </div>
-
       <div>
         <Typography className={classes.label}>Category</Typography>
         <Tabs
@@ -141,27 +161,35 @@ const Filter = () => {
             label="All"
             value="/all-products"
           />
-          <Tab
-            component={NavLink}
-            to="/all-products/category/saree"
-            label="Saree"
-            value="/all-products/category/saree"
-          />
-          <Tab
-            component={NavLink}
-            to="/all-products/category/suit"
-            label="Suit"
-            value="/all-products/category/suit"
-          />
-          <Tab
-            component={NavLink}
-            to="/all-products/category/home-decor"
-            label="Home Decor"
-            value="/all-products/category/home-decor"
-          />
+          {categories?.data?.map((category: any) => {
+            return (
+              <Tab
+                key={category.id}
+                component={NavLink}
+                to={`/all-products/category/${category.slug}`}
+                label={category.name}
+                value={category.id}
+              />
+            );
+          })}
         </Tabs>
       </div>
 
+      {subCategories ? (
+        <div>
+          <Typography className={classes.label}>Sub categories</Typography>
+          <Autocomplete
+            options={subCategories}
+            onChange={handleSubCategoryChange}
+            renderInput={(params) => <TextField {...params} size="small" />}
+            sx={{ maxWidth: "12rem" }}
+            value={subCategory}
+            fullWidth={true}
+          />
+        </div>
+      ) : (
+        <></>
+      )}
       <div>
         <Typography className={classes.label}>Artisan</Typography>
         <Autocomplete

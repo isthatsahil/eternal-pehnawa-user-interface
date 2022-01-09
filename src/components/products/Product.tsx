@@ -138,7 +138,7 @@ const Product = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   const handleAddToCart = () => {
-    dispatch(addToWishlist({productId: product.id}));
+    dispatch(addToWishlist({ productId: product.id }));
   };
   return (
     <>
@@ -158,7 +158,10 @@ const Product = ({
               <IconButton className={classes.addToCartBtn}>
                 <AddShoppingCartRoundedIcon />
               </IconButton>
-              <IconButton className={classes.addToCartBtn} onClick={handleAddToCart}>
+              <IconButton
+                className={classes.addToCartBtn}
+                onClick={handleAddToCart}
+              >
                 <FavoriteBorderIcon />
               </IconButton>
             </div>
@@ -195,7 +198,10 @@ const Product = ({
               <IconButton className={classes.addToCartBtn}>
                 <AddShoppingCartRoundedIcon />
               </IconButton>
-              <IconButton className={classes.addToCartBtn} onClick={handleAddToCart}>
+              <IconButton
+                className={classes.addToCartBtn}
+                onClick={handleAddToCart}
+              >
                 <FavoriteBorderIcon />
               </IconButton>
             </div>

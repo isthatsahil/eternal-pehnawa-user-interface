@@ -10,7 +10,7 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const ProfileDropdown = () => {
+const ProfileDropdown = ({ user }) => {
   const { logout } = useAuth0();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -27,7 +27,11 @@ const ProfileDropdown = () => {
     <div>
       <Tooltip title="User Profile">
         <IconButton onClick={handleClick} size="small" sx={{ mr: 2 }}>
-          <Avatar sx={{ width: 32, height: 32 }}>P</Avatar>
+          <Avatar
+            sx={{ width: 32, height: 32 }}
+            alt={user?.name}
+            src={user?.picture}
+          />
         </IconButton>
       </Tooltip>
       <Menu
@@ -64,19 +68,10 @@ const ProfileDropdown = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem>
-          <Avatar /> My orders
-        </MenuItem>
+        <MenuItem>Account</MenuItem>
+        <MenuItem>My orders</MenuItem>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
+
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />

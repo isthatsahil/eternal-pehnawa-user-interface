@@ -9,7 +9,7 @@ import { useCreateCustomerMutation } from "../../redux/services/customers";
 
 const useStyles = makeStyles(() => ({
   container: {
-    position: "absolute" as "absolute",
+    position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
       marginBottom: "1rem",
     },
     borderRadius: "1rem",
-    outline: "none"
+    outline: "none",
   },
   btnsContainer: {
     display: "flex",

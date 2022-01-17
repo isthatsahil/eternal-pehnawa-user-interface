@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import NavbarLogin from "./NavbarLogin";
 import Cart from "../Cart/Cart";
 import WishList from "@components/wishlist/WishList";
-
+import { login } from "../../lib/commerce";
 const useStyles = makeStyles(() => ({
   container: {
     height: "auto",

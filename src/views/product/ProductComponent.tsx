@@ -210,12 +210,12 @@ const ProductComponent = ({ data }: { data: any }) => {
 
   const handleAddToCart = (productId: string, quantity: number) => {
     let options = {};
-    if (sizeVariantId) {
+    if (sizeVariantId && size) {
       options[sizeVariantId?.id] = size;
-    } else if (colorVariantId) {
+    } else if (colorVariantId && color) {
       options[colorVariantId?.id] = color;
-    } else if (materialVariantId) {
-      options[colorVariantId?.id] = material;
+    } else if (materialVariantId && material) {
+      options[materialVariantId?.id] = material;
     }
     addToCart({
       cartId: Cart?.data?.id,

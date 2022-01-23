@@ -14,6 +14,7 @@ import CartItem from "@components/Cart/CartItem";
 import { useAddToCartMutation } from "../../redux/services/cart";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 const cartOpenVariant = {
   initial: {
     y: 30,
@@ -112,12 +113,11 @@ const Cart = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const history = useHistory();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [trigger, { data }] = useAddToCartMutation({
     fixedCacheKey: "myCacheKey",
   });
-
-  console.log("Cart", data);
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -131,6 +131,16 @@ const Cart = () => {
       setOpen(open);
     };
 
+  const handleCartCheckout = (url: string) => {
+    if (isAuthenticated) {
+      console.log("cart if");
+      const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+      if (newWindow) newWindow.opener = null;
+    } else {
+      console.log("cart else");
+      loginWithRedirect({ screen_hint: "signin" });
+    }
+  };
   return (
     <>
       <Badge
@@ -183,27 +193,32 @@ const Cart = () => {
           <div className={classes.orderTotal}>
             <Typography>
               <span>Subtotal :</span>
-              <span>{data?.cart?.subtotal?.formatted_with_symbol}</span>
+              <span>{data?.cart?.subtotal?.formatted_with_symbol || 0}</span>
             </Typography>
 
             <Divider />
             <Typography>
               <span>Order Total :</span>
-              <span>{data?.cart?.subtotal?.formatted_with_symbol}</span>
+              <span>{data?.cart?.subtotal?.formatted_with_symbol || 0.0}</span>
             </Typography>
           </div>
           <div className={classes.checkoutBtntnContainer}>
-            <Button variant="contained">
+            <Button
+              variant="contained"
+              onClick={() =>
+                handleCartCheckout(data?.cart?.hosted_checkout_url)
+              }
+            >
               <LockIcon />
-              <a
+              Secure Checkout
+              {/* <a
                 href={data?.cart?.hosted_checkout_url}
                 target="_blank"
-                onClick={() => console.log("clicked checkout")}
                 className={classes.link}
                 rel="noreferrer"
               >
                 Secure Checkout
-              </a>
+              </a> */}
             </Button>
           </div>
         </div>

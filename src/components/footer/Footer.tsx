@@ -6,10 +6,9 @@ import razorpayLogo from "../../assets/payment-options-logo/razorpay.png";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import PinterestIcon from "@mui/icons-material/Pinterest";
 import { FormEvent, useState } from "react";
 import Alert from "@mui/material/Alert";
-
+import { NavLink } from "react-router-dom";
 const useStyles = makeStyles(
   (theme: { breakpoints: { down: (arg0: string) => any } }) => ({
     top: {
@@ -108,6 +107,13 @@ const useStyles = makeStyles(
         margin: "0 0 2rem",
       },
     },
+    links: {
+      textDecoration: "none",
+      color: "#f8f8f8",
+      "&:hover": {
+        color: "#DFC387",
+      },
+    },
   })
 );
 
@@ -186,17 +192,29 @@ const Footer = () => {
             help &#38; information
           </Typography>
           <div>
-            <Typography>FAQ</Typography>
-            <Typography>Delivery and Shipping</Typography>
-            <Typography>Return and Exchanges</Typography>
+            <NavLink to="/contact-us" className={classes.links}>
+              <Typography>FAQs</Typography>
+            </NavLink>
+            <NavLink to="/contact-us" className={classes.links}>
+              <Typography>Delivery and Shipping</Typography>
+            </NavLink>
+            <NavLink to="/contact-us" className={classes.links}>
+              <Typography>Return and Exchanges</Typography>
+            </NavLink>
           </div>
         </Grid>
         <Grid sm={2} item md={3}>
           <div>
             <Typography className={classes.title}>Areas</Typography>
-            <Typography>Home</Typography>
-            <Typography>Products</Typography>
-            <Typography>Contact</Typography>
+            <NavLink to="/" className={classes.links}>
+              <Typography>Home</Typography>
+            </NavLink>
+            <NavLink to="/all-products" className={classes.links}>
+              <Typography>Products</Typography>
+            </NavLink>
+            <NavLink to="/contact-us" className={classes.links}>
+              <Typography>Contact Us</Typography>
+            </NavLink>
           </div>
           <div>
             <Typography className={classes.title}>Account</Typography>
@@ -217,13 +235,10 @@ const Footer = () => {
               <span id="youtube">
                 <YouTubeIcon />
               </span>
-              <span id="pinterest">
-                <PinterestIcon />
-              </span>
             </div>
           </div>
           <div>
-            <Typography className={classes.title}>SIGN up </Typography>
+            <Typography className={classes.title}>Newsletter </Typography>
             <Typography>
               Subscribe to our newsletter to be informed about new products.
             </Typography>

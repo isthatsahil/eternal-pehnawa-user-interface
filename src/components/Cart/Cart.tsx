@@ -117,6 +117,8 @@ const Cart = () => {
     fixedCacheKey: "myCacheKey",
   });
 
+  console.log("Cart", data);
+
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -183,14 +185,7 @@ const Cart = () => {
               <span>Subtotal :</span>
               <span>{data?.cart?.subtotal?.formatted_with_symbol}</span>
             </Typography>
-            <Typography>
-              <span>Tax :</span>
-              <span>₹ 0</span>
-            </Typography>
-            <Typography>
-              <span>Shiping fee :</span>
-              <span></span>
-            </Typography>
+
             <Divider />
             <Typography>
               <span>Order Total :</span>

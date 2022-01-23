@@ -28,6 +28,7 @@ import {
   closeSnackbar,
 } from "../../redux/services/snackbarSlice";
 import { useDispatch } from "react-redux";
+import Product from "@components/products/Product";
 
 const useStyles = makeStyles((theme: any) => ({
   container: {
@@ -150,12 +151,14 @@ const ProductComponent = ({ data }: { data: any }) => {
   });
   const Cart = useGetCartQuery("");
   const sizeVariantId = product.variant_groups?.find(
-    (variant: any) => variant.name === "size"
+    (variant: any) => variant.name.toLowerCase() === "size"
   );
   const colorVariantId = product.variant_groups?.find(
-    (variant: any) => variant.name === "color"
+    (variant: any) => variant.name.toLowerCase() === "color"
   );
-
+  const materialVariantId = product.variant_groups?.find(
+    (variant: any) => variant.name.toLowerCase() === "material"
+  );
   //modified path for breadcrumbs. Product Id replaced with name.
   const path = history.location.pathname
     .split("/")
@@ -166,6 +169,7 @@ const ProductComponent = ({ data }: { data: any }) => {
   const [quantity, setQuantity] = useState(0);
   const [size, setSize] = useState(null);
   const [color, setColor] = useState(null);
+  const [material, setMaterial] = useState(null);
   const [mainImage, setMainImage] = useState(product?.assets[0].url);
   const [showError, setShowError] = useState<boolean>(false);
 
@@ -177,9 +181,7 @@ const ProductComponent = ({ data }: { data: any }) => {
 
   const productColorOptions = getVariants("color");
   const productSizeOptions = getVariants("size");
-  const stock = product?.inventory?.managed
-    ? product?.inventory?.available
-    : 100; // 100 -> unlimited
+  const stock = product?.inventory?.managed ? product?.inventory?.available : 0; // 100 -> unlimited
   const artisan = getVariants("artisan")?.[0]?.name;
 
   const increaseQuantity = () => {
@@ -191,6 +193,11 @@ const ProductComponent = ({ data }: { data: any }) => {
   const handleSizeChange = (size: string) => {
     setSize(size);
   };
+
+  const handleMaterialChange = (material: string) => {
+    setMaterial(material);
+  };
+
   const handleColorChange = (color: string) => {
     setColor(color);
   };
@@ -203,11 +210,12 @@ const ProductComponent = ({ data }: { data: any }) => {
 
   const handleAddToCart = (productId: string, quantity: number) => {
     let options = {};
-    if (sizeVariantId && colorVariantId) {
-      options = {
-        [sizeVariantId?.id]: size,
-        [colorVariantId?.id]: color,
-      };
+    if (sizeVariantId) {
+      options[sizeVariantId?.id] = size;
+    } else if (colorVariantId) {
+      options[colorVariantId?.id] = color;
+    } else if (materialVariantId) {
+      options[colorVariantId?.id] = material;
     }
     addToCart({
       cartId: Cart?.data?.id,
@@ -278,7 +286,72 @@ const ProductComponent = ({ data }: { data: any }) => {
                   : null
               }`}
             >
-              <div>
+              {product?.variant_groups?.map((variant: any) => {
+                return (
+                  <div key={variant.id}>
+                    <Typography
+                      sx={{ display: "inline-block", marginTop: "1rem" }}
+                    >
+                      {variant.name}:
+                    </Typography>
+                    {variant?.options?.map((option: any) => {
+                      return (
+                        <>
+                          {variant.name.toLowerCase() == "color" ? (
+                            <IconButton
+                              key={option.id}
+                              onClick={() => handleColorChange(option.id)}
+                            >
+                              {option.id === color ? (
+                                <CheckCircleIcon
+                                  style={{
+                                    color: option.name,
+                                    border: "1px solid black",
+                                  }}
+                                />
+                              ) : (
+                                <CircleIcon
+                                  style={{
+                                    color: option.name,
+                                    border: "1px solid black",
+                                  }}
+                                />
+                              )}
+                            </IconButton>
+                          ) : variant.name.toLowerCase() == "size" ? (
+                            <Button
+                              variant={
+                                option.id === size ? "contained" : "outlined"
+                              }
+                              key={option.name}
+                              size="small"
+                              onClick={() => handleSizeChange(option.id)}
+                            >
+                              {option.name}
+                            </Button>
+                          ) : variant.name.toLowerCase() == "material" ? (
+                            <Button
+                              variant={
+                                option.id === material
+                                  ? "contained"
+                                  : "outlined"
+                              }
+                              key={option.name}
+                              size="small"
+                              onClick={() => handleMaterialChange(option.id)}
+                            >
+                              {option.name}
+                            </Button>
+                          ) : (
+                            <></>
+                          )}
+                        </>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+              {/* <div>
                 <Typography>Color:</Typography>
                 {!productColorOptions ? (
                   <span>Color variants are not available</span>
@@ -296,7 +369,7 @@ const ProductComponent = ({ data }: { data: any }) => {
                     </IconButton>
                   ))
                 )}
-              </div>
+              </div> */}
               {showError && productColorOptions && !color && (
                 <div className={classes.errMsg}>
                   <span>Please select a color</span>
@@ -310,7 +383,7 @@ const ProductComponent = ({ data }: { data: any }) => {
                   : null
               }`}
             >
-              <div>
+              {/* <div>
                 <Typography>Size:</Typography>
                 {!productSizeOptions ? (
                   <span>Size variants are not available</span>
@@ -326,7 +399,7 @@ const ProductComponent = ({ data }: { data: any }) => {
                     </Button>
                   ))
                 )}
-              </div>
+              </div> */}
               {showError && productSizeOptions && !size && (
                 <div className={classes.errMsg}>
                   <span>Please select a size</span>
@@ -359,9 +432,7 @@ const ProductComponent = ({ data }: { data: any }) => {
               )}
             </div>
             <div className={classes.addToCartBtnContainer}>
-              {quantity &&
-              Boolean(productColorOptions) === Boolean(color) &&
-              Boolean(productSizeOptions) === Boolean(size) ? (
+              {quantity > 0 ? (
                 <Button
                   variant="contained"
                   startIcon={<AddShoppingCartIcon />}
@@ -398,7 +469,7 @@ const ProductComponent = ({ data }: { data: any }) => {
               </Accordion>
               <Accordion>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>Shipping Policy</Typography>
+                  <Typography>Refund Policy</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
@@ -414,6 +485,35 @@ const ProductComponent = ({ data }: { data: any }) => {
           </div>
         </Grid>
       </Grid>
+      <div>
+        {product?.related_products?.length > 0 ? (
+          <>
+            <div style={{ padding: "3rem" }}>
+              <Typography variant="h4">Related Products</Typography>
+            </div>
+            <div style={{ padding: "3rem" }}>
+              <Grid container spacing={4}>
+                {product?.related_products?.map((relatedProduct: any) => {
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={6}
+                      lg={4}
+                      key={relatedProduct?.id}
+                    >
+                      <Product view="grid" product={relatedProduct} />
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
     </>
   );
 };

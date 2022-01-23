@@ -16,6 +16,7 @@ import {
   useGetAllCategoriesQuery,
   useGetEachCategoryMutation,
 } from "../../redux/services/products";
+
 const useStyles = makeStyles(() => ({
   root: {
     padding: "0rem 1rem 1rem 0rem",
@@ -60,7 +61,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Filter = () => {
+export const Filter = () => {
   const classes = useStyles();
   const location = useLocation();
   const { data: categories } = useGetAllCategoriesQuery("");
@@ -69,6 +70,22 @@ const Filter = () => {
   const [getEachCategory, childCategory] = useGetEachCategoryMutation({
     fixedCacheKey: "myCacheKey",
   });
+
+  React.useEffect(() => {
+    const namePath = categoryTabValue.substring(
+      categoryTabValue.lastIndexOf("/") + 1,
+      categoryTabValue.length
+    );
+    if (namePath != null && namePath != undefined && namePath != "") {
+      const categoryIdentiferId = categories?.data?.filter(
+        (category: any) => category.slug === namePath
+      );
+      if (categoryIdentiferId) {
+        getEachCategory(categoryIdentiferId[0]?.id);
+      }
+    }
+  }, [categoryTabValue]);
+
   const { price, searchTerm, artisan, subCategory } = useSelector(
     (state: any) => state.filter
   );
@@ -125,7 +142,6 @@ const Filter = () => {
   };
 
   const handleSubCategoryChange = (event: any, value: string | null) => {
-    console.log("Result test", value);
     dispatch(updateFilter({ subCategory: value }));
   };
   const getSubCategory = () => {
@@ -190,7 +206,10 @@ const Filter = () => {
       ) : (
         <></>
       )}
-      <div>
+      {/**
+       * TODO :: Artisian filter if needed in future
+       */}
+      {/* <div>
         <Typography className={classes.label}>Artisan</Typography>
         <Autocomplete
           options={artisans}
@@ -202,7 +221,7 @@ const Filter = () => {
           sx={{ maxWidth: "12rem" }}
           value={{ label: artisan }}
         />
-      </div>
+      </div> */}
 
       <div>
         <Typography className={classes.label}>Price</Typography>
@@ -225,4 +244,4 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export const MemoizedFilter = React.memo(Filter);

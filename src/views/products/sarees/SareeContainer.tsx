@@ -14,6 +14,7 @@ const SareeContainer = () => {
   const { data, error, isLoading } = useGetProductCategoryQuery("saree");
   const filter = useSelector((state: any) => state.filter);
   const filteredData = applyFilter(data, filter);
+  console.log("sarree");
   return (
     <ProductsComponent
       data={filteredData}

@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "@components/products/Header";
 import { Grid } from "@mui/material";
-import Filter from "@components/products/Filter";
+import { MemoizedFilter } from "@components/products/Filter";
 import Products from "@components/products/Products";
 import { makeStyles } from "@mui/styles";
 //import { Route } from "react-router-dom";
@@ -32,7 +32,7 @@ const ProductsComponent = ({
       <section className={classes.container}>
         <Grid container>
           <Grid item xs={12} sm={3} md={3}>
-            <Filter />
+            <MemoizedFilter />
           </Grid>
           <Grid item xs={12} sm={9} md={9}>
             <FilterTop />

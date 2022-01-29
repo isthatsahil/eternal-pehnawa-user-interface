@@ -12,7 +12,7 @@ import Badge from "@mui/material/Badge";
 import { IconButton } from "@mui/material";
 import CartItem from "@components/Cart/CartItem";
 import { useAddToCartMutation } from "../../redux/services/cart";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 const cartOpenVariant = {
@@ -106,6 +106,33 @@ const useStyles = makeStyles(
       color: "#ffff",
       textDecoration: "none",
     },
+
+    checkoutBtn: {
+      backgroundColor: "#8BC79A",
+      width: "15rem",
+      height: "4rem",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      textDecoration: "none",
+      color: "#ffff",
+      minWidth: "64px",
+      padding: "6px 16px",
+      borderRadius: "4px",
+      fontWeight: 500,
+      fontSize: "0.875rem",
+      lineHeight: 1.75,
+      letterSpacing: "0.02857em",
+      textTransform: "uppercase",
+      zIndex: 100000,
+      transition:
+        "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "&:hover": {
+        backgroundColor: "#5ba76f",
+        boxShadow:
+          "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
+      },
+    },
   })
 );
 
@@ -116,9 +143,8 @@ const Cart = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [trigger, { data }] = useAddToCartMutation({
-    fixedCacheKey: "myCacheKey",
+    fixedCacheKey: "cart",
   });
-
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -132,14 +158,14 @@ const Cart = () => {
     };
 
   const handleCartCheckout = (url: string) => {
-    if (isAuthenticated) {
-      console.log("cart if");
-      const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-      if (newWindow) newWindow.opener = null;
-    } else {
-      console.log("cart else");
-      loginWithRedirect({ screen_hint: "signin" });
-    }
+    // if (isAuthenticated) {
+    //   console.log("cart if");
+    //   const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    //   if (newWindow) newWindow.opener = null;
+    // } else {
+    //   console.log("cart else");
+    //   loginWithRedirect({ screen_hint: "signin" });
+    // }
   };
   return (
     <>
@@ -185,42 +211,46 @@ const Cart = () => {
             initial="initial"
             animate="animate"
           />
-          <Table>
-            {data?.cart?.line_items.map((item: any, index: React.Key) => (
-              <CartItem key={index} item={item} />
-            ))}
-          </Table>
-          <div className={classes.orderTotal}>
-            <Typography>
-              <span>Subtotal :</span>
-              <span>{data?.cart?.subtotal?.formatted_with_symbol || 0}</span>
-            </Typography>
+          {data?.cart?.line_items.length > 0 ? (
+            <>
+              <Table>
+                {data?.cart?.line_items.map((item: any, index: React.Key) => (
+                  <CartItem key={index} item={item} />
+                ))}
+              </Table>
+              <div className={classes.orderTotal}>
+                <Typography>
+                  <span>Subtotal :</span>
+                  <span>
+                    {data?.cart?.subtotal?.formatted_with_symbol || 0}
+                  </span>
+                </Typography>
 
-            <Divider />
-            <Typography>
-              <span>Order Total :</span>
-              <span>{data?.cart?.subtotal?.formatted_with_symbol || 0.0}</span>
-            </Typography>
-          </div>
-          <div className={classes.checkoutBtntnContainer}>
-            <Button
-              variant="contained"
-              onClick={() =>
-                handleCartCheckout(data?.cart?.hosted_checkout_url)
-              }
-            >
-              <LockIcon />
-              Secure Checkout
-              {/* <a
-                href={data?.cart?.hosted_checkout_url}
-                target="_blank"
-                className={classes.link}
-                rel="noreferrer"
-              >
-                Secure Checkout
-              </a> */}
-            </Button>
-          </div>
+                <Divider />
+                <Typography>
+                  <span>Order Total :</span>
+                  <span>
+                    {data?.cart?.subtotal?.formatted_with_symbol || 0.0}
+                  </span>
+                </Typography>
+              </div>
+              <div className={classes.checkoutBtntnContainer}>
+                <NavLink
+                  variant="contained"
+                  to="/checkout"
+                  className={classes.checkoutBtn}
+                  onClick={toggleDrawer(false)}
+                >
+                  <LockIcon />
+                  Secure Checkout
+                </NavLink>
+              </div>
+            </>
+          ) : (
+            <div>
+              <p style={{ padding: "8px" }}>Your Cart is empty</p>
+            </div>
+          )}
         </div>
       </Drawer>
     </>

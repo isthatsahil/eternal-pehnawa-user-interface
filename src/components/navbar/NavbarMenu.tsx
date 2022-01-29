@@ -2,7 +2,7 @@ import { ChangeEvent, ReactNode, useRef, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
-import india from "../../assets/homepage/images/india.jpg";
+
 const useStyles = makeStyles({
   wrapper: {
     position: "relative",
@@ -210,7 +210,11 @@ const NavbarMenu = ({
         <div className={classes.location}>
           Locations :
           <span
-            onMouseEnter={() => handleCity(india)}
+            onMouseEnter={() =>
+              handleCity(
+                "https://res.cloudinary.com/cryptomonthly/image/upload/v1643465092/eternal_pehnawa/india_sktoas.jpg"
+              )
+            }
             onMouseOut={() => handleCityReturn()}
           >
             India

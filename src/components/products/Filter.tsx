@@ -68,7 +68,7 @@ export const Filter = () => {
   const [categoryTabValue, setCategoryTabValue] = useState(location.pathname);
   const dispatch = useDispatch();
   const [getEachCategory, childCategory] = useGetEachCategoryMutation({
-    fixedCacheKey: "myCacheKey",
+    fixedCacheKey: "myCaccaheKey",
   });
 
   React.useEffect(() => {

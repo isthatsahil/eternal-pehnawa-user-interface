@@ -1,15 +1,19 @@
 import UIWrapper from "./views/wrapper/UIWrapper";
+import { useEffect } from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
 import routes from "./routing/index";
 import { AnimatePresence } from "framer-motion";
 import { useGetCartQuery } from "./redux/services/cart";
 import { useGetAllCustomersQuery } from "./redux/services/customers";
 import { useGetAllCategoriesQuery } from "./redux/services/products";
+import { commerce } from "./lib/commerce";
+
 const App = () => {
   const location = useLocation();
-  const cartResponse = useGetCartQuery("");
+  // const { data: cartResponse } = useGetCartQuery("");
   useGetAllCustomersQuery("");
   useGetAllCategoriesQuery("");
+  //  console.log("cart", cartResponse);
 
   return (
     <>

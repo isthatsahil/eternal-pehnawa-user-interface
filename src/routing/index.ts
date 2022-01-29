@@ -7,6 +7,8 @@ import HomeDecorContainer from "../views/products/homeDecor/HomeDecorContainer";
 import Category from "@components/categories/Category";
 import ProductContainer from "../views/product/ProductContainer";
 import CheckoutContainer from "../views/checkout/CheckoutContainer";
+import CheckoutStepperContainer from "../views/checkout-stepper/CheckoutStepperContainer";
+import CategoriesContainer from "../views/categories/CategoriesContainer";
 
 const routes = [
   {
@@ -20,7 +22,7 @@ const routes = [
   },
   {
     path: "/category",
-    component: Category,
+    component: CategoriesContainer,
   },
   {
     path: "/all-products/category/saree",
@@ -48,7 +50,7 @@ const routes = [
   },
   {
     path: "/checkout",
-    component: CheckoutContainer,
+    component: CheckoutStepperContainer,
   },
 ];
 

@@ -29,7 +29,8 @@ import {
 } from "../../redux/services/snackbarSlice";
 import { useDispatch } from "react-redux";
 import Product from "@components/products/Product";
-
+import Navbar from "@components/navbar/Navbar";
+import { commerce } from "../../lib/commerce";
 const useStyles = makeStyles((theme: any) => ({
   container: {
     marginTop: "0rem !important",
@@ -147,9 +148,9 @@ const ProductComponent = ({ data }: { data: any }) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [addToCart, result] = useAddToCartMutation({
-    fixedCacheKey: "myCacheKey",
+    fixedCacheKey: "cart",
   });
-  const Cart = useGetCartQuery("");
+  //const Cart = useGetCartQuery("");
   const sizeVariantId = product.variant_groups?.find(
     (variant: any) => variant.name.toLowerCase() === "size"
   );
@@ -166,6 +167,20 @@ const ProductComponent = ({ data }: { data: any }) => {
     .concat([product?.name])
     .join("/");
 
+  const [Cart, setCart] = useState({});
+  React.useEffect(() => {
+    const getCart = async () => {
+      try {
+        const cart = await commerce.cart.retrieve();
+        setCart(cart);
+      } catch (error) {
+        console.log("cart error", error);
+      }
+    };
+    getCart();
+  }, []);
+
+  console.log("Cart", Cart);
   const [quantity, setQuantity] = useState(0);
   const [size, setSize] = useState(null);
   const [color, setColor] = useState(null);
@@ -218,7 +233,7 @@ const ProductComponent = ({ data }: { data: any }) => {
       options[materialVariantId?.id] = material;
     }
     addToCart({
-      cartId: Cart?.data?.id,
+      cartId: Cart?.id,
       productId: productId,
       quantity: quantity,
       options: options,
@@ -230,6 +245,7 @@ const ProductComponent = ({ data }: { data: any }) => {
   };
   return (
     <>
+      <Navbar />
       <Header path={path} />
       <Grid container className={classes.container} spacing={4}>
         <Grid item xs={12}>

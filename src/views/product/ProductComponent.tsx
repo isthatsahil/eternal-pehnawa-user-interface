@@ -226,10 +226,15 @@ const ProductComponent = ({ data }: { data: any }) => {
   const handleAddToCart = (productId: string, quantity: number) => {
     let options = {};
     if (sizeVariantId && size) {
+      console.log("inside size variant");
       options[sizeVariantId?.id] = size;
-    } else if (colorVariantId && color) {
+    }
+    if (colorVariantId && color) {
+      console.log("inside color variant");
       options[colorVariantId?.id] = color;
-    } else if (materialVariantId && material) {
+    }
+    if (materialVariantId && material) {
+      console.log("inside material variant");
       options[materialVariantId?.id] = material;
     }
     addToCart({

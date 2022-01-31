@@ -20,6 +20,20 @@ import { commerce } from "../../lib/commerce";
 import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
 import { formValidationRules } from "./FormValidationRules";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useGetAllCustomersQuery } from "../../redux/services/customers";
+import {
+  useCreateCustomerMutation,
+  useCreateCustomerNoteMutation,
+} from "../../redux/services/customers";
+import { setCustomerId } from "../../redux/services/user.js";
+import { useDispatch } from "react-redux";
+import {
+  COMMERCE_JS_BASE_URL,
+  COMMERCE_JS_SECRET_HEADER,
+  COMMERCE_JS_HEADER,
+} from "../../lib/constants";
+import axios from "axios";
 
 const useStyles = makeStyles((theme: any) => ({
   btnGrpContainer: {
@@ -32,13 +46,80 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 const FormInformation = ({ checkoutToken, next }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const { data: allCustomers, error, isLoading } = useGetAllCustomersQuery("");
+  const [localCustomerId, setLocalCustomerId] = useState("");
+  const [customerDefaultShipping, setCustomerDefaultShipping] = useState({});
+  const [createCustomer, { data: customerInfo }] = useCreateCustomerMutation({
+    fixedCacheKey: "myCacheKey",
+  });
+
+  const [createNote, { data: customerNotes }] = useCreateCustomerNoteMutation({
+    fixedCacheKey: "createNote",
+  });
+
+  useEffect(() => {
+    if (localCustomerId) {
+      const getCustomerNotes = async () => {
+        const url = `${COMMERCE_JS_BASE_URL}/customers/${localCustomerId}/notes`;
+        const { data } = await axios.get(url, {
+          headers: COMMERCE_JS_SECRET_HEADER,
+        });
+        const notesData = JSON.parse(data.data[0].content);
+
+        setCustomerDefaultShipping(notesData);
+        methods.setValue("email", notesData.email);
+        methods.setValue("firstName", notesData.firstName);
+        methods.setValue("lastName", notesData.lastName);
+        methods.setValue("address", notesData?.address);
+        methods.setValue("city", notesData?.city);
+        methods.setValue("pincode", notesData?.pincode);
+        methods.setValue("phone", notesData?.phone);
+      };
+      getCustomerNotes();
+    }
+  }, [localCustomerId]);
+
+  //function returns customer data if already exist else returns undefined
+  const checkCutomerAlreadyExist = (externalId: string) => {
+    return allCustomers?.data?.find(
+      (customer: any) => customer.external_id === externalId
+    );
+  };
+
+  //const { data: customerNotes } = useGetCustomerNotesQuery(localCustomerId);
+  // console.log("customer notes", customerNotes, localCustomerId);
+  useEffect(() => {
+    if (user && allCustomers?.data) {
+      const externalId = user.sub.split("|")[1];
+      const currentCustomer = checkCutomerAlreadyExist(externalId);
+      setLocalCustomerId(currentCustomer?.id);
+      if (!currentCustomer) {
+        const loginType = user.sub.split("|")[0];
+        if (loginType === "sms") {
+          createCustomer({ phone: user.name, external_id: externalId });
+        } else {
+          createCustomer({
+            firstname: user.given_name,
+            lastname: user.family_name,
+            email: user.email,
+            external_id: externalId,
+          });
+        }
+      } else {
+        dispatch(setCustomerId(currentCustomer.id));
+      }
+    }
+  }, [user, allCustomers]);
+
   const [shippingCountries, setShippingCountries] = useState([]);
   const [shippingCountry, setShippingCountry] = useState("");
   const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
   const [shippingSubdivision, setShippingSubdivision] = useState("");
   const [shippingOptions, setShippingOptions] = useState([]);
   const [shippingOption, setShippingOption] = useState("");
-
+  const [isSaveAddress, setIsSaveAddress] = useState(false);
   const methods = useForm(formValidationRules);
 
   const fetchShippingCountries = async (checkoutTokenId) => {
@@ -95,6 +176,14 @@ const FormInformation = ({ checkoutToken, next }) => {
     }
   };
 
+  const handleCustomerlogin = () => {
+    if (!isAuthenticated) {
+      loginWithRedirect({
+        appState: { returnTo: "/checkout" },
+      });
+    }
+  };
+
   return (
     <>
       <div
@@ -113,10 +202,16 @@ const FormInformation = ({ checkoutToken, next }) => {
           Contact Information
         </Typography>
         <p style={{ fontSize: "14px" }}>
-          Already have an account?{" "}
-          <NavLink to="/login" className={classes.logLink}>
-            log in
-          </NavLink>
+          {!isAuthenticated ? (
+            <>
+              Already have an account?{" "}
+              <Button className={classes.logLink} onClick={handleCustomerlogin}>
+                log in
+              </Button>
+            </>
+          ) : (
+            ""
+          )}
         </p>
       </div>
 
@@ -128,6 +223,7 @@ const FormInformation = ({ checkoutToken, next }) => {
               shippingCountry,
               shippingSubdivision,
               shippingOption,
+              isSaveAddress,
             })
           )}
         >
@@ -152,6 +248,9 @@ const FormInformation = ({ checkoutToken, next }) => {
                   label="Country/Region"
                   required
                   onChange={(e) => setShippingCountry(e.target.value)}
+                  defaultValue={
+                    customerDefaultShipping?.shippingCountry || shippingCountry
+                  }
                 >
                   {Object.entries(shippingCountries)
                     .map(([key, value]) => ({
@@ -198,7 +297,10 @@ const FormInformation = ({ checkoutToken, next }) => {
               <FormControl fullWidth>
                 <InputLabel>State/Providence</InputLabel>
                 <Select
-                  value={shippingSubdivision}
+                  value={
+                    customerDefaultShipping?.shippingSubdivision ||
+                    shippingSubdivision
+                  }
                   label="State/Providence"
                   onChange={(e) => setShippingSubdivision(e.target.value)}
                 >
@@ -255,19 +357,23 @@ const FormInformation = ({ checkoutToken, next }) => {
               fullWidth={true}
               sameRow={12}
             />
-            <Grid item xs={12} sm={12}>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      onChange={handleSaveAddress}
-                      inputProps={{ "aria-label": "controlled" }}
-                    />
-                  }
-                  label="Save this information for next time"
-                />
-              </FormGroup>
-            </Grid>
+            {isAuthenticated && (
+              <Grid item xs={12} sm={12}>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={() =>
+                          setIsSaveAddress((prevState) => !prevState)
+                        }
+                        inputProps={{ "aria-label": "controlled" }}
+                      />
+                    }
+                    label="Save this information for next time"
+                  />
+                </FormGroup>
+              </Grid>
+            )}
           </Grid>
           <div className={classes.btnGrpContainer}>
             <Button

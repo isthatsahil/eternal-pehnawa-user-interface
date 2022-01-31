@@ -11,3 +11,9 @@ export const COMMERCE_JS_HEADER = {
   "Content-Type": "application/json",
   Accept: "application/json",
 };
+
+export const COMMERCE_JS_SECRET_HEADER = {
+  "X-Authorization": "sk_test_360704e550bcf2b26bfddea1f6b0079873a0de63b96dc",
+  "Content-Type": "application/json",
+  Accept: "application/json",
+};

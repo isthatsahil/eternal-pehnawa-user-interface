@@ -5,6 +5,7 @@ import NavbarLogo from "@components/navbar/NavbarLogo";
 
 import { commerce } from "../../lib/commerce";
 import OrderReview from "@components/checkout/OrderReview";
+import Confirmation from "@components/checkout/Confirmation";
 const useStyles = makeStyles((theme: any) => ({
   header: {
     width: "90vw",
@@ -42,6 +43,7 @@ const CheckoutStepperComponent = ({ checkoutToken }) => {
   const [updatedCheckout, setUpdatedCheckout] = useState({});
   const [isTaxSet, setIsTaxSet] = useState(false);
   const [isDiscountValid, setIsDiscountValid] = useState(false);
+  const [isCheckoutSuccess, setIsCheckoutSuccess] = useState(false);
   const setTaxZone = async (checkoutTokenId, country) => {
     const response = await commerce.checkout.setTaxZone(checkoutTokenId, {
       country: country,
@@ -82,6 +84,9 @@ const CheckoutStepperComponent = ({ checkoutToken }) => {
     }
   };
 
+  const handleIsCheckoutSuccess = (value) => {
+    setIsCheckoutSuccess(value);
+  };
   const Nav = () => {
     return (
       <header style={{ marginBottom: "2rem" }}>
@@ -103,25 +108,59 @@ const CheckoutStepperComponent = ({ checkoutToken }) => {
         paddingBottom: "2rem",
       }}
     >
-      <Nav />
-      <main className={classes.header}>
-        <div className={classes.left}>
-          <CheckoutForm
-            checkoutToken={checkoutToken}
-            setTaxZone={setTaxZone}
-            getShippingMethod={getShippingMethod}
-          />
-        </div>
-        <div className={classes.right}>
-          <OrderReview
-            isTaxSet={isTaxSet}
-            checkoutToken={checkoutToken}
-            updatedToken={updatedCheckout}
-            handleDiscount={handleDiscount}
-            isDiscountValid={isDiscountValid}
-          />
-        </div>
-      </main>
+      <>
+        <Nav />
+        {isCheckoutSuccess ? (
+          <Confirmation />
+        ) : (
+          <main className={classes.header}>
+            <div className={classes.left}>
+              <CheckoutForm
+                checkoutToken={checkoutToken}
+                setTaxZone={setTaxZone}
+                getShippingMethod={getShippingMethod}
+                handleIsCheckoutSuccess={handleIsCheckoutSuccess}
+              />
+            </div>
+            <div className={classes.right}>
+              <OrderReview
+                isTaxSet={isTaxSet}
+                checkoutToken={checkoutToken}
+                updatedToken={updatedCheckout}
+                handleDiscount={handleDiscount}
+                isDiscountValid={isDiscountValid}
+              />
+            </div>
+          </main>
+        )}
+      </>
+      {/* {isCheckoutSuccess ? (
+        <Confirmation />
+      ) : (
+        <>
+          {" "}
+          <Nav />
+          <main className={classes.header}>
+            <div className={classes.left}>
+              <CheckoutForm
+                checkoutToken={checkoutToken}
+                setTaxZone={setTaxZone}
+                getShippingMethod={getShippingMethod}
+                handleIsCheckoutSuccess={handleIsCheckoutSuccess}
+              />
+            </div>
+            <div className={classes.right}>
+              <OrderReview
+                isTaxSet={isTaxSet}
+                checkoutToken={checkoutToken}
+                updatedToken={updatedCheckout}
+                handleDiscount={handleDiscount}
+                isDiscountValid={isDiscountValid}
+              />
+            </div>
+          </main>
+        </>
+      )} */}
     </div>
   );
 };

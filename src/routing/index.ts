@@ -9,6 +9,7 @@ import ProductContainer from "../views/product/ProductContainer";
 import CheckoutContainer from "../views/checkout/CheckoutContainer";
 import CheckoutStepperContainer from "../views/checkout-stepper/CheckoutStepperContainer";
 import CategoriesContainer from "../views/categories/CategoriesContainer";
+import Confirmation from "@components/checkout/Confirmation";
 
 const routes = [
   {
@@ -51,6 +52,10 @@ const routes = [
   {
     path: "/checkout",
     component: CheckoutStepperContainer,
+  },
+  {
+    path: "/confirmation/:id",
+    component: Confirmation,
   },
 ];
 

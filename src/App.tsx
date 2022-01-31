@@ -7,13 +7,11 @@ import { useGetCartQuery } from "./redux/services/cart";
 import { useGetAllCustomersQuery } from "./redux/services/customers";
 import { useGetAllCategoriesQuery } from "./redux/services/products";
 import { commerce } from "./lib/commerce";
-
+import axios from "axios";
 const App = () => {
   const location = useLocation();
-  // const { data: cartResponse } = useGetCartQuery("");
   useGetAllCustomersQuery("");
   useGetAllCategoriesQuery("");
-  //  console.log("cart", cartResponse);
 
   return (
     <>

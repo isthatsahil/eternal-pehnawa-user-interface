@@ -20,6 +20,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import capturedOrderReducer from "./services/captureOrder.js";
 const rootReducer = combineReducers({
   [productApi.reducerPath]: productApi.reducer,
   filter: filterReducer,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   [checkoutApi.reducerPath]: checkoutApi.reducer,
   user: userReducer,
   checkoutHelper: checkoutHelperReducer,
+  capturedOrder: capturedOrderReducer,
 });
 
 const persistConfig = {
@@ -46,6 +48,7 @@ const persistConfig = {
     //cartApi.reducerPath,
     checkoutApi.reducerPath,
     "checkoutHelper",
+    "capturedOrder",
   ],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);

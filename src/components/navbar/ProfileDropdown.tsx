@@ -9,8 +9,10 @@ import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useAuth0 } from "@auth0/auth0-react";
+import { NavLink } from "react-router-dom";
 
 const ProfileDropdown = ({ user }) => {
+  console.log("user", user);
   const { logout } = useAuth0();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -68,7 +70,10 @@ const ProfileDropdown = ({ user }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>Account</MenuItem>
+        <NavLink to="/my-account">
+          <MenuItem>Account</MenuItem>
+        </NavLink>
+
         <MenuItem>My orders</MenuItem>
         <Divider />
 

@@ -7,6 +7,7 @@ import HomeDecorContainer from "../views/products/homeDecor/HomeDecorContainer";
 import Category from "@components/categories/Category";
 import ProductContainer from "../views/product/ProductContainer";
 import CheckoutContainer from "../views/checkout/CheckoutContainer";
+import MyAccountContainer from "../views/myAccount/MyAccountContainer";
 
 const routes = [
   {
@@ -50,6 +51,10 @@ const routes = [
     path: "/checkout",
     component: CheckoutContainer,
   },
+  {
+    path: "/my-account",
+    component: MyAccountContainer,
+  }
 ];
 
 export default routes;

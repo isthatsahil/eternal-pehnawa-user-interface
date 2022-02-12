@@ -16,6 +16,8 @@ const Auth0ProviderWithHistory = ({
     history.push(appState?.returnTo || window.location.pathname);
   };
 
+  console.log(window.location.origin);
+  console.log(window.location.pathname);
   return (
     <Auth0Provider
       domain={domain}

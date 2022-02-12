@@ -11,7 +11,13 @@ const cartApi = createApi({
   endpoints: (builder) => ({
     getCart: builder.query({
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      query: (arg) => createRequest("/carts"),
+      query: (data) => {
+        return {
+          method: "GET",
+          url: "/carts",
+          headers: COMMERCE_JS_HEADER,
+        };
+      },
     }),
     retrieveCart: builder.query({
       query: (data) => {
@@ -78,7 +84,7 @@ const cartApi = createApi({
         };
       },
     }),
-    deleteCart: builder.query({
+    deleteCart: builder.mutation({
       query: (data) => {
         return {
           method: "DELETE",
@@ -98,6 +104,6 @@ export const {
   useUpdateCartOnItemMutation,
   useEmptyCartQuery,
   useRemoveItemFromCartMutation,
-  useDeleteCartQuery,
+  useDeleteCartMutation,
 } = cartApi;
 export default cartApi;

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import Slider from "./Slider";
-import weaver from "../../assets/homepage/images/weaver.jpg";
+
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 const useStyles = makeStyles(
@@ -19,7 +19,7 @@ const useStyles = makeStyles(
       padding: "4rem 0",
     },
     left: {
-      background: `url(${weaver}) center center`,
+      background: `url(${"https://res.cloudinary.com/cryptomonthly/image/upload/v1643465104/eternal_pehnawa/weaver_qilvk2.jpg"}) center center`,
       backgroundSize: "cover",
       height: "600px",
       gridRow: "1/2",

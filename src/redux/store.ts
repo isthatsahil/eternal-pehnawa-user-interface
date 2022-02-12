@@ -8,19 +8,74 @@ import wishlistReducer from "./services/wishlistSlice";
 import customerApi from "./services/customers";
 import checkoutApi from "./services/checkout";
 import userReducer from "./services/user.js";
+import checkoutHelperReducer from "./services/checkoutHelper.js";
+import storage from "redux-persist/lib/storage";
+import { combineReducers } from "redux";
+import {
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import capturedOrderReducer from "./services/captureOrder.js";
+const rootReducer = combineReducers({
+  [productApi.reducerPath]: productApi.reducer,
+  filter: filterReducer,
+  [cartApi.reducerPath]: cartApi.reducer,
+  snackbar: snackbarReducer,
+  wishlist: wishlistReducer,
+  [customerApi.reducerPath]: customerApi.reducer,
+  [checkoutApi.reducerPath]: checkoutApi.reducer,
+  user: userReducer,
+  checkoutHelper: checkoutHelperReducer,
+  capturedOrder: capturedOrderReducer,
+});
+
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage,
+  blacklist: [
+    "filter",
+    "snackbar",
+    "wishlist",
+    productApi.reducerPath,
+    "user",
+    customerApi.reducerPath,
+    //cartApi.reducerPath,
+    checkoutApi.reducerPath,
+    "checkoutHelper",
+    "capturedOrder",
+  ],
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// export const store = configureStore({
+//   reducer: {
+//     [productApi.reducerPath]: productApi.reducer,
+//     filter: filterReducer,
+//     [cartApi.reducerPath]: cartApi.reducer,
+//     snackbar: snackbarReducer,
+//     wishlist: wishlistReducer,
+//     [customerApi.reducerPath]: customerApi.reducer,
+//     [checkoutApi.reducerPath]: checkoutApi.reducer,
+//     user: userReducer,
+//   },
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware().concat(productApi.middleware),
+// });
+
 export const store = configureStore({
-  reducer: {
-    [productApi.reducerPath]: productApi.reducer,
-    filter: filterReducer,
-    [cartApi.reducerPath]: cartApi.reducer,
-    snackbar: snackbarReducer,
-    wishlist: wishlistReducer,
-    [customerApi.reducerPath]: customerApi.reducer,
-    [checkoutApi.reducerPath]: checkoutApi.reducer,
-    user: userReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(productApi.middleware),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 setupListeners(store.dispatch);

@@ -1,8 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import mastercardLogo from "../../assets/payment-options-logo/mastercard.png";
 import { Grid, Typography, Button } from "@mui/material";
-import visacardLogo from "../../assets/payment-options-logo/visa.png";
-import razorpayLogo from "../../assets/payment-options-logo/razorpay.png";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -181,9 +178,24 @@ const Footer = () => {
           SECURE PAYMENT OPTIONS
         </Typography>
         <div className={classes.paymentLogosContainer}>
-          <img src={mastercardLogo} alt="master-card" />
-          <img src={visacardLogo} alt="visa-card" />
-          <img src={razorpayLogo} alt="razorpay" />
+          <img
+            src={
+              "https://res.cloudinary.com/cryptomonthly/image/upload/v1643465008/eternal_pehnawa/mastercard_hsiq8x.png"
+            }
+            alt="master-card"
+          />
+          <img
+            src={
+              "https://res.cloudinary.com/cryptomonthly/image/upload/v1643465008/eternal_pehnawa/visa_opdb6x.png"
+            }
+            alt="visa-card"
+          />
+          <img
+            src={
+              "https://res.cloudinary.com/cryptomonthly/image/upload/v1643465008/eternal_pehnawa/razorpay_tf9f7z.png"
+            }
+            alt="razorpay"
+          />
         </div>
       </div>
       <Grid container className={classes.bottom} justifyContent="space-between">

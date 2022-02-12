@@ -8,6 +8,9 @@ import Category from "@components/categories/Category";
 import ProductContainer from "../views/product/ProductContainer";
 import CheckoutContainer from "../views/checkout/CheckoutContainer";
 import MyAccountContainer from "../views/myAccount/MyAccountContainer";
+import CheckoutStepperContainer from "../views/checkout-stepper/CheckoutStepperContainer";
+import CategoriesContainer from "../views/categories/CategoriesContainer";
+import Confirmation from "@components/checkout/Confirmation";
 
 const routes = [
   {
@@ -21,7 +24,7 @@ const routes = [
   },
   {
     path: "/category",
-    component: Category,
+    component: CategoriesContainer,
   },
   {
     path: "/all-products/category/saree",
@@ -49,12 +52,16 @@ const routes = [
   },
   {
     path: "/checkout",
-    component: CheckoutContainer,
+    component: CheckoutStepperContainer,
+  },
+  {
+    path: "/confirmation/:id",
+    component: Confirmation,
   },
   {
     path: "/my-account",
     component: MyAccountContainer,
-  }
+  },
 ];
 
 export default routes;

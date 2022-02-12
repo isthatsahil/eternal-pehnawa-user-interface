@@ -1,10 +1,6 @@
 import { Typography, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useEffect } from "react";
-import ourStoryBg from "../../assets/ourMission/background1.jpg";
-import image1 from "../../assets/ourMission/image01.jpg";
-import image2 from "../../assets/ourMission/image02.jpg";
-import image3 from "../../assets/ourMission/image03.jpg";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -301,7 +297,9 @@ const OurStory = () => {
             initial="hidden"
             variants={leftVariant}
             ref={ref3}
-            src={image1}
+            src={
+              "https://res.cloudinary.com/cryptomonthly/image/upload/v1643465020/eternal_pehnawa/image01_imkwzs.jpg"
+            }
             alt="our-mission"
           ></motion.img>
         </div>
@@ -329,7 +327,9 @@ const OurStory = () => {
             initial="hidden"
             variants={rightVariant}
             ref={ref2}
-            src={image2}
+            src={
+              "https://res.cloudinary.com/cryptomonthly/image/upload/v1643465021/eternal_pehnawa/image02_xoowht.jpg"
+            }
             alt="our-mission"
           ></motion.img>
         </div>
@@ -354,7 +354,9 @@ const OurStory = () => {
             animate={controls}
             initial="hidden"
             variants={leftVariant}
-            src={image3}
+            src={
+              "https://res.cloudinary.com/cryptomonthly/image/upload/v1643465023/eternal_pehnawa/image03_kfhljc.jpg"
+            }
             alt="our-mission"
             ref={ref}
           ></motion.img>
@@ -365,7 +367,9 @@ const OurStory = () => {
         initial="hidden"
         animate={controls}
         ref={ref4}
-        src={ourStoryBg}
+        src={
+          "https://res.cloudinary.com/cryptomonthly/image/upload/v1643465023/eternal_pehnawa/background1_ep8nnf.jpg"
+        }
         alt="our-story-bg"
       ></motion.img>
     </section>

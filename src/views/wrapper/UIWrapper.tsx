@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import DotRing from "@components/customCursor/DotRing";
 import Navbar from "@components/navbar/Navbar";
 import Footer from "@components/footer/Footer";
-import CustomSnackbar from "@components/snackbar/CustomSnackbar"
+import CustomSnackbar from "@components/snackbar/CustomSnackbar";
 
 interface UIWrapperProps {
   children: ReactNode;
@@ -13,7 +13,7 @@ const UIWrapper = (props: UIWrapperProps) => {
     <div>
       {/* <CustomCursor /> */}
       <DotRing />
-      <Navbar />
+      {/* <Navbar /> */}
       {props.children}
       <Footer />
       <CustomSnackbar />

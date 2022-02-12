@@ -8,6 +8,7 @@ import { makeStyles } from "@mui/styles";
 import FilterTop from "@components/products/FilterTop";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import { SerializedError } from "@reduxjs/toolkit";
+import Navbar from "@components/navbar/Navbar";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -28,6 +29,7 @@ const ProductsComponent = ({
   const classes = useStyles();
   return (
     <>
+      <Navbar />
       <Header />
       <section className={classes.container}>
         <Grid container>

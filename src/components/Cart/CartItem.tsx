@@ -67,11 +67,11 @@ const CartItem = ({ item }: { item: any }) => {
   const dispatch = useDispatch();
 
   const [removeFromCart, { data }] = useRemoveItemFromCartMutation({
-    fixedCacheKey: "myCacheKey",
+    fixedCacheKey: "cart",
   });
 
   const [updateCart, cartUpdateResponse] = useUpdateCartOnItemMutation({
-    fixedCacheKey: "myCacheKey",
+    fixedCacheKey: "cart",
   });
 
   const handleRemoveItemFromCart = () => {

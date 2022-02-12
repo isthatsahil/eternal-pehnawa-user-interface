@@ -9,6 +9,7 @@ import OurMission from "@components/ourMission/OurMission";
 import { makeStyles } from "@mui/styles";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import { IconButton } from "@mui/material";
+import Navbar from "@components/navbar/Navbar";
 
 const useStyles = makeStyles(() => ({
   banner: {
@@ -73,6 +74,7 @@ export const HomeComponent = () => {
 
   return (
     <>
+      <Navbar />
       <section className={classes.banner}>
         {bannerData.map(
           (baner: { desc: string; img: string }, index: number) => (

@@ -9,6 +9,7 @@ import customerApi from "./services/customers";
 import checkoutApi from "./services/checkout";
 import userReducer from "./services/user.js";
 import checkoutHelperReducer from "./services/checkoutHelper.js";
+import custDetailsApi from "./services/custDetails";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import {
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   checkoutHelper: checkoutHelperReducer,
   capturedOrder: capturedOrderReducer,
+  [custDetailsApi.reducerPath]: custDetailsApi.reducer,
 });
 
 const persistConfig = {
@@ -43,12 +45,12 @@ const persistConfig = {
     "snackbar",
     "wishlist",
     productApi.reducerPath,
-    "user",
     customerApi.reducerPath,
     //cartApi.reducerPath,
     checkoutApi.reducerPath,
     "checkoutHelper",
     "capturedOrder",
+    custDetailsApi.reducerPath,
   ],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);

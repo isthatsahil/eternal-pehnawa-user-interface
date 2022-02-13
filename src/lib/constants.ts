@@ -7,7 +7,7 @@
  */
 export const COMMERCE_JS_BASE_URL = "https://api.chec.io/v1";
 export const COMMERCE_JS_HEADER = {
-  "X-Authorization": process.env.REACT_APP_CHEC_PUBLIC_KEY,
+  "X-Authorization": "pk_test_360701f167f53b431e7ef060e438bb6a8424c8aefe3a4",
   "Content-Type": "application/json",
   Accept: "application/json",
 };

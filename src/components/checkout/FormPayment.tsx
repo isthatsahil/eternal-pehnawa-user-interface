@@ -57,7 +57,7 @@ const FormPayment = ({ backStep, customerShippingData, nextStep }) => {
 
     try {
       const data = await axios.post(
-        "http://localhost:8888/.netlify/functions/razorpay",
+        "/.netlify/functions/razorpay",
         {
           orderAmount: checkoutToken?.live?.total_with_tax?.raw,
         },

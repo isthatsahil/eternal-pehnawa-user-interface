@@ -7,6 +7,7 @@ const razorpay = new Razorpay({
 });
 
 export const initRazorOrder = async (orderAmounr) => {
+  console.log(process.env.RAZORPAY_KEY);
   const payment_capture = 1;
   const amount = orderAmounr;
   const currency = "INR";

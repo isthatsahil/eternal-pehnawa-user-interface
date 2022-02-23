@@ -2,11 +2,10 @@ const Razorpay = require("razorpay");
 const shortid = require("shortid");
 
 exports.handler = async (event, context) => {
-  console.log("event", event);
   const bodyData = JSON.parse(event.body);
   const razorpay = new Razorpay({
-    key_id: "rzp_test_cpzoOO9ENQFvwc",
-    key_secret: "zE3rRtXnkNpv34nxgEbdvzX6",
+    key_id: process.env.RAZORPAY_KEY,
+    key_secret: process.env.RAZORPAY_SECRET,
   });
 
   // Create an order -> generate the OrderID -> Send it to the Front-end

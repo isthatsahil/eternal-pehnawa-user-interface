@@ -218,8 +218,8 @@ const Footer = () => {
         <Grid sm={2} item md={3}>
           <div>
             <Typography className={classes.title}>Areas</Typography>
-            <NavLink to="/" className={classes.links}>
-              <Typography>Home</Typography>
+            <NavLink to="/about" className={classes.links}>
+              <Typography>About Us</Typography>
             </NavLink>
             <NavLink to="/all-products" className={classes.links}>
               <Typography>Products</Typography>

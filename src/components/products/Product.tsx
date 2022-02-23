@@ -150,7 +150,7 @@ const Product = ({
               scale: 1.1,
             }}
           >
-            <img src={product.image.url} alt={product.name} />
+            <img src={product?.image?.url} alt={product.name} />
             <div className={classes.overlay} id="overlay">
               <LinkButton to={`/all-products/product/${product.id}`}>
                 View
@@ -181,7 +181,7 @@ const Product = ({
               scale: 1.1,
             }}
           >
-            <img src={product.image.url} alt={product.name} />
+            <img src={product?.image?.url} alt={product.name} />
           </motion.div>
           <div className={classes.details}>
             <div>

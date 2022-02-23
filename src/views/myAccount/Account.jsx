@@ -62,8 +62,6 @@ const Account = ({ user }) => {
     );
   };
 
-  console.log("account user", user);
-
   return (
     <div className={classes.root}>
       {/* <PageHeader

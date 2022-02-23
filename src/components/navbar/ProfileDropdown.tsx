@@ -10,9 +10,15 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useAuth0 } from "@auth0/auth0-react";
 import { NavLink } from "react-router-dom";
-
+import { makeStyles } from "@mui/styles";
+const useStyles = makeStyles({
+  links: {
+    textDecoration: "none",
+    color: "#191919",
+  },
+});
 const ProfileDropdown = ({ user }) => {
-  console.log("user", user);
+  const classes = useStyles();
   const { logout } = useAuth0();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -70,11 +76,10 @@ const ProfileDropdown = ({ user }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <NavLink to="/my-account">
+        <NavLink to="/my-account" className={classes.links}>
           <MenuItem>Account</MenuItem>
         </NavLink>
 
-        <MenuItem>My orders</MenuItem>
         <Divider />
 
         <MenuItem onClick={handleLogout}>

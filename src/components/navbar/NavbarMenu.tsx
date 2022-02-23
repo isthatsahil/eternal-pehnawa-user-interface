@@ -46,7 +46,7 @@ const useStyles = makeStyles({
   },
   info: {
     color: "#fff",
-    width: "300px",
+    width: "400px",
     "&>h3": {
       fontSize: "1.2rem",
       margin: "8px auto",
@@ -201,10 +201,18 @@ const NavbarMenu = ({
         <div ref={info} className={classes.info}>
           <h3>Our Promise</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Eternal Pehnawa is an exclusive store providing a wide range of
+            Indian ethnic wear. EP act as a connector between customer and
+            artisans & craftsmen from all over India at your doorsteps. It
+            offers you to the most beautiful and handcrafted India’s heritage
+            products from corners of India like Banarasi, Maheshwari, Chanderi,
+            Handlooms, Cotton, Ikkat, Linen, Khadis, Tussar, Mursidabad,
+            Kalamkari, Block print and more. We revolutionize fashion among all
+            age group women at addictive prices and unbeatable quality. EP is
+            customer centric with aim to provide best possible services to our
+            customers and also welcome new ideas and suggestions from our
+            customer so we can grow enough to meet customer expectations. HAPPY
+            SHOPPING!
           </p>
         </div>
         <div className={classes.location}>

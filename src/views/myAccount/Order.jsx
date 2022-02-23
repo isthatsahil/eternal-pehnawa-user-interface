@@ -5,6 +5,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
 import {
   Button,
   List,
@@ -12,16 +14,23 @@ import {
   ListItemAvatar,
   ListItemText,
 } from "@mui/material";
+import OrderTracker from "./OrderTracker";
 
 const Order = ({ user }) => {
-  const { data, loading, error } = useCustOrdersQuery(user.id);
-
+  const { data, isLoading, error } = useCustOrdersQuery(user.id);
+  const [refundTracker, setRefundTracker] = React.useState(false);
+  React.useEffect(() => {
+    console.log("first");
+  }, [refundTracker]);
   const OrderList = () => {
     return (
       <>
         {data?.data?.map((order) => {
           return (
-            <Accordion key={order.id} sx={{ width: "50%" }}>
+            <Accordion
+              key={order.id}
+              sx={{ width: "50%", margin: "2rem auto" }}
+            >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -54,11 +63,10 @@ const Order = ({ user }) => {
                 </List>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
-                </Typography>
+                <OrderTracker
+                  order={order}
+                  setRefundTracker={setRefundTracker}
+                />
               </AccordionDetails>
             </Accordion>
           );
@@ -66,13 +74,21 @@ const Order = ({ user }) => {
       </>
     );
   };
+
+  const SkeletonOrderPage = () => {
+    return (
+      <Stack spacing={1} sx={{ margin: "0 auto" }}>
+        <Skeleton variant="text" width={610} height={48} />
+        <Skeleton variant="rectangular" width={610} height={118} />
+      </Stack>
+    );
+  };
   return (
-    !loading && (
-      <div>
-        Order
-        <OrderList />
-      </div>
-    )
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      {isLoading ? <SkeletonOrderPage /> : <OrderList />}
+    </div>
   );
 };
 

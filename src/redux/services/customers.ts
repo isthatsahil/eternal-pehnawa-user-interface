@@ -1,11 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { COMMERCE_JS_BASE_URL } from "../../lib/constants";
+import {
+  COMMERCE_JS_BASE_URL,
+  COMMERCE_JS_SECRET_HEADER,
+} from "../../lib/constants";
 
-export const CUSTOMER_HEADER = {
-  "X-Authorization": "sk_test_360704e550bcf2b26bfddea1f6b0079873a0de63b96dc",
-  "Content-Type": "application/json",
-  Accept: "application/json",
-};
 const customerApi = createApi({
   reducerPath: "customers",
   baseQuery: fetchBaseQuery({
@@ -17,7 +15,7 @@ const customerApi = createApi({
         return {
           method: "POST",
           url: `/customers`,
-          headers: CUSTOMER_HEADER,
+          headers: COMMERCE_JS_SECRET_HEADER,
           body: data,
         };
       },
@@ -27,7 +25,7 @@ const customerApi = createApi({
         return {
           method: "GET",
           url: `/customers`,
-          headers: CUSTOMER_HEADER,
+          headers: COMMERCE_JS_SECRET_HEADER,
         };
       },
     }),
@@ -36,7 +34,7 @@ const customerApi = createApi({
         return {
           method: "POST",
           url: `/customers/${data.id}/notes`,
-          headers: CUSTOMER_HEADER,
+          headers: COMMERCE_JS_SECRET_HEADER,
           body: data.content,
         };
       },
@@ -46,7 +44,7 @@ const customerApi = createApi({
         return {
           method: "GET",
           url: `/customers/${data.id}/notes`,
-          headers: CUSTOMER_HEADER,
+          headers: COMMERCE_JS_SECRET_HEADER,
         };
       },
     }),

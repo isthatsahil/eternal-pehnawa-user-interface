@@ -66,8 +66,15 @@ const FormInformation = ({ checkoutToken, next }) => {
         const { data } = await axios.get(url, {
           headers: COMMERCE_JS_SECRET_HEADER,
         });
-        const notesData = JSON.parse(data.data[0].content);
+        console.log(data?.data?.[0]?.content);
+        console.log(data?.data?.[1]?.content);
+        const finalObject = data?.data?.[0]?.content
+          .replace("}", ",")
+          .concat(data?.data?.[1]?.content.replace("{", ""));
 
+        console.log("first note", finalObject);
+        const notesData = JSON.parse(finalObject);
+        console.log("notes", notesData);
         setCustomerDefaultShipping(notesData);
         methods.setValue("email", notesData.email);
         methods.setValue("firstName", notesData.firstName);

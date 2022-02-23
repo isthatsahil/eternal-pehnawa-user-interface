@@ -49,16 +49,39 @@ const CheckoutForm = ({
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
-  const saveCustomerShippingData = (data) => {
-    createNote({
+  const saveCustomerShippingData = async (withAddress, withoutAddress) => {
+    await createNote({
       id: customerId,
-      content: { content: JSON.stringify(data) },
+      content: { content: JSON.stringify(withAddress) },
+    });
+    await createNote({
+      id: customerId,
+      content: { content: JSON.stringify(withoutAddress) },
     });
   };
   const next = (data) => {
-    console.log("next", data);
+    const newData = { ...data };
+    const withAddress = {
+      address: newData.address,
+      phone: newData.phone,
+      email: newData.email,
+      firstName: newData.firstName,
+      lastName: newData.lastName,
+    };
+    const asArray = Object.entries(newData);
+    const withoutAddr = asArray.filter(([key, value]) => {
+      return (
+        key !== "address" &&
+        key !== "firstName" &&
+        key !== "lastName" &&
+        key !== "email" &&
+        key !== "phone"
+      );
+    });
+    const withoutAddress = Object.fromEntries(withoutAddr);
+    console.log("withoutAddress", withoutAddress);
     if (data?.isSaveAddress) {
-      saveCustomerShippingData(data);
+      saveCustomerShippingData(withAddress, withoutAddress);
     }
     getShippingMethod(
       checkoutToken?.id,

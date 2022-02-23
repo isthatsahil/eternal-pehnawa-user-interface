@@ -31,6 +31,7 @@ import { useDispatch } from "react-redux";
 import Product from "@components/products/Product";
 import Navbar from "@components/navbar/Navbar";
 import { commerce } from "../../lib/commerce";
+
 const useStyles = makeStyles((theme: any) => ({
   container: {
     marginTop: "0rem !important",
@@ -109,6 +110,27 @@ const useStyles = makeStyles((theme: any) => ({
       margin: "2px",
     },
   },
+  assetsPro: {
+    position: "relative",
+    "&::before": {
+      position: "absolute",
+      top: 0,
+      bottom: 10,
+      left: 0,
+      backgroundColor: "red",
+    },
+    display: "flex",
+    flexWrap: "wrap",
+    // height: "5rem",
+    marginTop: "1rem",
+    justifyContent: "center",
+    "&>img": {
+      maxHeight: "5rem",
+      marginRight: "10px",
+      borderRadius: "5px",
+      margin: "2px",
+    },
+  },
   info: {
     display: "grid",
     gridTemplateColumns: "7rem 1fr",
@@ -141,7 +163,7 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 
 const ProductComponent = ({ data }: { data: any }) => {
-  const classes = useStyles();
+  const classes = useStyles(data);
   const dispatch = useDispatch();
   const history = useHistory();
   const product = data?.data[0];
@@ -180,12 +202,11 @@ const ProductComponent = ({ data }: { data: any }) => {
     getCart();
   }, []);
 
-  console.log("Cart", Cart);
   const [quantity, setQuantity] = useState(0);
   const [size, setSize] = useState(null);
   const [color, setColor] = useState(null);
   const [material, setMaterial] = useState(null);
-  const [mainImage, setMainImage] = useState(product?.assets[0].url);
+  const [mainImage, setMainImage] = useState(product?.assets[0]?.url);
   const [showError, setShowError] = useState<boolean>(false);
 
   const getVariants = (option: string) => {
@@ -480,11 +501,14 @@ const ProductComponent = ({ data }: { data: any }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex
-                    asperiores amet facere magni deserunt cupiditate sapiente
-                    tempora autem, labore sint perferendis excepturi facilis
-                    perspiciatis impedit sit? Voluptatum corporis dolorem cumque
-                    laboriosam quae doloremque at.
+                    -Free shipping on all products in India. -Once the order is
+                    placed, it takes 5 to 7 business days to dispatch after
+                    placing the order. Then 4 to 5 business days for it to get
+                    delivered. -So, the estimated time would be 10 to 15 working
+                    days. You will receive the tracking details once your order
+                    has been shipped. -International shipping charges would be
+                    2500 (0.6 kg to 2 Kg). It takes around 10-12 business days
+                    for the delivery.
                   </Typography>
                 </AccordionDetails>
               </Accordion>
@@ -494,11 +518,33 @@ const ProductComponent = ({ data }: { data: any }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex
-                    asperiores amet facere magni deserunt cupiditate sapiente
-                    tempora autem, labore sint perferendis excepturi facilis
-                    perspiciatis impedit sit? Voluptatum corporis dolorem cumque
-                    laboriosam quae doloremque at.
+                    -We have a customer friendly 3 days return and 10 days
+                    exchange policy. -If you have received the product in a bad
+                    condition or if the packaging is damaged, customer are
+                    requested to take picture and make video while opening a
+                    parcel. Also please email us at ethernalpehnawa@gmail.com
+                    mentioning your order ID. -We will personally ensure that a
+                    brand new replacement is issued to you with no additional
+                    cost. -If you don’t like the product, you need to place a
+                    return request from your account. We will arrange a pickup
+                    from your doorstep. -Incase due to certain circumstances
+                    after raising the return request within 3 days you are
+                    unable to return the shipment, no refund would be made. Only
+                    credit note would be issued. -Refund would be processed
+                    within 4 to 7 days after the product is received.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>Cancellation Policy</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    -If you have to cancel an order, kindly do so before your
+                    order is shipped through your account. If you cancel your
+                    order before it is shipped, we will refund you the entire
+                    amount.
                   </Typography>
                 </AccordionDetails>
               </Accordion>

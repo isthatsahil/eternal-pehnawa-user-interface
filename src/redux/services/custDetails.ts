@@ -28,8 +28,21 @@ const custDetailsApi = createApi({
         };
       },
     }),
+    refundOrder: builder.mutation({
+      query: (orderId) => {
+        return {
+          method: "POST",
+          url: `/orders/${orderId}/actions/refund`,
+          headers: COMMERCE_JS_SECRET_HEADER,
+        };
+      },
+    }),
   }),
 });
 
-export const { useCustAccountQuery, useCustOrdersQuery } = custDetailsApi;
+export const {
+  useCustAccountQuery,
+  useCustOrdersQuery,
+  useRefundOrderMutation,
+} = custDetailsApi;
 export default custDetailsApi;

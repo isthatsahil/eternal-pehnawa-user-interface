@@ -42,6 +42,7 @@ const useStyles = makeStyles(
       margin: "1rem 0 !important",
     },
     socialMediaIcons: {
+      textDecoration: "none",
       "&>*": {
         margin: "3px 14px 3px 0px",
       },
@@ -110,6 +111,10 @@ const useStyles = makeStyles(
       "&:hover": {
         color: "#DFC387",
       },
+    },
+    linkIcons:{
+      color: "inherit",
+      textDecoration: "none",
     },
   })
 );
@@ -205,9 +210,6 @@ const Footer = () => {
           </Typography>
           <div>
             <NavLink to="/contact-us" className={classes.links}>
-              <Typography>FAQs</Typography>
-            </NavLink>
-            <NavLink to="/contact-us" className={classes.links}>
               <Typography>Delivery and Shipping</Typography>
             </NavLink>
             <NavLink to="/contact-us" className={classes.links}>
@@ -238,12 +240,29 @@ const Footer = () => {
           <div>
             <Typography className={classes.title}>social media</Typography>
             <div className={classes.socialMediaIcons}>
-              <span id="facebook">
-                <FacebookIcon />
-              </span>
-              <span id="instagram">
+              <a
+                className={classes.linkIcons}
+                href="https://m.facebook.com/pehnawabhopal"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {" "}
+                <span id="facebook">
+                  <FacebookIcon />
+                </span>
+              </a>
+              <a
+                className={classes.linkIcons}
+                href="https://www.instagram.com/eternalpehnawa/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {" "}
+                <span id="instagram">
                 <InstagramIcon />
               </span>
+              </a>
+             
               <span id="youtube">
                 <YouTubeIcon />
               </span>

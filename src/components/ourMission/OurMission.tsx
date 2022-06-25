@@ -244,18 +244,15 @@ const OurStory = () => {
       <Grid container className={classes.content1}>
         <Grid item sm={12} md={6}>
           <Typography variant="h2" className={classes.title}>
-            Our Mission
+            Our Misson
           </Typography>
           <Typography className={classes.missionBody}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia ab
-            voluptatum pariatur ut necessitatibus laboriosam labore eos, tempora
-            natus nemo dicta odio asperiores nam accusamus modi ex. Quaerat
-            ratione consequuntur ducimus obcaecati aut odit porro perspiciatis
-            accusantium, maxime perferendis qui repellat, expedita laborum totam
-            molestias? nemo dicta odio asperiores nam accusamus modi ex. Quaerat
-            ratione consequuntur ducimus obcaecati aut odit porro perspiciatis
-            accusantium, maxime perferendis qui repellat, expedita laborum totam
-            molestias?
+            Our mission is to create an online apparel store that can offer
+            traditional wear of different states with superior quality and value
+            to the consumer. We will accomplish this by being committed to
+            offering great service and real value to our consumers.We
+            revolutionize fashion among all age group women at addictive prices
+            and unbeatable quality.
           </Typography>
         </Grid>
         <Grid item sm={12} md={5}>

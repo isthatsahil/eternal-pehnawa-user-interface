@@ -9,6 +9,14 @@ import Cart from "../Cart/Cart";
 import WishList from "@components/wishlist/WishList";
 import { login } from "../../lib/commerce";
 const useStyles = makeStyles(() => ({
+  navHead: {
+    backgroundColor: "rgb(246, 241, 236)",
+    position: "sticky",
+    top: 0,
+    zIndex: 6,
+    boxShadow: "-7px 4px 12px 7px #05010130",
+    transition: "0.35s cubic-bezier(0.68, -0.22, 1, 1)"
+  },
   container: {
     height: "auto",
     marginBottom: "1vh",
@@ -41,6 +49,7 @@ const useStyles = makeStyles(() => ({
 const Navbar = () => {
   const classes = useStyles();
   const location = useLocation();
+  const [scroll, setScrolled] = useState(false);
 
   const [menuState, setMenuState] = useState({
     initial: false,
@@ -102,6 +111,15 @@ const Navbar = () => {
   }, [location]);
   //Determine if our menu button should be disabled or not
 
+  // hook to listen scroll event to show the navbar
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const disableMenu = () => {
     setDisabled(!disabled);
     setTimeout(() => {
@@ -109,8 +127,13 @@ const Navbar = () => {
     }, 1200);
   };
 
+  const handleScroll = () => {
+    const offset = window.pageYOffset;
+    offset > 210 ? setScrolled(true) : setScrolled(false);
+  };
+
   return (
-    <header>
+    <header className={scroll && classes.navHead}>
       <div className={classes.container}>
         <div className={classes.wrapper}>
           <div className={classes.innerHeader}>

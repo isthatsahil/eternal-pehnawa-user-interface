@@ -12,7 +12,7 @@ const UIWrapper = (props: UIWrapperProps) => {
   return (
     <div>
       {/* <CustomCursor /> */}
-      <DotRing />
+      {/* <DotRing /> */}
       {/* <Navbar /> */}
       {props.children}
       <Footer />
